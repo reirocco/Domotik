@@ -1,22 +1,32 @@
 package com.example.domotik
 
+import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.util.Log
+import android.view.View
+import android.view.View.OnClickListener
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.domotik.databinding.ActivityMainBinding
+import com.example.domotik.ui.camera.CameraActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
+
 
 class MainActivity : AppCompatActivity() {
 
+    // BINDING OBJECT FOR FRAGMENT NAVIGATION
     private lateinit var binding: ActivityMainBinding
+
+    // GLOBAL ATTRIBUTE DEFINITION
+    lateinit var cameraCard : CardView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -34,5 +44,18 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+
+
+        cameraCard = findViewById<CardView>(R.id.card_camera)
+        var cameraCardListener = cameraCard.setOnClickListener {
+            Log.v("@string/logHost", "passo")
+            val intent = Intent(this, CameraActivity::class.java)
+            startActivity(intent)
+        }
+
+
+
     }
+
 }
