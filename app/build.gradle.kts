@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.internal.Kapt3GradleSubplugin.Companion.isIncrementalKapt
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -29,6 +31,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+
     }
     kotlinOptions {
         jvmTarget = "1.8"
@@ -54,6 +57,15 @@ dependencies {
     // PERSONALI
     implementation("androidx.core:core-splashscreen:1.0.0")
     implementation("androidx.cardview:cardview:1.0.0")
+    implementation("com.squareup.retrofit2:converter-gson")
+    implementation("com.squareup.retrofit2:converter-jackson")
+    implementation("com.squareup.retrofit2:converter-moshi")
+    implementation("com.squareup.retrofit2:converter-protobuf")
+    implementation("com.squareup.retrofit2:converter-wire")
+    implementation("com.squareup.retrofit2:converter-simplexml")
+    implementation("com.squareup.retrofit2:converter-jaxb")
 
 }
+
+
 
