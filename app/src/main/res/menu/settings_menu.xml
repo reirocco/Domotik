@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/dati_personali"
+        android:icon="@drawable/baseline_person_24"
+        android:title="Profilo" />
+
+    <item
+        android:id="@+id/sicurezza"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="Sicurezza" />
+
+    <item
+        android:id="@+id/language_set"
+        android:icon="@drawable/baseline_settings_24"
+        android:title="Impostazioni lingua" />
+
+</menu>

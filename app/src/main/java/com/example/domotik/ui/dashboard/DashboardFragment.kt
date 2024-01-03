@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.domotik.databinding.FragmentDashboardBinding
+import com.example.domotik.ui.home.HomeViewModel
 
 class DashboardFragment : Fragment() {
 
@@ -23,7 +24,8 @@ class DashboardFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val dashboardViewModel =
-            ViewModelProvider(this).get(DashboardViewModel::class.java)
+            ViewModelProvider(this).get(HomeViewModel::class.java)
+
 
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -34,6 +36,7 @@ class DashboardFragment : Fragment() {
         }
         return root
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

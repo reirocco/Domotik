@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "599621885109",
+    "project_id": "domotik-abeeb",
+    "storage_bucket": "domotik-abeeb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:599621885109:android:7b09c2ceeb99060b65b2fc",
+        "android_client_info": {
+          "package_name": "com.example.domotik"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "599621885109-nra7hvuvqkvsekeg73ace87laj50tbbf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZ0zQaeu0IzkkOxAmD5z6aITDDYwAD7ZU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "599621885109-nra7hvuvqkvsekeg73ace87laj50tbbf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

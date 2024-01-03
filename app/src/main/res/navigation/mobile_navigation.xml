@@ -13,7 +13,7 @@
         tools:layout="@layout/fragment_home"/>
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_red"
         android:name="com.example.domotik.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
@@ -22,5 +22,29 @@
         android:id="@+id/navigation_notifications"
         android:name="com.example.domotik.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:menu="@menu/settings_menu" />
+    <fragment
+        android:id="@+id/navigation_login"
+        android:name="com.example.domotik.ui.authentication.Login"
+        android:label="LOGIN"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_navigation_login_to_navigation_register"
+            app:destination="@id/navigation_register" />
+    </fragment>
+    <fragment
+    android:id="@+id/navigation_register"
+    android:name="com.example.domotik.ui.authentication.registrazione"
+    android:label="REGISTRATI"
+    tools:layout="@layout/fragment_registrazione">
+        <action
+            android:id="@+id/action_navigation_register_to_navigation_login"
+            app:destination="@id/navigation_login" />
+    </fragment>
+    <fragment
+        android:id="@+id/impostazioni"
+        android:name="com.example.domotik.ui.notifications.Impostazioni"
+        android:label="Impostazioni"
+        tools:layout="@layout/fragment_impostazioni"/>
+
 </navigation>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    tools:context=".ui.videosorveglianza.VideoActivity">
+
+
+        <ImageView
+            android:id="@+id/mockupVideosorveglianza"
+            android:layout_width="439dp"
+            android:layout_height="969dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/mockup_v"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+
+
+        <SurfaceView
+            android:id="@+id/surface_telecamera"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="58dp"
+            android:layout_marginBottom="64dp"
+            android:src="@drawable/schermata_video"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="@+id/mockupVideosorveglianza"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/mockupVideosorveglianza"
+            app:layout_constraintVertical_bias="0.834"
+            />
+
+
+        <ImageButton
+            android:id="@+id/freccia"
+            android:layout_width="39dp"
+            android:layout_height="37dp"
+            android:layout_marginTop="12dp"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:onClick="returnHome"
+            android:scaleType="fitCenter"
+            android:src="@drawable/freccia"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.043"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/microfono"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginBottom="16dp"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:onClick="startSecondActivity"
+            android:scaleType="fitCenter"
+            android:src="@drawable/microfono"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/videocamera"
+            android:layout_width="46dp"
+            android:layout_height="54dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/camera_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <ImageButton
+            android:id="@+id/error"
+            android:layout_width="48dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="900dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/alert"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.963"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--<androidx.camera.view.PreviewView
+            android:id="@+id/viewTelecamera"
+            android:layout_width="421dp"
+            android:layout_height="606dp"
+            tools:layout_editor_absoluteY="58dp"
+            tools:ignore="MissingConstraints" />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
