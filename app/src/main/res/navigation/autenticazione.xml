@@ -25,4 +25,5 @@
             app:popUpTo="@id/registrazione"
             app:popUpToInclusive="true"/>
     </fragment>
+
 </navigation>
