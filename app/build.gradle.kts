@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
-    //id("kotlin-kapt")
+    id("kotlin-kapt")
     id ("kotlin-parcelize")
 
 }
@@ -66,13 +66,26 @@ android {
         // PERSONALI
         implementation("androidx.core:core-splashscreen:1.0.0")
         implementation("androidx.cardview:cardview:1.0.0")
-        /*implementation("com.squareup.retrofit2:converter-gson")
-    implementation("com.squareup.retrofit2:converter-jackson")
-    implementation("com.squareup.retrofit2:converter-moshi")
-    implementation("com.squareup.retrofit2:converter-protobuf")
-    implementation("com.squareup.retrofit2:converter-wire")
-    implementation("com.squareup.retrofit2:converter-simplexml")
-    implementation("com.squareup.retrofit2:converter-jaxb")*/
+
+        /*implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+        implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+         */
+
+        val retrofit_version = "2.9.0"
+        implementation ("com.squareup.retrofit2:retrofit:$retrofit_version")
+        implementation ("com.squareup.retrofit2:converter-gson:$retrofit_version")
+
+        // Coroutines
+        val coroutines_version = "1.4.2"
+        implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version")
+        implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
+
+        // Lifecycle
+        val lifecycle_version = "2.2.0"
+        implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+        implementation ("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+
+
         //implementation ("org.opencv:opencv-android:4.5.1") per video api
         implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
         implementation("com.google.firebase:firebase-analytics")

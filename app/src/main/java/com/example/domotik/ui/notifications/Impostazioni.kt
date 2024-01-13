@@ -18,7 +18,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.example.domotik.databinding.FragmentImpostazioniBinding
 
 
-class Impostazioni: Fragment() {
+class Impostazioni : Fragment() {
 
     lateinit var auth: FirebaseAuth
     lateinit var btn: Button

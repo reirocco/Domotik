@@ -3,6 +3,7 @@ package com.example.domotik
 //import com.example.domotik.ui.camera.CameraActivity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
@@ -81,6 +82,10 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, VideoActivity::class.java)
             startActivity(intent)
         }*/
+
+
+
+
 
     }
 
