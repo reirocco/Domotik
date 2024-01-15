@@ -54,11 +54,7 @@ class HomeFragment : Fragment() {
         weatherViewModel.getCurretWeather()
         // Creo l'observer sul dato da modificare
         weatherViewModel.myResponse.observe(viewLifecycleOwner, Observer {
-            Log.d("@String/log", "dt: " + it.dt)
-            Log.d("@String/log", "lat: " + it.coord.lat)
-            Log.d("@String/log", "lon: " + it.coord.lon)
-            Log.d("@string/log", "city: " + it.name)
-            Log.d("@string/log", "humidità: " + it.main.humidity)
+            Log.d("@String/log", it.toString())
             viewModel.getUpdatedText(it)
         })
 
@@ -80,17 +76,13 @@ class HomeFragment : Fragment() {
         viewModel.uiLiveData.observe(
             viewLifecycleOwner,
             Observer { updatedText -> updater(updatedText) })
-
-        /*viewModel.uiTextLiveData.observe(viewLifecycleOwner, Observer { updatedText ->
-            binding.textNomeCitta.text = updatedText
-        })
-        */
     }
 
     fun updater(updatedText: Weather) {
         binding.textNomeCitta.text = updatedText.name
-        binding.textUmiditaBox.text = "Hum: " + updatedText.main.humidity.toString() + "%"
+        binding.textUmiditaBox.text = "Humidity: " + updatedText.main.humidity.toString() + "%"
         binding.textTemperaturaValore.text = updatedText.main.temp.toString() + "°"
+        binding.textPressureBox.text = "Pressure: "+updatedText.main.pressure.toString() + "hPa"
     }
 
     override fun onDestroyView() {
