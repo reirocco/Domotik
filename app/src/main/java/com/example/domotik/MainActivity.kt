@@ -13,6 +13,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.domotik.databinding.ActivityMainBinding
 import com.example.domotik.ui.home.HomeFragment
+import com.example.domotik.ui.lights.LightsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 
@@ -94,6 +95,12 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, CameraActivity::class.java)
             startActivity(intent)
         }*/
+
+    fun startLightsActivity(view: View) {
+
+        val intent = Intent(this, LightsActivity::class.java)
+        startActivity(intent)
+    }
 
         fun returnHome(view: View) {
             val intent = Intent(this, HomeFragment::class.java)
