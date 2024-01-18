@@ -13,4 +13,4 @@
 .externalNativeBuild
 .cxx
 local.properties
-/app/src/main/java/com/example/domotik/ui/util/
+/app/src/main/java/com/example/domotik/ui/util/ApiConf.kt
