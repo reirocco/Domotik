@@ -6,9 +6,8 @@ import android.os.Handler
 import android.os.Looper
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import com.example.domotik.MainActivity
 import com.example.domotik.R
-
+import com.example.domotik.ui.authentication.AutenticazioneActivity
 
 
 @Suppress("DEPRECATION")
@@ -30,7 +29,7 @@ class SplashScreen : AppCompatActivity() {
 
         // Handler().postDelayed({
         Handler(Looper.getMainLooper()).postDelayed({
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, AutenticazioneActivity::class.java)
             startActivity(intent)
             finish()
         }, 3000) // 3000 is the delayed time in milliseconds.
