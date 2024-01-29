@@ -3,7 +3,6 @@ package com.example.domotik
 //import com.example.domotik.ui.camera.CameraActivity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
@@ -18,8 +17,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 
 //import com.example.domotik.ui.videosorveglianza.VideoActivity
-
-
 
 
 class MainActivity : AppCompatActivity() {
@@ -44,48 +41,47 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
+                R.id.navigation_home, R.id.navigation_dashboard, R.id.configuration
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+
         if (FirebaseAuth.getInstance().currentUser != null) {
-            binding.navView.selectedItemId = R.id.navigation_dashboard
-            binding.navView.setOnItemSelectedListener { menuItem ->
-
-                when (menuItem.itemId) {
-
-                    //R.id.navigation_login -> navController.navigate(R.id.navigation_login)
-                    R.id.navigation_dashboard -> navController.navigate(R.id.impostazioni)
-                    R.id.navigation_home -> navController.navigate(R.id.navigation_home)
-                    //R.id.navigation_notifications -> navController.navigate(R.id.impostazioni)
-                    
-
-                }
-                true
-            }
+            true
         } else {
-            binding.navView.setOnItemSelectedListener { menuItem ->
-                when (menuItem.itemId) {
-                   R.id.navigation_dashboard -> navController.navigate(R.id.impostazioni)
-                    R.id.navigation_home -> navController.navigate(R.id.navigation_home)
-                   // R.id.navigation_notifications -> navController.navigate(R.id.impostazioni)
-                    R.id.impostazioni -> navController.navigate(R.id.navigation_home)
-                    R.id.navigation_register -> navController.navigate(R.id.navigation_home)
-
-                }
-                true
-            }
+            true
         }
+        //@valeria cannone A CHE SERVE STO CONTROLLO SE FALLISCE? COSA VOLEVI FARE?
+
+
+        binding.navView.selectedItemId = R.id.navigation_dashboard
+        binding.navView.setOnItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                /*
+                R.id.navigation_dashboard -> navController.navigate(R.id.impostazioni)
+                R.id.navigation_home -> navController.navigate(R.id.navigation_home)
+                R.id.configuration -> navController.navigate(R.id.impostazioni)
+                R.id.impostazioni -> navController.navigate(R.id.navigation_home)
+                R.id.navigation_register -> navController.navigate(R.id.navigation_home)
+                R.id.configuration -> navController.navigate(R.id.navigation_dashboard)
+                R.id.navigation_login -> navController.navigate(R.id.navigation_login)
+                 */
+
+                R.id.navigation_dashboard -> navController.navigate(R.id.impostazioni)
+                R.id.navigation_home -> navController.navigate(R.id.navigation_home)
+                R.id.configuration -> navController.navigate(R.id.navigation_configuration)
+            }
+            true
+        }
+
         /*cameraCard = findViewById<CardView>(R.id.card_camera)
         var cameraCardListener = cameraCard.setOnClickListener {
             Log.v("@string/logHost", "passo")
             val intent = Intent(this, VideoActivity::class.java)
             startActivity(intent)
         }*/
-
-
-
 
 
     }
@@ -102,10 +98,10 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-        fun returnHome(view: View) {
-            val intent = Intent(this, HomeFragment::class.java)
-            startActivity(intent)
-        }
-
+    fun returnHome(view: View) {
+        val intent = Intent(this, HomeFragment::class.java)
+        startActivity(intent)
     }
+
+}
 

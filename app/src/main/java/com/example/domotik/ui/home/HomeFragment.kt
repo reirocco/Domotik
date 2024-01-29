@@ -1,17 +1,26 @@
 package com.example.domotik.ui.home
 
+import android.Manifest
+import android.annotation.SuppressLint
+import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.domotik.MainActivity
+import com.example.domotik.R
 import com.example.domotik.ui.viewModel.WeatherViewModel
 import com.example.domotik.databinding.FragmentHomeBinding
 import com.example.domotik.network.model.Coord
 import com.example.domotik.network.model.Weather
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 
 class HomeFragment : Fragment() {
 
@@ -25,41 +34,37 @@ class HomeFragment : Fragment() {
     // Create a viewModel
     private val viewModel: HomeViewModel = HomeViewModel()
 
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        Log.v("@string/logging", "Create Home Fragment View")
+        Log.v(getString(R.string.log), "Create Home Fragment View")
+
         val homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-
-        /*val textNomeCitta: TextView = binding.textNomeCitta
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textNomeCitta.text = it
-        } // this is for the example
-         */
-
-
-        // FINE CHIAMATA API USER DI TEST
-
-        // INIZIO CHIAMATA APIWEATHER
+        // ######################################################################################## INIZIO CHIAMATA APIWEATHER
         //Prendo il view model dove memorizzerò i dati
         val weatherViewModel = ViewModelProvider(this).get(WeatherViewModel::class.java)
         // Recupero i dati dalle API
-        weatherViewModel.getCurretWeather()
+        try {
+            weatherViewModel.getCurretWeatherWithMetric("Metric")
+        }catch (e : Exception){
+            Log.v(getString(R.string.log),e.message.toString())
+        }
+
         // Creo l'observer sul dato da modificare
         weatherViewModel.myResponse.observe(viewLifecycleOwner, Observer {
-            Log.d("@String/log", it.toString())
+            //Log.d(getString(R.string.log), it.toString())
             viewModel.getUpdatedText(it)
         })
-
-
-        // FINE CHIAMATA APIWEATHER
+        // ######################################################################################## FINE CHIAMATA APIWEATHER
 
 
         return root
@@ -87,7 +92,7 @@ class HomeFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.v("@string/log", "Destroy Home Fragment View")
+        Log.v(getString(R.string.log), "Destroy Home Fragment View")
         _binding = null
     }
 }

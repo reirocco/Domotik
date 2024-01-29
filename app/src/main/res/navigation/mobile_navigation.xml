@@ -13,13 +13,13 @@
         tools:layout="@layout/fragment_home"/>
 
     <fragment
-        android:id="@+id/navigation_red"
-        android:name="com.example.domotik.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_configuration"
+        android:name="com.example.domotik.ui.configuration.ConfigurationFragment"
+        android:label="@string/title_configuration"
+        tools:layout="@layout/fragment_configuration" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/configuration"
         android:name="com.example.domotik.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:menu="@menu/settings_menu" />
