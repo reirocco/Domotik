@@ -31,6 +31,10 @@
         <activity
             android:name=".ui.lights.LightsActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".ui.Weather.WeatherActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.authentication.AutenticazioneActivity"
             android:exported="true"></activity>

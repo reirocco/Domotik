@@ -11,6 +11,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.domotik.databinding.ActivityMainBinding
+import com.example.domotik.ui.Weather.WeatherActivity
 import com.example.domotik.ui.home.HomeFragment
 import com.example.domotik.ui.lights.LightsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -20,6 +21,11 @@ import com.google.firebase.auth.FirebaseAuth
 
 
 class MainActivity : AppCompatActivity() {
+
+    companion object {
+        var globalVar = 2
+    }
+
 
     // BINDING OBJECT FOR FRAGMENT NAVIGATION
     private lateinit var binding: ActivityMainBinding
@@ -95,6 +101,11 @@ class MainActivity : AppCompatActivity() {
     fun startLightsActivity(view: View) {
 
         val intent = Intent(this, LightsActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun startWeathersActivity(view: View) {
+        val intent = Intent(this, WeatherActivity::class.java)
         startActivity(intent)
     }
 

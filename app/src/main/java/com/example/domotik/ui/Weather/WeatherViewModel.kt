@@ -1,22 +1,18 @@
-package com.example.domotik.ui.home
+package com.example.domotik.ui.Weather
 
-
+import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.domotik.network.model.Weather
 
-class HomeViewModel : ViewModel() {
+class WeatherViewModel {
     // Create MutableLiveData which MainFragment can subscribe to
     // When this data changes, it triggers the UI to do an update
-    val uiLiveData = MutableLiveData<Weather>()
+    val uiLiveData = MutableLiveData<WeatherManagerModel>()
 
     // Get the updated text from our model and post the value to MainFragment
-    fun getUpdatedText(it:Weather) {
+    fun getUpdate(it: WeatherManagerModel) {
         uiLiveData.postValue(it)
     }
-
-
-
-
 
 }

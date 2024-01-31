@@ -1,18 +1,15 @@
 package com.example.domotik.ui.viewModel
 
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domotik.R
 import com.example.domotik.network.WeatherNetwork
 import com.example.domotik.network.model.Weather
-import io.grpc.internal.JsonUtil
 import kotlinx.coroutines.launch
 
 
-class WeatherViewModel : ViewModel() {
+class WeatherApiViewModel : ViewModel() {
 
     val myResponse: MutableLiveData<Weather> = MutableLiveData()
 

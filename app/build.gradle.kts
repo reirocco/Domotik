@@ -7,6 +7,7 @@ plugins {
 
 }
 
+
 android {
     namespace = "com.example.domotik"
     compileSdk = 34
@@ -68,6 +69,9 @@ android {
         implementation("androidx.core:core-splashscreen:1.0.0")
         implementation("androidx.cardview:cardview:1.0.0")
 
+        implementation ("com.jjoe64:graphview:4.2.2")
+
+
         /*implementation ("com.squareup.retrofit2:retrofit:2.9.0")
         implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
          */
@@ -87,7 +91,8 @@ android {
         implementation ("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
 
 
-        //implementation ("org.opencv:opencv-android:4.5.1") per video api
+        //implementation ("org.opencv:opencv-android:4.5.1")    // FAILED TO RESOLVE
+
         implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
         implementation("com.google.firebase:firebase-analytics")
         implementation("com.google.firebase:firebase-firestore")

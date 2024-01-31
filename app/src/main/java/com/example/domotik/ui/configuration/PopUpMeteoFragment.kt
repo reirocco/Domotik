@@ -7,10 +7,11 @@ package com.example.domotik.ui.configuration
 
 import android.os.Bundle
 import android.view.LayoutInflater
-                import android.view.View
-                import android.view.ViewGroup
-                import androidx.fragment.app.DialogFragment
-                import com.example.domotik.R
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
+import com.example.domotik.R
+
 
             class PopUpMeteoFragment : DialogFragment() {
             override fun onCreateView(
