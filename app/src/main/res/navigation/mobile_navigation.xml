@@ -17,12 +17,19 @@
         android:name="com.example.domotik.ui.configuration.ConfigurationFragment"
         android:label="@string/title_configuration"
         tools:layout="@layout/fragment_configuration" />
+    <activity
+        android:id="@+id/impostazioni_menu"
+        android:name="com.example.domotik.ui.settings.ImpostazioniMenu"
+        android:label="Impostazioni Menu"
+        tools:layout="@layout/impostazioni"/>
+
 
     <fragment
         android:id="@+id/configuration"
         android:name="com.example.domotik.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:menu="@menu/settings_menu" />
+
     <fragment
         android:id="@+id/navigation_login"
         android:name="com.example.domotik.ui.authentication.Login"
