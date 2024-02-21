@@ -46,14 +46,16 @@ class HomeFragment : Fragment() {
         //Prendo il view model dove memorizzerò i dati
         val weatherApiViewModel = ViewModelProvider(this).get(WeatherApiViewModel::class.java)
         // Recupero i dati dalle API
+
         try {
-            weatherApiViewModel.getCurretWeatherWithMetric("Metric")
-        }catch (e : Exception){
-            Log.v(getString(R.string.log),e.message.toString())
+            //weatherApiViewModel.getCurretWeatherWithMetric("Metric")  // use this to retrieve outdoor data from openweather
+            weatherApiViewModel.getIndoorWeatherList()  // use this to retrieve indoor data from internal air control station
+        } catch (e: Exception) {
+            Log.v(getString(R.string.log), e.message.toString())
         }
 
         // Creo l'observer sul dato da modificare
-        weatherApiViewModel.myResponse.observe(viewLifecycleOwner, Observer {
+        weatherApiViewModel.myCurrentResponse.observe(viewLifecycleOwner, Observer {
             //Log.d(getString(R.string.log), it.toString())
             viewModel.getUpdatedText(it)
         })
@@ -76,10 +78,10 @@ class HomeFragment : Fragment() {
     }
 
     fun updater(updatedText: Weather) {
-        binding.textNomeCitta.text = updatedText.name
+        binding.textNomeDispositivo.text = updatedText.name
         binding.textUmiditaBox.text = "Humidity: " + updatedText.main.humidity.toString() + "%"
         binding.textTemperaturaValore.text = updatedText.main.temp.toString() + "°"
-        binding.textPressureBox.text = "Pressure: "+updatedText.main.pressure.toString() + "hPa"
+        //binding.textPressureBox.text = "Pressure: " + updatedText.main.pressure.toString() + "hPa"
     }
 
     override fun onDestroyView() {

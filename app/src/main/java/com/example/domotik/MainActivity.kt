@@ -24,9 +24,6 @@ import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
 
-    companion object {
-        var globalVar = 2
-    }
 
 
     // BINDING OBJECT FOR FRAGMENT NAVIGATION

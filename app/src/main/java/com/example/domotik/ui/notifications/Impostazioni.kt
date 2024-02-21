@@ -15,7 +15,7 @@ import com.example.domotik.R
 import com.example.domotik.ui.authentication.AutenticazioneActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.example.domotik.databinding.FragmentImpostazioniBinding
+import com.example.domotik.databinding.FragmentLogoutBindingImpl
 
 
 class Impostazioni : Fragment() {
@@ -24,16 +24,16 @@ class Impostazioni : Fragment() {
     lateinit var btn: Button
     lateinit var textView: TextView
     lateinit var user: FirebaseUser
-    private lateinit var binding: FragmentImpostazioniBinding
+    private lateinit var binding: FragmentLogoutBindingImpl
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate<FragmentImpostazioniBinding>(
+        binding = DataBindingUtil.inflate<FragmentLogoutBindingImpl>(
             inflater,
-            R.layout.fragment_impostazioni, container, false
+            R.layout.fragment_logout, container, false
         )
         return binding.root
     }

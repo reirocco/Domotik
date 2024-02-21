@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="impostazionibinding"
+            type="com.example.domotik.ui.notifications.Impostazioni" />
+    </data>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.notifications.Impostazioni">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="729dp"
+            android:background="#59C227"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"
+            tools:layout_editor_absoluteY="1dp">
+
+            <Button
+                android:id="@+id/logout"
+                android:layout_width="254dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:backgroundTint="@color/dark_blue"
+                android:text="LOGOUT"
+                android:textColor="@color/app_theme"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.496"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.349" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="133dp"
+                android:layout_height="111dp"
+                android:src="@drawable/baseline_person_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/username"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.114" />
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="234dp"
+                android:layout_height="26dp"
+                android:text="Username"
+                android:textAlignment="center"
+                android:textColor="@color/dark_blue"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="@+id/imageView"
+                app:layout_constraintVertical_bias="0.482" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="90dp"
+                android:layout_height="22dp"
+                android:text="Utente :"
+                app:layout_constraintBottom_toTopOf="@+id/username"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="337dp"
+                android:layout_height="294dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:fontFamily="monospace"
+                android:text="Gentile utente,\nVogliamo esprimere la nostra più sincera gratitudine per aver scelto la nostra applicazione per la domotica. La tua fiducia in noi è molto apprezzata.  Il nostro obiettivo principale è migliorare la tua esperienza di vita domestica e rendere la tua casa più sicura, efficiente e comoda. Siamo lieti che tu abbia deciso di unirti a noi in questo viaggio.  Se hai domande o hai bisogno di assistenza, non esitare a contattarci. Siamo qui per te.  Grazie ancora per aver scelto la nostra applicazione per la domotica.\nCordiali saluti,\nIl tuo team di assistenza "
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.891" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </FrameLayout>
+</layout>
