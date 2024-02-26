@@ -6,10 +6,10 @@ import com.example.domotik.ui.util.apiKey
 import retrofit2.http.GET
 
 interface CustomWeatherApi {
-    @GET("IEQ/API/get_raw_list.php?username=raspberrypiIEQ&password=123456789")
+    @GET("/IEQ/API/get_raw_list.php?username=raspberrypiIEQ&password=123456789")
     suspend fun weatherHisory(): WeatherHistory
 
-    @GET("IEQ/API/get_last_raw.php?username=raspberrypiIEQ&password=123456789")
+    @GET("/IEQ/API/get_last_raw.php?username=raspberrypiIEQ&password=123456789")
     suspend fun weatherLast(): Weather
 
 }

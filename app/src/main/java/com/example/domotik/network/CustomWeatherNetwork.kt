@@ -8,12 +8,15 @@ object CustomWeatherNetwork {
 
     //  Take Data from Custom APi
     val retrofitCustomApi by lazy {
+
         Retrofit.Builder()
-            .baseUrl("http://www.riffelli.it/")
+            .baseUrl("http://www.riffelli.it")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(CustomWeatherApi::class.java)
     }
+
+
 
 
 }

@@ -12,9 +12,6 @@ import com.example.domotik.R
 import com.example.domotik.databinding.FragmentHomeBinding
 import com.example.domotik.network.model.Weather
 import com.example.domotik.ui.viewModel.WeatherApiViewModel
-import com.google.android.gms.location.FusedLocationProviderClient
-
-
 class HomeFragment : Fragment() {
 
 
@@ -26,8 +23,6 @@ class HomeFragment : Fragment() {
 
     // Create a viewModel
     private val viewModel: HomeViewModel = HomeViewModel()
-
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,7 +44,7 @@ class HomeFragment : Fragment() {
 
         try {
             //weatherApiViewModel.getCurretWeatherWithMetric("Metric")  // use this to retrieve outdoor data from openweather
-            weatherApiViewModel.getIndoorWeatherList()  // use this to retrieve indoor data from internal air control station
+            weatherApiViewModel.getIndoorCurrentWeather()  // use this to retrieve indoor data from internal air control station
         } catch (e: Exception) {
             Log.v(getString(R.string.log), e.message.toString())
         }
@@ -81,7 +76,7 @@ class HomeFragment : Fragment() {
         binding.textNomeDispositivo.text = updatedText.name
         binding.textUmiditaBox.text = "Humidity: " + updatedText.main.humidity.toString() + "%"
         binding.textTemperaturaValore.text = updatedText.main.temp.toString() + "°"
-        //binding.textPressureBox.text = "Pressure: " + updatedText.main.pressure.toString() + "hPa"
+        binding.textCo2Box.text = "Co2: : " + updatedText.main.co2.toString() + "ppm"
     }
 
     override fun onDestroyView() {

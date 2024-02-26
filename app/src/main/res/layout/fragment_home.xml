@@ -86,10 +86,10 @@
                 app:layout_constraintVertical_bias="0.0">
 
                 <TextView
-                    android:id="@+id/text_pressure_box"
+                    android:id="@+id/text_co2_box"
                     android:layout_width="148dp"
                     android:layout_height="match_parent"
-                    android:text="hPa" />
+                    android:text="ppm" />
 
                 <TextView
                     android:id="@+id/text_umidita_box"

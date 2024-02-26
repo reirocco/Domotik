@@ -19,6 +19,7 @@ import com.example.domotik.network.CustomWeatherNetwork
 import com.example.domotik.network.model.Weather
 import com.example.domotik.network.model.WeatherHistory
 import kotlinx.coroutines.launch
+import kotlin.math.log
 
 
 class WeatherApiViewModel : ViewModel() {
@@ -29,9 +30,9 @@ class WeatherApiViewModel : ViewModel() {
 
     fun getCurretWeather() {
         viewModelScope.launch {
-            try{
+            try {
                 myCurrentResponse.value = WeatherNetwork.retrofitOpenWeather.curretWeather()
-            }catch (e : Exception){
+            } catch (e: Exception) {
                 throw Exception("Weather exception : " + e.message)
             }
 
@@ -40,34 +41,28 @@ class WeatherApiViewModel : ViewModel() {
 
     fun getCurretWeatherWithMetric(units: String) {
         viewModelScope.launch {
-            try{
+            try {
                 myCurrentResponse.value = WeatherNetwork.retrofitOpenWeather.getWithMetric(units)
-            }catch (e : Exception){
+            } catch (e: Exception) {
                 throw Exception("Weather exception : " + e.message)
             }
 
         }
     }
 
-    //  Retrive data from Custom Api
-    fun getIndoorWeatherList(){
+    //  Get data from Custom Api
+    fun getIndoorWeatherList() {
         viewModelScope.launch {
-            try{
+                myListResponse.value = CustomWeatherNetwork.retrofitCustomApi.weatherHisory()
+        }
+    }
+
+    fun getIndoorCurrentWeather() {
+        viewModelScope.launch {
+            try {
                 myCurrentResponse.value = CustomWeatherNetwork.retrofitCustomApi.weatherLast()
-            }catch (e : Exception){
-                throw Exception("Weather exception : " + e.message)
-            }
-
-        }
-    }
-
-    fun getIndoorCurrentWeather(){
-        viewModelScope.launch {
-            try{
-                //myResponse.value = WeatherNetwork.retrofitOpenWeather.getWithMetric("metric")
-                Log.v( "logging" ,CustomWeatherNetwork.retrofitCustomApi.weatherHisory().toString())
-            }catch (e : Exception){
-                throw Exception("Weather exception : " + e.message)
+            } catch (e: Exception) {
+                Log.w("Exception","Weather exception : " + e.message)
             }
 
         }

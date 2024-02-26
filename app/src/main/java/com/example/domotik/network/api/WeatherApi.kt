@@ -14,4 +14,5 @@ interface WeatherApi {
     @GET("/data/2.5/weather?lat=43.6&lon=12.7&appid="+ apiKey)
     suspend fun getWithMetric(@Query("units") units: String): Weather
 
+
 }
