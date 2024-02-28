@@ -14,7 +14,7 @@ import com.example.domotik.R
 
 class ImpostazioniMenu : AppCompatActivity(){
 
-    private val impostazionimenu = arrayOf<String>("Impostazioni lingua","Sicurezza","Profilo")
+    private val impostazionimenu = arrayOf<String>("Impostazioni lingua","Sicurezza","Profilo", "Configurazione Dispositivi", "Info", "Centro Notifiche")
     var actionMode: ActionMode? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

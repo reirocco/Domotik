@@ -5,6 +5,7 @@ plugins {
     id("kotlin-kapt")
     id ("kotlin-parcelize")
 
+
 }
 
 
@@ -44,10 +45,12 @@ android {
             }
 
 
+
 }
 
     dependencies {
-
+        implementation("com.google.firebase:firebase-bom:32.7.2")
+        implementation("com.google.firebase:firebase-analytics")
         implementation("androidx.core:core-ktx:1.9.0")
         implementation("androidx.appcompat:appcompat:1.6.1")
         implementation("com.google.android.material:material:1.10.0")
@@ -101,7 +104,35 @@ android {
         implementation("com.google.firebase:firebase-auth")
         implementation("com.google.android.gms:play-services-auth:20.7.0")
 
-    }
+            //VIDEOSORVEGLIANZA
+            // Retrofit
+            implementation ("com.squareup.retrofit2:retrofit:2.5.0")
+            implementation ("com.squareup.retrofit2:adapter-rxjava2:2.9.0")
+            implementation ("com.squareup.retrofit2:converter-gson:2.2.0")
+            implementation ("com.squareup.retrofit2:converter-scalars:2.5.0")
+            implementation ("com.squareup.retrofit2:converter-simplexml:2.5.0")
+
+            // OkHttp
+            implementation ("com.squareup.okhttp3:okhttp:3.4.1")
+            implementation ("com.squareup.okhttp3:logging-interceptor:3.4.1")
+
+            // Rx
+           // implementation ("io.reactivex.rxjava2:rxandroid:2.2.0")
+            //implementation ("io.reactivex.rxjava2:rxjava:2.1.0")
+
+            // Gson
+            implementation ("com.google.code.gson:gson:2.8.2")
+
+            // Jetty Server
+            implementation ("org.eclipse.jetty:jetty-server:8.1.17.v20150415")
+            implementation ("org.eclipse.jetty:jetty-servlet:8.1.17.v20150415")
+            implementation ("org.eclipse.jetty:jetty-client:8.1.17.v20150415")
+
+
+
+        }
+
+
 
 
 

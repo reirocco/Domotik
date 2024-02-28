@@ -57,5 +57,11 @@
         android:id="@+id/weatherActivity"
         android:name="com.example.domotik.ui.Weather.WeatherActivity"
         android:label="WeatherActivity" />
+    <fragment
+        android:id="@+id/modificaProfilo"
+        android:name="com.example.domotik.ui.settings.ProfiloUtente"
+        android:label="Modifica Profilo Utente"
+        tools:layout="@layout/fragment_updateprofilo"/>
+
 
 </navigation>

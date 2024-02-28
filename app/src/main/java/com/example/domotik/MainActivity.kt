@@ -16,6 +16,7 @@ import com.example.domotik.ui.home.HomeFragment
 import com.example.domotik.ui.lights.LightsActivity
 import com.example.domotik.ui.notifications.NotificationsFragment
 import com.example.domotik.ui.settings.ImpostazioniMenu
+import com.example.domotik.ui.settings.ProfiloUtente
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 
@@ -79,6 +80,7 @@ class MainActivity : AppCompatActivity() {
                // R.id.configuration -> navController.navigate(R.id.navigation_configuration)
                 R.id.configuration-> navController.navigate(R.id.impostazioni_menu)
 
+
             }
             true
         }
@@ -120,6 +122,11 @@ class MainActivity : AppCompatActivity() {
     }
     fun showImpostazioniMenu(view: View){
         val intent = Intent(this, ImpostazioniMenu::class.java)
+        startActivity(intent)
+    }
+
+    fun modificaProfilo(view: View){
+        val intent = Intent(this, ProfiloUtente::class.java)
         startActivity(intent)
     }
 
