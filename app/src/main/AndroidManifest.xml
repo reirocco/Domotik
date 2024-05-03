@@ -15,7 +15,6 @@
     <permission android:name="CAMERA_PERMISSION_REQUEST_CODE" />
 
 
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -29,8 +28,6 @@
         android:usesCleartextTraffic="true"
         >
 
-
-
         <activity
             android:name=".ui.lights.LightsActivity"
             android:exported="false" />
@@ -42,13 +39,9 @@
             android:name=".ui.authentication.AutenticazioneActivity"
             android:exported="true"></activity>
         <activity android:name=".ui.settings.ImpostazioniMenu"
-            android:exported="true"></activity>
-        <!--
-<activity
-            android:name=".ui.camera.CameraActivity"
-            android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        -->
+            android:exported="true">
+            </activity>
+
         <activity
             android:name=".ui.splashScreen.SplashScreen"
             android:exported="true"
@@ -63,8 +56,18 @@
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.Domotik">
-
         </activity>
+        <activity
+            android:name="com.example.domotik.ui.settings.ProfiloUtente"
+            android:label="ProfiloUtente">
+        </activity>
+        <activity android:name=".ui.settings.ImpostazioniLingua"
+            android:label="Impostazioni Lingua"></activity>
+
+        <activity android:name=".ui.camera.CameraActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
 
     </application>
 
