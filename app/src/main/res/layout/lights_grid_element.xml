@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImageButton xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lightsGridElements"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:onClick="SwitchOnCucina"
+    android:src="@drawable/baseline_emoji_objects_24"/>
+
