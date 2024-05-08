@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.domotik.R
 import com.example.domotik.network.model.WeatherHistory
+import com.example.domotik.ui.util.ChartView
 import com.example.domotik.ui.viewModel.WeatherApiViewModel
 import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.series.DataPoint
@@ -33,6 +34,9 @@ class WeatherActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_weather)
+        var chart = ChartView(this)
+        //setContentView(ChartView(this))
+        /*
         //actionbar
         val actionbar = supportActionBar
         //set actionbar title
@@ -43,7 +47,7 @@ class WeatherActivity : AppCompatActivity() {
         lineGraphView = findViewById(R.id.idGraphView)   // on below line we are initializing
         updateGraphObserver()
         getWeatherData()
-
+        */
     }
 
 
