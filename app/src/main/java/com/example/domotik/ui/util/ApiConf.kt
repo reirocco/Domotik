@@ -1,3 +1,3 @@
 package com.example.domotik.ui.util
 
-const val apiKey:String="f6a678b23b4d74c2d736d34aae30f6dc"  // your API KEy for openweathermap.org
+const val apiKey:String="4df8ffb83544af28a7e953deb428641b"  // your API KEy for openweathermap.org

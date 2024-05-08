@@ -29,14 +29,17 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:onClick="startWeathersActivity"
+            >
+
 
             <TextView
-                android:id="@+id/text_nome_citta"
+                android:id="@+id/text_nome_dispositivo"
                 android:layout_width="300dp"
                 android:layout_height="34dp"
                 android:layout_marginTop="4dp"
-                android:text="City Name"
+                android:text="Device Name"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textSize="20sp"
@@ -57,7 +60,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/imageView3"
-                app:layout_constraintTop_toBottomOf="@+id/text_nome_citta" />
+                app:layout_constraintTop_toBottomOf="@+id/text_nome_dispositivo" />
 
             <ImageView
                 android:id="@+id/imageView3"
@@ -67,7 +70,7 @@
                 android:layout_marginTop="8dp"
                 android:src="@drawable/baseline_light_mode_24"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_nome_citta" />
+                app:layout_constraintTop_toBottomOf="@+id/text_nome_dispositivo" />
 
             <TableRow
                 android:layout_width="0dp"
@@ -83,10 +86,10 @@
                 app:layout_constraintVertical_bias="0.0">
 
                 <TextView
-                    android:id="@+id/text_pressure_box"
+                    android:id="@+id/text_co2_box"
                     android:layout_width="148dp"
                     android:layout_height="match_parent"
-                    android:text="hPa" />
+                    android:text="ppm" />
 
                 <TextView
                     android:id="@+id/text_umidita_box"

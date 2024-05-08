@@ -7,10 +7,13 @@
 
     <uses-feature android:name="android.permission.CAMERA" />
 
+    <!-- Always include this permission -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- Include only if your app benefits from precise location access. -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <permission android:name="CAMERA_PERMISSION_REQUEST_CODE" />
+
 
     <application
         android:allowBackup="true"
@@ -21,19 +24,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Domotik"
-        tools:targetApi="31">
+        tools:targetApi="31"
+        android:usesCleartextTraffic="true"
+        >
+
         <activity
             android:name=".ui.lights.LightsActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.Weather.WeatherActivity"
             android:exported="false" />
         <activity
             android:name=".ui.authentication.AutenticazioneActivity"
             android:exported="true"></activity>
-        <!--
-<activity
-            android:name=".ui.camera.CameraActivity"
-            android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        -->
+        <activity android:name=".ui.settings.ImpostazioniMenu"
+            android:exported="true">
+            </activity>
+
         <activity
             android:name=".ui.splashScreen.SplashScreen"
             android:exported="true"
@@ -47,7 +55,20 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Domotik"></activity>
+            android:theme="@style/Theme.Domotik">
+        </activity>
+        <activity
+            android:name="com.example.domotik.ui.settings.ProfiloUtente"
+            android:label="ProfiloUtente">
+        </activity>
+        <activity android:name=".ui.settings.ImpostazioniLingua"
+            android:label="Impostazioni Lingua"></activity>
+
+        <activity android:name=".ui.camera.CameraActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
+
     </application>
 
 </manifest>

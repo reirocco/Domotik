@@ -17,7 +17,7 @@ class AutenticazioneViewModel : ViewModel() {
         if (FirebaseAuth.getInstance().currentUser != null) {
             cUser = FirebaseAuth.getInstance().currentUser!!
             val database =
-                FirebaseDatabase.getInstance("https://console.firebase.google.com/project/domotik-abeeb/firestore/data")
+                FirebaseDatabase.getInstance("https://console.firebase.google.com/project/domotikapp-bb2db/firestore/data")
             val usersRef = database.reference.child("Utenti")
 
             usersRef.child(cUser.uid ?: "")
