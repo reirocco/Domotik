@@ -42,7 +42,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <com.jjoe64.graphview.GraphView
+    <io.data2viz.viz.VizView
+        android:layout_marginEnd="64dp"
+        android:layout_marginBottom="731dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/chip4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent" />
+
+    <!--<com.jjoe64.graphview.GraphView
         android:id="@+id/idGraphView"
         android:layout_width="380dp"
         android:layout_height="265dp"
@@ -51,5 +60,6 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+        -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
