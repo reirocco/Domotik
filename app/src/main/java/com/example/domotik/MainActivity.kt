@@ -16,7 +16,7 @@ import com.example.domotik.ui.home.HomeFragment
 import com.example.domotik.ui.lights.LightsActivity
 import com.example.domotik.ui.notifications.NotificationsFragment
 import com.example.domotik.ui.settings.ImpostazioniMenu
-import com.example.domotik.ui.settings.ProfiloUtente
+//import com.example.domotik.ui.settings.ProfiloUtente
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 
@@ -125,10 +125,10 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    fun modificaProfilo(view: View){
+    /*fun modificaProfilo(view: View){
         val intent = Intent(this, ProfiloUtente::class.java)
         startActivity(intent)
-    }
+    }*/ //classe da caricare
 
 
 }

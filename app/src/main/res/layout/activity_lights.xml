@@ -12,56 +12,168 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-                <ImageButton
-                    android:id="@+id/button1"
-                    android:layout_width="122dp"
-                    android:layout_height="76dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="72dp"
-                    android:clickable="true"
-                    android:onClick="SwitchOnCucina1"
-                    android:src="@drawable/baseline_emoji_objects_24"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:contentDescription=""/>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/grid_element_cardwiev_cucina"
+                    android:layout_columnWeight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp"
+                    android:minWidth="150dp"
+                    android:foreground="?android:attr/selectableItemBackground">
 
-                <ImageButton
-                    android:id="@+id/button2"
-                    android:layout_width="122dp"
-                    android:layout_height="76dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="72dp"
-                    android:clickable="true"
-                    android:onClick="SwitchOnCucina2"
-                    android:src="@drawable/baseline_emoji_objects_24"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:contentDescription=""/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:layout_gravity="center">
 
-                <ImageButton
-                    android:id="@+id/button3"
-                    android:layout_width="122dp"
-                    android:layout_height="76dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="72dp"
-                    android:clickable="true"
-                    android:onClick="SwitchOnCucina3"
-                    android:src="@drawable/baseline_emoji_objects_24"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:contentDescription=""/>
+                                <ImageView
+                                    android:id="@+id/grid_element_image_cucina"
+                                    android:layout_width="70dp"
+                                    android:layout_height="70dp"
+                                    android:layout_gravity="center"
+                                    android:padding="5dp"
+                                    android:layout_margin="5dp"
+                                    android:src="@drawable/baseline_light_mode_24" />
 
-                <ImageButton
-                    android:id="@+id/button4"
-                    android:layout_width="122dp"
-                    android:layout_height="76dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="72dp"
-                    android:clickable="true"
-                    android:onClick="SwitchOnCucina4"
-                    android:src="@drawable/baseline_emoji_objects_24"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:contentDescription=""/>
+                                <TextView
+                                    android:id="@+id/grid_element_text_cucina"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_margin="5dp"
+                                    android:padding="5dp"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/black"
+                                    android:text="Cucina"/>
+                        </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/grid_element_cardwiev_sala"
+                    android:layout_columnWeight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp"
+                    android:minWidth="150dp"
+                    android:foreground="?android:attr/selectableItemBackground">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:layout_gravity="center">
+
+                                <ImageView
+                                    android:id="@+id/grid_element_image_sala"
+                                    android:layout_width="70dp"
+                                    android:layout_height="70dp"
+                                    android:layout_gravity="center"
+                                    android:padding="5dp"
+                                    android:layout_margin="5dp"
+                                    android:src="@drawable/baseline_light_mode_24" />
+
+                                <TextView
+                                    android:id="@+id/grid_element_text_sala"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_margin="5dp"
+                                    android:padding="5dp"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/black"
+                                    android:text="Sala"/>
+                        </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/grid_element_cardwiev_soppalco"
+                    android:layout_columnWeight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp"
+                    android:minWidth="150dp"
+                    android:foreground="?android:attr/selectableItemBackground">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:layout_gravity="center">
+
+                                <ImageView
+                                    android:id="@+id/grid_element_image_soppalco"
+                                    android:layout_width="70dp"
+                                    android:layout_height="70dp"
+                                    android:layout_gravity="center"
+                                    android:padding="5dp"
+                                    android:layout_margin="5dp"
+                                    android:src="@drawable/baseline_light_mode_24" />
+
+                                <TextView
+                                    android:id="@+id/grid_element_text_soppalco"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_margin="5dp"
+                                    android:padding="5dp"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/black"
+                                    android:text="Soppalco"/>
+                        </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/grid_element_cardwiev_bagno"
+                    android:layout_columnWeight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp"
+                    android:minWidth="150dp"
+                    android:foreground="?android:attr/selectableItemBackground">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:layout_gravity="center">
+
+                                <ImageView
+                                    android:id="@+id/grid_element_image_bagno"
+                                    android:layout_width="70dp"
+                                    android:layout_height="70dp"
+                                    android:layout_gravity="center"
+                                    android:padding="5dp"
+                                    android:layout_margin="5dp"
+                                    android:src="@drawable/baseline_light_mode_24" />
+
+                                <TextView
+                                    android:id="@+id/grid_element_text_bagno"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_margin="5dp"
+                                    android:padding="5dp"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/black"
+                                    android:text="Bagno"/>
+                        </LinearLayout>
+                </androidx.cardview.widget.CardView>
         </GridLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

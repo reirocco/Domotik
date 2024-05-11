@@ -28,9 +28,9 @@ class CameraActivity : AppCompatActivity() {
 
         // Avvia la riproduzione del video
         val videoView = findViewById<VideoView>(R.id.videoView)
-        val videoPath = "android.resource://" + packageName + "/" + R.raw.lounge2
-        videoView.setVideoURI(Uri.parse(videoPath))
-        videoView.start()
+        //val videoPath = "android.resource://" + packageName + "/" + R.raw.lounge2
+       // videoView.setVideoURI(Uri.parse(videoPath))
+       // videoView.start() //caricare il video
 
     }
         /* requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR
