@@ -19,7 +19,7 @@ class LightsActivity : AppCompatActivity() {
         //actionbar
         val actionbar = supportActionBar
         //set actionbar title
-        actionbar!!.title = "Lighs"
+        actionbar!!.title = "Lights"
         //set back button
         actionbar.setDisplayHomeAsUpEnabled(true)
         findViewById<CardView>(R.id.grid_element_cardwiev_cucina).setOnClickListener {switchOnCucina()}
