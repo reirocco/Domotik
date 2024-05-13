@@ -1,6 +1,7 @@
 package com.example.domotik
 
 //import com.example.domotik.ui.camera.CameraActivity
+//import com.example.domotik.ui.settings.ProfiloUtente
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -12,11 +13,13 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.domotik.databinding.ActivityMainBinding
 import com.example.domotik.ui.Weather.WeatherActivity
+import com.example.domotik.ui.camera.CameraActivity
 import com.example.domotik.ui.home.HomeFragment
 import com.example.domotik.ui.lights.LightsActivity
+import com.example.domotik.ui.messaging.MessagingActivity
 import com.example.domotik.ui.notifications.NotificationsFragment
+import com.example.domotik.ui.settings.ImpostazioniLingua
 import com.example.domotik.ui.settings.ImpostazioniMenu
-//import com.example.domotik.ui.settings.ProfiloUtente
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 
@@ -95,11 +98,10 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    /*fun startSecondActivity(view: View) {
-
+    fun startSecondActivity(view: View) {
             val intent = Intent(this, CameraActivity::class.java)
             startActivity(intent)
-        }*/
+        }
 
     fun startLightsActivity(view: View) {
         val intent = Intent(this, LightsActivity::class.java)
@@ -124,11 +126,19 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    fun setLocale(view: View){
+        val intent = Intent(this, ImpostazioniLingua::class.java)
+        startActivity(intent)
+    }
+
     /*fun modificaProfilo(view: View){
         val intent = Intent(this, ProfiloUtente::class.java)
         startActivity(intent)
     }*/ //classe da caricare
-
+    fun startMessagingActivity(view: View) {
+        val intent = Intent(this, MessagingActivity::class.java)
+        startActivity(intent)
+    }
 
 }
 

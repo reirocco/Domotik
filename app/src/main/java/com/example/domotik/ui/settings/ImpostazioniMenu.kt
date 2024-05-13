@@ -3,22 +3,14 @@ package com.example.domotik.ui.settings
 import android.content.Intent
 import android.os.Bundle
 import android.view.ActionMode
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
-import android.widget.AbsListView
 import android.widget.ArrayAdapter
 import android.widget.ListView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.domotik.R
-import com.example.domotik.ui.lights.LightsActivity
-import com.example.domotik.ui.messaging.MessagingActivity
 
 class ImpostazioniMenu : AppCompatActivity(){
 
-    private val impostazionimenu = arrayOf<String>("Impostazioni Lingua","Sicurezza","Profilo", "Configurazione Dispositivi", "Info", "Centro Notifiche")
+    private val impostazionimenu = arrayOf<String>("Impostazioni lingua","Sicurezza","Profilo", "Configurazione Dispositivi", "Info", "Centro Notifiche")
     var actionMode: ActionMode? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,24 +23,45 @@ class ImpostazioniMenu : AppCompatActivity(){
         val listView2 = findViewById<ListView>(R.id.listView2)
         listView2.adapter = arrayAdapter2
 
+        listView2.setOnItemClickListener { parent, view, position, id ->
+            when (position) {
+                0 -> {
+                    val intent = Intent(this, ImpostazioniLingua::class.java)
+                    startActivity(intent)
+                }
 
-        listView2.choiceMode = ListView.CHOICE_MODE_MULTIPLE_MODAL
+                2 -> {
+                    //val selectedItem = listView2[position]
+                    //if (selectedItem == "Profilo") {
+                    // Apri il fragment_updateprofilo
+                    val intent = Intent(this, ProfiloUtente::class.java)
+                    startActivity(intent)
+                }
+
+            }}}}
+
+
+        /*listView2.choiceMode = ListView.CHOICE_MODE_MULTIPLE_MODAL
         listView2.setMultiChoiceModeListener(object : AbsListView.MultiChoiceModeListener {
-            override fun onItemCheckedStateChanged(mode: ActionMode, position: Int,
-                                                   id: Long, checked: Boolean) {
+            override fun onItemCheckedStateChanged(
+                mode: ActionMode, position: Int,
+                id: Long, checked: Boolean
+            ) {
                 // Here you can do something when items are selected/de-selected,
                 // such as update the title in the CAB
-                mode.title="${listView2.checkedItemCount} selezionati"
+                mode.title = "${listView2.checkedItemCount} selezionati"
             }
 
             override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
                 // Respond to clicks on the actions in the CAB
                 return when (item.itemId) {
                     R.id.menu_share -> {
-                        Toast.makeText(applicationContext,"Condividi item!",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext, "Condividi item!", Toast.LENGTH_SHORT)
+                            .show()
                         mode.finish() // Action picked, so close the CAB
                         true
                     }
+
                     else -> false
                 }
             }
@@ -71,10 +84,10 @@ class ImpostazioniMenu : AppCompatActivity(){
                 return false
             }
         })
-    }
-    fun startMessagingActivity(view: View) {
+    }*/
+    /*fun startMessagingActivity(view: View) {
         val intent = Intent(this, MessagingActivity::class.java)
         startActivity(intent)
-    }
-}
+    }*/
+
 
