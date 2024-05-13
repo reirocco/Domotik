@@ -10,7 +10,7 @@ import com.example.domotik.R
 
 class ImpostazioniMenu : AppCompatActivity(){
 
-    private val impostazionimenu = arrayOf<String>("Impostazioni lingua","Sicurezza","Profilo", "Configurazione Dispositivi", "Info", "Centro Notifiche")
+    private val impostazionimenu = arrayOf<String>("Sicurezza","Profilo", "Configurazione Dispositivi", "Info", "Centro Notifiche")
     var actionMode: ActionMode? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,12 +25,9 @@ class ImpostazioniMenu : AppCompatActivity(){
 
         listView2.setOnItemClickListener { parent, view, position, id ->
             when (position) {
-                0 -> {
-                    val intent = Intent(this, ImpostazioniLingua::class.java)
-                    startActivity(intent)
-                }
 
-                2 -> {
+
+                1 -> {
                     //val selectedItem = listView2[position]
                     //if (selectedItem == "Profilo") {
                     // Apri il fragment_updateprofilo

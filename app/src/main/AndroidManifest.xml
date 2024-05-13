@@ -55,9 +55,6 @@
             android:name=".ui.settings.ProfiloUtente"
             android:label="ProfiloUtente"></activity>
         <activity
-            android:name=".ui.settings.ImpostazioniLingua"
-            android:label="Impostazioni Lingua" />
-        <activity
             android:name=".ui.camera.CameraActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
