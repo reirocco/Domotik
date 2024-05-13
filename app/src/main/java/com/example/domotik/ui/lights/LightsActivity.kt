@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import com.example.domotik.R
 
 class LightsActivity : AppCompatActivity() {
@@ -36,48 +37,60 @@ class LightsActivity : AppCompatActivity() {
     fun switchOnCucina() {
         val light = lights[0]
         lights[0] = !light
+        val cardView = findViewById<CardView>(R.id.grid_element_cardwiev_cucina)
         val imageView = findViewById<ImageView>(R.id.grid_element_image_cucina)
         val textView = findViewById<TextView>(R.id.grid_element_text_cucina)
         if(!light){
             imageView.setImageResource(R.drawable.baseline_light_mode_24)
+            cardView.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.teal_200))
         } else {
             imageView.setImageResource(R.drawable.baseline_emoji_objects_24)
+            cardView.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.white))
         }
     }
 
     fun switchOnSala() {
         val light = lights[1]
         lights[1] = !light
+        val cardView = findViewById<CardView>(R.id.grid_element_cardwiev_sala)
         val imageView = findViewById<ImageView>(R.id.grid_element_image_sala)
         val textView = findViewById<TextView>(R.id.grid_element_text_sala)
         if(!light){
             imageView.setImageResource(R.drawable.baseline_light_mode_24)
+            cardView.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.teal_200))
         } else {
             imageView.setImageResource(R.drawable.baseline_emoji_objects_24)
+            cardView.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.white))
         }
     }
 
     fun switchOnSoppalco() {
         val light = lights[2]
         lights[2] = !light
+        val cardView = findViewById<CardView>(R.id.grid_element_cardwiev_soppalco)
         val imageView = findViewById<ImageView>(R.id.grid_element_image_soppalco)
         val textView = findViewById<TextView>(R.id.grid_element_text_soppalco)
         if(!light){
             imageView.setImageResource(R.drawable.baseline_light_mode_24)
+            cardView.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.teal_200))
         } else {
             imageView.setImageResource(R.drawable.baseline_emoji_objects_24)
+            cardView.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.white))
         }
     }
 
     fun switchOnBagno() {
         val light = lights[3]
         lights[3] = !light
+        val cardView = findViewById<CardView>(R.id.grid_element_cardwiev_bagno)
         val imageView = findViewById<ImageView>(R.id.grid_element_image_bagno)
         val textView = findViewById<TextView>(R.id.grid_element_text_bagno)
         if(!light){
             imageView.setImageResource(R.drawable.baseline_light_mode_24)
+            cardView.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.teal_200))
         } else {
             imageView.setImageResource(R.drawable.baseline_emoji_objects_24)
+            cardView.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.white))
         }
     }
 }

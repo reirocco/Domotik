@@ -102,7 +102,6 @@ class MainActivity : AppCompatActivity() {
         }*/
 
     fun startLightsActivity(view: View) {
-
         val intent = Intent(this, LightsActivity::class.java)
         startActivity(intent)
     }

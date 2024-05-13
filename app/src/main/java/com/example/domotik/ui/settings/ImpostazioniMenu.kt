@@ -1,20 +1,24 @@
 package com.example.domotik.ui.settings
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.ActionMode
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
 import android.widget.AbsListView
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.domotik.R
+import com.example.domotik.ui.lights.LightsActivity
+import com.example.domotik.ui.messaging.MessagingActivity
 
 class ImpostazioniMenu : AppCompatActivity(){
 
-    private val impostazionimenu = arrayOf<String>("Impostazioni lingua","Sicurezza","Profilo", "Configurazione Dispositivi", "Info", "Centro Notifiche")
+    private val impostazionimenu = arrayOf<String>("Impostazioni Lingua","Sicurezza","Profilo", "Configurazione Dispositivi", "Info", "Centro Notifiche")
     var actionMode: ActionMode? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,6 +72,9 @@ class ImpostazioniMenu : AppCompatActivity(){
             }
         })
     }
-
+    fun startMessagingActivity(view: View) {
+        val intent = Intent(this, MessagingActivity::class.java)
+        startActivity(intent)
+    }
 }
 

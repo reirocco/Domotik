@@ -4,20 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/app_theme"
     tools:context=".ui.lights.LightsActivity">
 
         <GridLayout
             android:id="@+id/lightsLayout"
+            android:layout_marginVertical="30dp"
+            android:layout_marginHorizontal="10dp"
             android:columnCount="2"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/grid_element_cardwiev_cucina"
+                    android:layout_marginVertical="25dp"
                     android:layout_columnWeight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:layout_margin="5dp"
                     app:cardCornerRadius="5dp"
                     app:cardElevation="5dp"
@@ -38,7 +41,7 @@
                                     android:layout_gravity="center"
                                     android:padding="5dp"
                                     android:layout_margin="5dp"
-                                    android:src="@drawable/baseline_light_mode_24" />
+                                    android:src="@drawable/baseline_emoji_objects_24" />
 
                                 <TextView
                                     android:id="@+id/grid_element_text_cucina"
@@ -55,10 +58,10 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/grid_element_cardwiev_sala"
+                    android:layout_marginVertical="25dp"
                     android:layout_columnWeight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:layout_margin="5dp"
                     app:cardCornerRadius="5dp"
                     app:cardElevation="5dp"
@@ -79,7 +82,7 @@
                                     android:layout_gravity="center"
                                     android:padding="5dp"
                                     android:layout_margin="5dp"
-                                    android:src="@drawable/baseline_light_mode_24" />
+                                    android:src="@drawable/baseline_emoji_objects_24" />
 
                                 <TextView
                                     android:id="@+id/grid_element_text_sala"
@@ -96,10 +99,10 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/grid_element_cardwiev_soppalco"
+                    android:layout_marginVertical="25dp"
                     android:layout_columnWeight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:layout_margin="5dp"
                     app:cardCornerRadius="5dp"
                     app:cardElevation="5dp"
@@ -120,7 +123,7 @@
                                     android:layout_gravity="center"
                                     android:padding="5dp"
                                     android:layout_margin="5dp"
-                                    android:src="@drawable/baseline_light_mode_24" />
+                                    android:src="@drawable/baseline_emoji_objects_24" />
 
                                 <TextView
                                     android:id="@+id/grid_element_text_soppalco"
@@ -137,10 +140,10 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/grid_element_cardwiev_bagno"
+                    android:layout_marginVertical="25dp"
                     android:layout_columnWeight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:layout_margin="5dp"
                     app:cardCornerRadius="5dp"
                     app:cardElevation="5dp"
@@ -161,7 +164,7 @@
                                     android:layout_gravity="center"
                                     android:padding="5dp"
                                     android:layout_margin="5dp"
-                                    android:src="@drawable/baseline_light_mode_24" />
+                                    android:src="@drawable/baseline_emoji_objects_24" />
 
                                 <TextView
                                     android:id="@+id/grid_element_text_bagno"
