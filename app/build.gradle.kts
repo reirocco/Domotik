@@ -101,8 +101,11 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.android.gms:play-services-auth:20.7.0")
 
-    implementation("io.data2viz.charts:core:1.1.0-eap1")
-    implementation("io.data2viz.d2v:viz:0.8.12")
+
+    // PLOTTING LIBRARY (SEE: https://weeklycoding.com/mpandroidchart/ )
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
+
 
 }
 

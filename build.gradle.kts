@@ -10,6 +10,7 @@ buildscript {
         maven{
             url = uri ("https://maven.pkg.jetbrains.space/data2viz/p/maven/public")
         }
+
     }
 }
 

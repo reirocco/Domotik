@@ -5,49 +5,40 @@ package com.example.domotik.ui.Weather
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.domotik.R
 import com.example.domotik.network.model.WeatherHistory
-import com.example.domotik.ui.util.ChartView
 import com.example.domotik.ui.viewModel.WeatherApiViewModel
-import com.jjoe64.graphview.GraphView
+import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
+import com.google.android.material.chip.Chip
 import com.jjoe64.graphview.series.DataPoint
-import com.jjoe64.graphview.series.LineGraphSeries
 import kotlinx.coroutines.CoroutineExceptionHandler
 import java.time.LocalDateTime
-import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
-import java.util.Date
-import kotlin.math.log
 
 
 class WeatherActivity : AppCompatActivity() {
 
-    lateinit var lineGraphView: GraphView
+    lateinit var lineGraphView: LineChart
+    lateinit var tempChip: Chip
 
     // Create a viewModel
     private val viewModel: WeatherViewModel = WeatherViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_weather)
-        var chart = ChartView(this)
-        //setContentView(ChartView(this))
-        /*
-        //actionbar
-        val actionbar = supportActionBar
-        //set actionbar title
-        actionbar!!.title = "Weather Data"
-        //set back button
-        actionbar.setDisplayHomeAsUpEnabled(true)
+        setContentView(com.example.domotik.R.layout.activity_weather)
+        lineGraphView = findViewById<View>(com.example.domotik.R.id.chart) as LineChart
+        tempChip = findViewById<Chip>(com.example.domotik.R.id.temp_chip)
 
-        lineGraphView = findViewById(R.id.idGraphView)   // on below line we are initializing
         updateGraphObserver()
         getWeatherData()
-        */
     }
 
 
@@ -59,43 +50,44 @@ class WeatherActivity : AppCompatActivity() {
     }
 
     fun updateGraph1(update: WeatherHistory) {
-        // below we are adding data to our graph view.
-        //  FIRST MAKE A DATAPOINT COLLECTION WITH THE INDOOR WEATHER DATA
-        var datapointarray: Array<ArrayList<DataPoint>> = arrayOf()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            datapointarray = makeLineGraph(update)
+
+        // Data preparation from class to array
+        val tempArray: ArrayList<Entry> = ArrayList<Entry>()
+        val co2Array: ArrayList<Entry> = ArrayList<Entry>()
+        val luxArray: ArrayList<Entry> = ArrayList<Entry>()
+        var i = 0.0
+        for (data in update.items) {
+            // turn your data into Entry objects
+            tempArray.add(Entry(i.toFloat(), data.main.temp))
+            co2Array.add(Entry(i.toFloat(), data.main.co2.toFloat()))
+            luxArray.add(Entry(i.toFloat(), data.main.lux))
+            i++
         }
 
-        // DEFINING A TMP ARRAY TO EXTRACT ARRAYS
-        var arrayof: Array<DataPoint> = datapointarray.get(3)
-            .toTypedArray()    // RETURN ARRAY MUST BE TYPED, CASTING IS NOT ACCEPTING ANYWAY
-        for (x in arrayof)
-            Log.v("logging", "x: " + x.x.toString() + " y:" + x.y.toString())
-        val series: LineGraphSeries<DataPoint> = LineGraphSeries(arrayof)
 
-        // on below line adding animation
-        lineGraphView.animate()
+        // Dataset creation
+        var dataSetTemp : LineDataSet = LineDataSet(tempArray, "Temperature")
+        dataSetTemp.setColor(1);
+        dataSetTemp.setValueTextColor(1); // styling, ...
 
-        // on below line we are setting scrollable
-        // for point graph view
-        lineGraphView.viewport.isScrollable = true
+        // Dataset creation
+        var dataSetCo2 : LineDataSet = LineDataSet(co2Array, "Co2")
+        dataSetCo2.setColor(1);
+        dataSetCo2.setValueTextColor(1); // styling, ...
 
-        // on below line we are setting scalable.
-        lineGraphView.viewport.isScalable = true
+        // Dataset creation
+        var dataSetLux : LineDataSet = LineDataSet(luxArray, "Luminosity")
+        dataSetLux.setColor(1);
+        dataSetLux.setValueTextColor(1); // styling, ...
 
-        // on below line we are setting scalable y
-        lineGraphView.viewport.setScalableY(false)
+        // Chart initialization
+        var lineData : LineData = LineData()
 
-        // on below line we are setting scrollable y
-        lineGraphView.viewport.setScrollableY(false)
-
-        // on below line we are setting color for series.
-        series.color = R.color.purple_200
-
-        // on below line we are adding
-        // data series to our graph view.
-        lineGraphView.addSeries(series)
-        lineGraphView.addSeries(LineGraphSeries<DataPoint>(arrayOf(DataPoint(1.0, 0.0))))
+            lineData.addDataSet(dataSetTemp)
+        lineData.addDataSet(dataSetCo2)
+        lineData.addDataSet(dataSetLux)
+        lineGraphView.setData(lineData);
+        lineGraphView.invalidate(); // refresh
 
     }
 
