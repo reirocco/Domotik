@@ -8,6 +8,10 @@ import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.forEach
+import androidx.core.view.get
+import androidx.core.view.isEmpty
+import androidx.core.view.iterator
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.domotik.network.model.WeatherHistory
@@ -17,6 +21,7 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.jjoe64.graphview.series.DataPoint
 import kotlinx.coroutines.CoroutineExceptionHandler
 import java.time.LocalDateTime
@@ -26,7 +31,7 @@ import java.time.format.DateTimeFormatter
 class WeatherActivity : AppCompatActivity() {
 
     lateinit var lineGraphView: LineChart
-    lateinit var tempChip: Chip
+    lateinit var chips: ChipGroup
 
     // Create a viewModel
     private val viewModel: WeatherViewModel = WeatherViewModel()
@@ -35,19 +40,13 @@ class WeatherActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(com.example.domotik.R.layout.activity_weather)
         lineGraphView = findViewById<View>(com.example.domotik.R.id.chart) as LineChart
-        tempChip = findViewById<Chip>(com.example.domotik.R.id.temp_chip)
+        chips = findViewById<ChipGroup>(com.example.domotik.R.id.chipGroup)
 
         updateGraphObserver()
+        chipGroupObserver()
         getWeatherData()
     }
 
-
-    // Observer is waiting for viewModel to update our UI
-    private fun updateGraphObserver() {
-        viewModel.uiLiveData.observe(
-            this,
-            Observer { update -> updateGraph1(update) })
-    }
 
     fun updateGraph1(update: WeatherHistory) {
 
@@ -80,17 +79,30 @@ class WeatherActivity : AppCompatActivity() {
         dataSetLux.setColor(1);
         dataSetLux.setValueTextColor(1); // styling, ...
 
+        // Getting filter information
+        // first: getting chip group and create an arraylist to store the string name of the triggered chip
+        val chips : ChipGroup = findViewById<ChipGroup>(com.example.domotik.R.id.chipGroup)
+        val filterChip : ArrayList<String> = ArrayList<String>()
+        //second: extract checked chips id's and iterate on it to findviewbyid and once get the chip store result on array
+        chips.checkedChipIds.forEach { ids ->
+            val chip = findViewById<Chip>(ids)
+            Log.v("chips", "Chip text: " + chip.text.toString() )
+            filterChip.add(chip.text.toString())
+        }
+
+
         // Chart initialization
         var lineData : LineData = LineData()
-
+        if(filterChip.contains("temp"))
             lineData.addDataSet(dataSetTemp)
-        lineData.addDataSet(dataSetCo2)
-        lineData.addDataSet(dataSetLux)
+        if(filterChip.contains("Co2"))
+            lineData.addDataSet(dataSetCo2)
+        if(filterChip.contains("lux"))
+            lineData.addDataSet(dataSetLux)
         lineGraphView.setData(lineData);
         lineGraphView.invalidate(); // refresh
 
     }
-
 
     fun getWeatherData() {
         Log.v("logging", "entra")
@@ -155,4 +167,35 @@ class WeatherActivity : AppCompatActivity() {
     }
 
 
+    // Observer is waiting for viewModel to update our UI
+    private fun updateGraphObserver() {
+        viewModel.uiLiveData.observe(
+            this,
+            Observer { update -> updateGraph1(update) })
+    }
+
+    private fun chipGroupObserver(){
+        chips.setOnCheckedStateChangeListener{group, checkedIds ->
+            if (checkedIds.isEmpty()){
+                Log.v("chips", "nothing selected")
+            }else{
+                Log.v("chips", "ones or more selected")
+                var chipsList : ArrayList<String> = ArrayList<String>()
+                checkedIds.forEach { ids ->
+                    val chip = findViewById<Chip>(ids)
+                    chipsList.add(chip.text.toString())
+                    Log.v("chips", "\n\ttriggered value: " + chip.text.toString())
+                }
+            }
+            getWeatherData()
+        }
+    }
+
+
+
 }
+
+
+
+
+
