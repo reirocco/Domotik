@@ -10,7 +10,7 @@
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#60c424"
+    android:background="#519500"
     tools:context=".ui.home.HomeFragment">
 
 
