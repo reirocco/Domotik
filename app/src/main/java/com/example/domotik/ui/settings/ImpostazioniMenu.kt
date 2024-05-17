@@ -3,10 +3,12 @@ package com.example.domotik.ui.settings
 import android.content.Intent
 import android.os.Bundle
 import android.view.ActionMode
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.domotik.R
+import com.example.domotik.ui.messaging.MessagingActivity
 
 class ImpostazioniMenu : AppCompatActivity(){
 
@@ -34,8 +36,15 @@ class ImpostazioniMenu : AppCompatActivity(){
                     val intent = Intent(this, ProfiloUtente::class.java)
                     startActivity(intent)
                 }
+                4 -> {
+                    val intent = Intent(this, MessagingActivity::class.java)
+                    startActivity(intent)
+                }
 
-            }}}}
+            }
+        }
+    }
+}
 
 
         /*listView2.choiceMode = ListView.CHOICE_MODE_MULTIPLE_MODAL
@@ -82,9 +91,6 @@ class ImpostazioniMenu : AppCompatActivity(){
             }
         })
     }*/
-    /*fun startMessagingActivity(view: View) {
-        val intent = Intent(this, MessagingActivity::class.java)
-        startActivity(intent)
-    }*/
+
 
 
