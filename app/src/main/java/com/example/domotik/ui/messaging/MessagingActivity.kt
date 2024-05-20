@@ -26,10 +26,9 @@ class MessagingActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.messagingRecyclerView)
         editText = findViewById(R.id.messagingEditText)
+        recyclerView.layoutManager = LinearLayoutManager(this)
         messageAdapter = MessageAdapter(mutableListOf())
         recyclerView.adapter = messageAdapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
-
         sendButton = findViewById(R.id.messagingSendButton)
         sendButton.setOnClickListener {
             val text = editText.text.toString() //prende il contenuto dell'edit text

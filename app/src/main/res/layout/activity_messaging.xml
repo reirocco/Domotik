@@ -8,12 +8,12 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/messagingRecyclerView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toTopOf="@id/messageInputLayout"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_margin="16dp" />
+        android:layout_margin="16dp"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/messageInputLayout"
@@ -30,7 +30,9 @@
             android:id="@+id/messagingEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Type a message" />
+            android:hint="Type a message"
+            android:background="@color/lightblue"/>
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button

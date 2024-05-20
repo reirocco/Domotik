@@ -19,6 +19,11 @@ class ImpostazioniMenu : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.impostazioni)
 
+        val actionbar = supportActionBar
+        //set actionbar title
+        actionbar!!.title = "Impostazioni"
+        //set back button
+        actionbar.setDisplayHomeAsUpEnabled(true)
 
         val arrayAdapter2: ArrayAdapter<String> =
             ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, impostazionimenu)
@@ -43,6 +48,10 @@ class ImpostazioniMenu : AppCompatActivity(){
 
             }
         }
+    }
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
     }
 }
 
