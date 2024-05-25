@@ -12,7 +12,7 @@
         android:title="" />
 
     <item
-        android:id="@+id/configuration"
-        android:icon="@drawable/baseline_settings_24"
+        android:id="@+id/navigation_message"
+        android:icon="@drawable/baseline_chat_bubble_24"
         android:title="" />
 </menu>
