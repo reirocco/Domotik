@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.messaging.MessagingActivity">
+    tools:context=".ui.messaging.MessagingActivity"
+    android:background="@color/lightgreen">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/messagingRecyclerView"
@@ -44,6 +45,7 @@
         app:layout_constraintLeft_toRightOf="@id/messageInputLayout"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/blue"
         android:text="Send" />
 </androidx.constraintlayout.widget.ConstraintLayout>

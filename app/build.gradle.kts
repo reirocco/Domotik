@@ -57,7 +57,6 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
     implementation("androidx.camera:camera-view:1.3.0")
-    implementation("androidx.recyclerview:recyclerview:1.2.1")
     //implementation("com.google.firebase:firebase-auth:23.0.0")
     implementation("com.google.firebase:firebase-auth-ktx:22.3.0")
     implementation("androidx.databinding:databinding-runtime:8.2.0")

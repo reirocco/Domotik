@@ -17,7 +17,7 @@ import com.example.domotik.R
 import com.example.domotik.databinding.FragmentRegistrazioneBinding
 import com.example.domotik.ui.viewModel.AutenticazioneViewModel
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
+
 
 class registrazione : Fragment() {
     lateinit var User : EditText
@@ -25,7 +25,7 @@ class registrazione : Fragment() {
     lateinit var Password : EditText
     lateinit var buttonReg : Button
     lateinit var mAuth : FirebaseAuth
-    lateinit var cUser : FirebaseUser
+    //lateinit var cUser : FirebaseUser
     private lateinit var viewModel: AutenticazioneViewModel
     private lateinit var binding: FragmentRegistrazioneBinding
 
@@ -70,6 +70,7 @@ class registrazione : Fragment() {
             val username = User.text.toString()
             val email = Email.text.toString()
             val password = Password.text.toString()
+
 
             if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(requireContext(), "Compila tutti i campi", Toast.LENGTH_SHORT).show()

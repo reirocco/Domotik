@@ -20,6 +20,8 @@ import com.google.firebase.firestore.firestore
 
 class Login : Fragment() {
     private lateinit var binding: FragmentLoginBinding
+    lateinit var Nome: EditText
+    lateinit var Cognome: EditText
     lateinit var Email : EditText
     lateinit var Password : EditText
     lateinit var buttonLogin : Button
