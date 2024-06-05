@@ -6,12 +6,9 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.DatePicker
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.forEach
-import androidx.core.view.get
-import androidx.core.view.isEmpty
-import androidx.core.view.iterator
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.domotik.network.model.WeatherHistory
@@ -26,12 +23,15 @@ import com.jjoe64.graphview.series.DataPoint
 import kotlinx.coroutines.CoroutineExceptionHandler
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.Date
 
 
 class WeatherActivity : AppCompatActivity() {
 
     lateinit var lineGraphView: LineChart
     lateinit var chips: ChipGroup
+    lateinit var datePickerI : DatePicker
+    lateinit var datePickerF : DatePicker
 
     // Create a viewModel
     private val viewModel: WeatherViewModel = WeatherViewModel()
@@ -41,6 +41,8 @@ class WeatherActivity : AppCompatActivity() {
         setContentView(com.example.domotik.R.layout.activity_weather)
         lineGraphView = findViewById<View>(com.example.domotik.R.id.chart) as LineChart
         chips = findViewById<ChipGroup>(com.example.domotik.R.id.chipGroup)
+        datePickerI = findViewById<DatePicker>(com.example.domotik.R.id.init_time)
+        datePickerF = findViewById<DatePicker>(com.example.domotik.R.id.last_time)
 
         updateGraphObserver()
         chipGroupObserver()
@@ -62,6 +64,11 @@ class WeatherActivity : AppCompatActivity() {
             luxArray.add(Entry(i.toFloat(), data.main.lux))
             i++
         }
+
+        // take filter interval
+        var interval : Pair<Date,Date>
+        datePickerI.month
+
 
 
         // Dataset creation
@@ -132,31 +139,6 @@ class WeatherActivity : AppCompatActivity() {
     }
 
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun makeLineGraph(weatherHistory: WeatherHistory): Array<ArrayList<DataPoint>> {
-        // USING FIRST FOR CO2, SECOND FOR TEMPERATURE, THIRD FOR LUX, FOURTH FOR HUMIDITY AND LAST FOR NOISE
-        var datapointArray = arrayOf(
-            ArrayList<DataPoint>(),
-            ArrayList<DataPoint>(),
-            ArrayList<DataPoint>(),
-            ArrayList<DataPoint>(),
-            ArrayList<DataPoint>()
-        )
-        //var datetmp:Date
-        var datetmp: Double = 0.0
-        // ITERATE SINCE ALL RECORD ARE INTO DATAPOINT CLASS
-
-        for (x in weatherHistory.items) {
-            //datetmp = Date(givenString_whenCustomFormat_thenLocalDateTimeCreated(x.dt).toEpochSecond(ZoneOffset.UTC))
-            datetmp++
-            datapointArray[0].add(DataPoint(datetmp, x.main.co2.toDouble()))
-            datapointArray[1].add(DataPoint(datetmp, x.main.temp.toDouble()))
-            datapointArray[2].add(DataPoint(datetmp, x.main.lux.toDouble()))
-            datapointArray[3].add(DataPoint(datetmp, x.main.humidity.toDouble()))
-            datapointArray[4].add(DataPoint(datetmp, x.main.noise.toDouble()))
-        }
-        return datapointArray
-    }
 
 
     @RequiresApi(Build.VERSION_CODES.O)

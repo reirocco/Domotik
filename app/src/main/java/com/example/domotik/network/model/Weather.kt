@@ -1,5 +1,8 @@
 package com.example.domotik.network.model
 
+import com.google.type.DateTime
+import java.time.format.DateTimeFormatter
+
 class Coord(val lat: String, val lon: String)
 class MainInfo(
     val temp: Float,

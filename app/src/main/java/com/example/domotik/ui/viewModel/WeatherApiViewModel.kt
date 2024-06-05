@@ -19,6 +19,7 @@ import com.example.domotik.network.CustomWeatherNetwork
 import com.example.domotik.network.model.Weather
 import com.example.domotik.network.model.WeatherHistory
 import kotlinx.coroutines.launch
+import java.util.Date
 import kotlin.math.log
 
 
@@ -54,6 +55,12 @@ class WeatherApiViewModel : ViewModel() {
     fun getIndoorWeatherList() {
         viewModelScope.launch {
                 myListResponse.value = CustomWeatherNetwork.retrofitCustomApi.weatherHisory()
+        }
+    }
+
+    fun getIndoorWeatherList(start:Date, end: Date) {
+        viewModelScope.launch {
+            myListResponse.value = CustomWeatherNetwork.retrofitCustomApi.weatherHisory()
         }
     }
 
