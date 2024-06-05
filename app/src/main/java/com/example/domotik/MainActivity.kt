@@ -111,12 +111,9 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+
     fun returnHome(view: View) {
         val intent = Intent(this, HomeFragment::class.java)
-        startActivity(intent)
-    }
-    fun startConfiguration(view: View){
-        val intent = Intent(this, NotificationsFragment::class.java)
         startActivity(intent)
     }
 
