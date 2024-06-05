@@ -11,8 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/lightgreen"
-        tools:context=".ui.home.HomeFragment"
-        android:onClick="startWeathersActivity">
+        tools:context=".ui.home.HomeFragment">
 
 
         <androidx.cardview.widget.CardView
@@ -31,7 +30,6 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:onClick="startConfiguration"
                 >
 
 
@@ -201,7 +199,8 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:onClick="startWeathersActivity">
 
                     <ImageView
                         android:id="@+id/img_temperatura"
