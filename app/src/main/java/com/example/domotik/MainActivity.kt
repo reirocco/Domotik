@@ -18,7 +18,6 @@ import com.example.domotik.ui.home.HomeFragment
 import com.example.domotik.ui.lights.LightsActivity
 import com.example.domotik.ui.messaging.MessagingActivity
 import com.example.domotik.ui.notifications.NotificationsFragment
-import com.example.domotik.ui.settings.ImpostazioniMenu
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 
@@ -80,7 +79,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_dashboard -> navController.navigate(R.id.impostazioni)
                 R.id.navigation_home -> navController.navigate(R.id.navigation_home)
                // R.id.configuration -> navController.navigate(R.id.navigation_configuration)
-                R.id.configuration-> navController.navigate(R.id.impostazioni_menu)
+                R.id.navigation_message-> navController.navigate(R.id.chat_activity)
 
 
             }
@@ -120,16 +119,7 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, NotificationsFragment::class.java)
         startActivity(intent)
     }
-    fun showImpostazioniMenu(view: View){
-        val intent = Intent(this, ImpostazioniMenu::class.java)
-        startActivity(intent)
-    }
 
-
-    /*fun modificaProfilo(view: View){
-        val intent = Intent(this, ProfiloUtente::class.java)
-        startActivity(intent)
-    }*/ //classe da caricare
     fun startMessagingActivity(view: View) {
         val intent = Intent(this, MessagingActivity::class.java)
         startActivity(intent)

@@ -12,8 +12,8 @@
         android:title="Sicurezza" />
 
     <item
-        android:id="@+id/language_set"
-        android:icon="@drawable/baseline_settings_24"
-        android:title="Impostazioni lingua" />
+        android:id="@+id/chat"
+        android:icon="@drawable/baseline_chat_bubble_24"
+        android:title="Chat" />
 
 </menu>

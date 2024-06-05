@@ -13,7 +13,7 @@ class AutenticazioneViewModel : ViewModel() {
     lateinit var cUser: FirebaseUser
 
     //salvataggio di un NUOVO utente nel database
-    fun registrazione(username: String, password: String, email: String) {
+     fun registrazione(username: String, email: String, password: String) {
         if (FirebaseAuth.getInstance().currentUser != null) {
             cUser = FirebaseAuth.getInstance().currentUser!!
             val database =
@@ -26,10 +26,11 @@ class AutenticazioneViewModel : ViewModel() {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         if (!snapshot.exists()) {
 
+
                             val user = Utenti(
+                                username = username,
                                 email = email,
-                                password = password,
-                                username = username
+                                password = password
                             )
                             usersRef.child(cUser.uid).setValue(user)
                         }
@@ -42,4 +43,6 @@ class AutenticazioneViewModel : ViewModel() {
         }
 
     }
+
+
 }

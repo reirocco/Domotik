@@ -31,6 +31,30 @@ class CameraActivity : AppCompatActivity() {
         //val videoPath = "android.resource://" + packageName + "/" + R.raw.lounge2
        // videoView.setVideoURI(Uri.parse(videoPath))
        // videoView.start() //caricare il video
+        val videoPath = "android.resource://" + packageName + "/" + R.raw.lounge2
+        videoView.setVideoURI(Uri.parse(videoPath))
+        videoView.start()
+        videoView.setOnPreparedListener { mediaPlayer ->
+            val videoWidth = mediaPlayer.videoWidth.toFloat()
+            val videoHeight = mediaPlayer.videoHeight.toFloat()
+            val videoProportion = videoWidth / videoHeight
+
+            val screenWidth = resources.displayMetrics.widthPixels
+            val screenHeight = resources.displayMetrics.heightPixels
+            val screenProportion = screenWidth.toFloat() / screenHeight
+
+            val layoutParams = videoView.layoutParams
+            if (videoProportion > screenProportion) {
+                layoutParams.width = screenWidth
+                layoutParams.height = (screenWidth / videoProportion).toInt()
+            } else {
+                layoutParams.width = (videoProportion * screenHeight).toInt()
+                layoutParams.height = screenHeight
+            }
+            videoView.layoutParams = layoutParams
+        }
+
+        videoView.start()
 
     }
         /* requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR
