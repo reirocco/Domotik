@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightgreen"
+    tools:context=".ui.homeappliances.HomeAppliancesActivity">
+
+        <GridLayout
+            android:id="@+id/ElettrodomesticiLayout"
+            android:layout_marginVertical="30dp"
+            android:layout_marginHorizontal="10dp"
+            android:columnCount="2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/grid_element_cardview_lavatrice"
+                android:layout_marginVertical="25dp"
+                android:layout_columnWeight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
+                android:minWidth="170dp"
+                android:foreground="?android:attr/selectableItemBackground">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_gravity="center">
+
+                    <ImageView
+                        android:id="@+id/lavatrice_icon"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
+                        android:layout_margin="5dp"
+                        android:src="@drawable/washing_machine" />
+
+                    <TextView
+                        android:id="@+id/lavatrice_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:text="Lavatrice"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/grid_element_cardwiev_lavastoviglie"
+                android:layout_marginVertical="25dp"
+                android:layout_columnWeight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
+                android:minWidth="170dp"
+                android:foreground="?android:attr/selectableItemBackground">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_gravity="center">
+
+                    <ImageView
+                        android:id="@+id/lavastoviglie_icon"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
+                        android:layout_margin="5dp"
+                        android:src="@drawable/dishwasher" />
+
+                    <TextView
+                        android:id="@+id/lavastoviglie_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:text="Lavastoviglie"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/grid_element_cardwiev_forno"
+                android:layout_marginVertical="25dp"
+                android:layout_columnWeight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
+                android:minWidth="170dp"
+                android:foreground="?android:attr/selectableItemBackground">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_gravity="center">
+
+                    <ImageView
+                        android:id="@+id/forno_icon"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
+                        android:layout_margin="5dp"
+                        android:src="@drawable/oven" />
+
+                    <TextView
+                        android:id="@+id/forno_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:text="Forno"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/grid_element_cardwiev_televisione"
+                android:layout_marginVertical="25dp"
+                android:layout_columnWeight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
+                android:minWidth="170dp"
+                android:foreground="?android:attr/selectableItemBackground">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_gravity="center">
+
+                    <ImageView
+                        android:id="@+id/tv_icon"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
+                        android:layout_margin="5dp"
+                        android:src="@drawable/baseline_tv_24" />
+
+                    <TextView
+                        android:id="@+id/tv_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="5dp"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:text="Televisione"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </GridLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

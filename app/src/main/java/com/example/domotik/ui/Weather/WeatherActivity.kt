@@ -14,16 +14,15 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.domotik.network.model.WeatherHistory
 import com.example.domotik.ui.viewModel.WeatherApiViewModel
 import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
-import com.jjoe64.graphview.series.DataPoint
 import kotlinx.coroutines.CoroutineExceptionHandler
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Date
+import com.github.mikephil.charting.data.Entry
 
 
 class WeatherActivity : AppCompatActivity() {
@@ -176,8 +175,4 @@ class WeatherActivity : AppCompatActivity() {
 
 
 }
-
-
-
-
 

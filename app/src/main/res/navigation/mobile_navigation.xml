@@ -17,11 +17,6 @@
         android:name="com.example.domotik.ui.configuration.ConfigurationFragment"
         android:label="@string/title_configuration"
         tools:layout="@layout/fragment_configuration" />
-    <!-- <activity
-        android:id="@+id/impostazioni_menu"
-        android:name="com.example.domotik.ui.settings.ImpostazioniMenu"
-        android:label="Impostazioni Menu"
-        tools:layout="@layout/impostazioni"/> -->
 
     <activity
         android:id="@+id/chat_activity"
@@ -62,11 +57,6 @@
         android:name="com.example.domotik.ui.Weather.WeatherActivity"
         android:label="WeatherActivity" />
 
-   <!-- <fragment
-        android:id="@+id/modificaProfilo"
-        android:name="com.example.domotik.ui.settings.ProfiloUtente"
-        android:label="Modifica Profilo Utente"
-        tools:layout="@layout/fragment_updateprofilo"/> -->
 
 
 </navigation>
