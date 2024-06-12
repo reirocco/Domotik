@@ -35,7 +35,9 @@ class MessagingActivity : AppCompatActivity() {
             if (text.isNotEmpty()){
                 val message = Message(text)
                 messageAdapter.addMessage(message)
-                recyclerView.scrollToPosition(messageAdapter.itemCount -1)
+                recyclerView.post {
+                    recyclerView.layoutManager?.scrollToPosition(messageAdapter.itemCount -1)
+                }
                 editText.text?.clear() //lo pulisce solo se lo trova non nullo
             }
         }

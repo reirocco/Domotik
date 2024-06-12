@@ -12,19 +12,24 @@
             android:layout_marginVertical="30dp"
             android:layout_marginHorizontal="10dp"
             android:columnCount="2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:rowCount="2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/grid_element_cardview_lavatrice"
                 android:layout_marginVertical="25dp"
                 android:layout_columnWeight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_margin="5dp"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="5dp"
-                android:minWidth="170dp"
                 android:foreground="?android:attr/selectableItemBackground">
 
                 <LinearLayout
@@ -60,12 +65,12 @@
                 android:id="@+id/grid_element_cardwiev_lavastoviglie"
                 android:layout_marginVertical="25dp"
                 android:layout_columnWeight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_margin="5dp"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="5dp"
-                android:minWidth="170dp"
                 android:foreground="?android:attr/selectableItemBackground">
 
                 <LinearLayout
@@ -101,12 +106,12 @@
                 android:id="@+id/grid_element_cardwiev_forno"
                 android:layout_marginVertical="25dp"
                 android:layout_columnWeight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_margin="5dp"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="5dp"
-                android:minWidth="170dp"
                 android:foreground="?android:attr/selectableItemBackground">
 
                 <LinearLayout
@@ -142,12 +147,12 @@
                 android:id="@+id/grid_element_cardwiev_televisione"
                 android:layout_marginVertical="25dp"
                 android:layout_columnWeight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_margin="5dp"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="5dp"
-                android:minWidth="170dp"
                 android:foreground="?android:attr/selectableItemBackground">
 
                 <LinearLayout

@@ -1,10 +1,14 @@
 package com.example.domotik.ui.lights
 
 import android.os.Bundle
+import android.view.View
+import android.widget.GridLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import com.example.domotik.R
 
