@@ -10,8 +10,6 @@ import androidx.core.content.ContextCompat
 import com.example.domotik.R
 
 class HomeAppliancesActivity : AppCompatActivity() {
-    val devices = mutableListOf<Boolean>(false, false, false, false)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_homeappliances)
@@ -19,56 +17,148 @@ class HomeAppliancesActivity : AppCompatActivity() {
         val actionbar = supportActionBar
         //set actionbar title
         actionbar!!.title = "Dispositivi"
-        // set back button
+        //set back button
         actionbar.setDisplayHomeAsUpEnabled(true)
-        findViewById<CardView>(R.id.grid_element_cardwiev_lavastoviglie).setOnClickListener{switchOnLavastoviglie()}
-        findViewById<CardView>(R.id.grid_element_cardview_lavatrice).setOnClickListener{switchOnLavatrice()}
-        findViewById<CardView>(R.id.grid_element_cardwiev_forno).setOnClickListener{switchOnForno()}
-        findViewById<CardView>(R.id.grid_element_cardwiev_televisione).setOnClickListener{switchOnTelevisione()}
-
+        val cardViewLavatrice = findViewById<CardView>(R.id.grid_element_cardview_lavatrice)
+        cardViewLavatrice.setOnClickListener {switchOnLavatrice()}
+        val cardViewLavastoviglie = findViewById<CardView>(R.id.grid_element_cardwiev_lavastoviglie)
+        cardViewLavastoviglie.setOnClickListener {switchOnLavastoviglie()}
+        val cardViewForno = findViewById<CardView>(R.id.grid_element_cardwiev_forno)
+        cardViewForno.setOnClickListener {switchOnForno()}
+        val cardViewTelevisione = findViewById<CardView>(R.id.grid_element_cardwiev_televisione)
+        cardViewTelevisione.setOnClickListener {switchOnTelevisione()}
+        val sharedPreferences = this.getPreferences(Context.MODE_PRIVATE)
+        val homeappliances = sharedPreferences.getString("homeappliances_string", "0_0_0_0")
+        val dispositivi = mutableListOf<String>()
+        if (homeappliances != null) {
+            if (homeappliances.isNotEmpty()){
+                val dispositiviSplit = homeappliances.split("_")
+                for (d in dispositiviSplit) {
+                    dispositivi.add(d)
+                }
+            }
+        }
+        val imageViewLavatrice = findViewById<ImageView>(R.id.lavatrice_icon)
+        if(dispositivi[0].toInt() == 1){
+            imageViewLavatrice.setImageResource(R.drawable.washing_machine)
+            cardViewLavatrice.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.teal_200))
+        } else {
+            imageViewLavatrice.setImageResource(R.drawable.washing_machine)
+            cardViewLavatrice.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.white))
+        }
+        val imageViewLavastoviglie = findViewById<ImageView>(R.id.lavastoviglie_icon)
+        if(dispositivi[1].toInt() == 1){
+            imageViewLavastoviglie.setImageResource(R.drawable.dishwasher)
+            cardViewLavastoviglie.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.teal_200))
+        } else {
+            imageViewLavastoviglie.setImageResource(R.drawable.dishwasher)
+            cardViewLavastoviglie.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.white))
+        }
+        val imageViewForno = findViewById<ImageView>(R.id.forno_icon)
+        if(dispositivi[2].toInt() == 1){
+            imageViewForno.setImageResource(R.drawable.oven)
+            cardViewForno.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.teal_200))
+        } else {
+            imageViewForno.setImageResource(R.drawable.oven)
+            cardViewForno.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.white))
+        }
+        val imageViewTelevisione = findViewById<ImageView>(R.id.tv_icon)
+        if(dispositivi[3].toInt() == 1){
+            imageViewTelevisione.setImageResource(R.drawable.baseline_tv_24)
+            cardViewTelevisione.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.teal_200))
+        } else {
+            imageViewTelevisione.setImageResource(R.drawable.baseline_tv_24)
+            cardViewTelevisione.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.white))
+        }
     }
+
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return true
     }
 
-    fun switchOnLavastoviglie() {
-        val device = devices[0]
-        devices[0] = !device
-        val cardView = findViewById<CardView>(R.id.grid_element_cardwiev_lavastoviglie)
-        val imageView = findViewById<ImageView>(R.id.lavastoviglie_icon)
-        val textView = findViewById<TextView>(R.id.lavastoviglie_text)
-        if(!device){
-            imageView.setImageResource(R.drawable.dishwasher)
+    fun switchOnLavatrice() {
+        val sharedPreferences = this.getPreferences(Context.MODE_PRIVATE)
+        val homeappliances = sharedPreferences.getString("homeappliances_string", "0_0_0_0")
+        val dispositivi = mutableListOf<String>()
+        if (homeappliances != null) {
+            if (homeappliances.isNotEmpty()){
+                val dispositiviSplit = homeappliances.split("_")
+                for (d in dispositiviSplit) {
+                   dispositivi.add(d)
+                }
+            }
+        }
+        val dispositivo = dispositivi[0].toInt() == 1
+        dispositivi[0] = if (!dispositivo) "1" else "0"
+        with(sharedPreferences.edit()) {
+            putString("homeappliances_string", dispositivi.joinToString("_"))
+            apply()
+        }
+        val cardView = findViewById<CardView>(R.id.grid_element_cardview_lavatrice)
+        val imageView = findViewById<ImageView>(R.id.lavatrice_icon)
+        val textView = findViewById<TextView>(R.id.lavatrice_text)
+        if(!dispositivo){
+            imageView.setImageResource(R.drawable.washing_machine)
             cardView.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.teal_200))
         } else {
-            imageView.setImageResource(R.drawable.dishwasher)
+            imageView.setImageResource(R.drawable.washing_machine)
             cardView.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.white))
         }
     }
 
-    fun switchOnLavatrice() {
-        val device = devices[1]
-        devices[1] = !device
-        val cardView = findViewById<CardView>(R.id.grid_element_cardview_lavatrice)
-        val imageView = findViewById<ImageView>(R.id.lavatrice_icon)
-        val textView = findViewById<TextView>(R.id.lavatrice_text)
-        if(!device){
-            imageView.setImageResource(R.drawable.washing_machine)
+    fun switchOnLavastoviglie() {
+        val sharedPreferences = this.getPreferences(Context.MODE_PRIVATE)
+        val homeappliances = sharedPreferences.getString("homeappliances_string", "0_0_0_0")
+        val dispositivi = mutableListOf<String>()
+        if (homeappliances != null) {
+            if (homeappliances.isNotEmpty()){
+                val dispositiviSplit = homeappliances.split("_")
+                for (d in dispositiviSplit) {
+                    dispositivi.add(d)
+                }
+            }
+        }
+        val dispositivo = dispositivi[1].toInt() == 1
+        dispositivi[1] = if (!dispositivo) "1" else "0"
+        with(sharedPreferences.edit()) {
+            putString("homeappliances_string", dispositivi.joinToString("_"))
+            apply()
+        }
+        val cardView = findViewById<CardView>(R.id.grid_element_cardwiev_lavastoviglie)
+        val imageView = findViewById<ImageView>(R.id.lavastoviglie_icon)
+        val textView = findViewById<TextView>(R.id.lavastoviglie_text)
+        if(!dispositivo){
+            imageView.setImageResource(R.drawable.dishwasher)
             cardView.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.teal_200))
         } else {
-            imageView.setImageResource(R.drawable.washing_machine)
+            imageView.setImageResource(R.drawable.dishwasher)
             cardView.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.white))
         }
     }
 
     fun switchOnForno() {
-        val device = devices[2]
-        devices[2] = !device
+        val sharedPreferences = this.getPreferences(Context.MODE_PRIVATE)
+        val homeappliances = sharedPreferences.getString("homeappliances_string", "0_0_0_0")
+        val dispositivi = mutableListOf<String>()
+        if (homeappliances != null) {
+            if (homeappliances.isNotEmpty()){
+                val dispositiviSplit = homeappliances.split("_")
+                for (d in dispositiviSplit) {
+                    dispositivi.add(d)
+                }
+            }
+        }
+        val dispositivo = dispositivi[2].toInt() == 1
+        dispositivi[2] = if (!dispositivo) "1" else "0"
+        with(sharedPreferences.edit()) {
+            putString("homeappliances_string", dispositivi.joinToString("_"))
+            apply()
+        }
         val cardView = findViewById<CardView>(R.id.grid_element_cardwiev_forno)
         val imageView = findViewById<ImageView>(R.id.forno_icon)
         val textView = findViewById<TextView>(R.id.forno_text)
-        if(!device){
+        if(!dispositivo){
             imageView.setImageResource(R.drawable.oven)
             cardView.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.teal_200))
         } else {
@@ -78,12 +168,27 @@ class HomeAppliancesActivity : AppCompatActivity() {
     }
 
     fun switchOnTelevisione() {
-        val device = devices[3]
-        devices[3] = !device
+        val sharedPreferences = this.getPreferences(Context.MODE_PRIVATE)
+        val homeappliances = sharedPreferences.getString("homeappliances_string", "0_0_0_0")
+        val dispositivi = mutableListOf<String>()
+        if (homeappliances != null) {
+            if (homeappliances.isNotEmpty()){
+                val dispositiviSplit = homeappliances.split("_")
+                for (d in dispositiviSplit) {
+                    dispositivi.add(d)
+                }
+            }
+        }
+        val dispositivo = dispositivi[3].toInt() == 1
+        dispositivi[3] = if (!dispositivo) "1" else "0"
+        with(sharedPreferences.edit()) {
+            putString("homeappliances_string", dispositivi.joinToString("_"))
+            apply()
+        }
         val cardView = findViewById<CardView>(R.id.grid_element_cardwiev_televisione)
         val imageView = findViewById<ImageView>(R.id.tv_icon)
         val textView = findViewById<TextView>(R.id.tv_text)
-        if(!device){
+        if(!dispositivo){
             imageView.setImageResource(R.drawable.baseline_tv_24)
             cardView.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.teal_200))
         } else {
@@ -92,4 +197,9 @@ class HomeAppliancesActivity : AppCompatActivity() {
         }
     }
 }
+
+
+
+
+
 
