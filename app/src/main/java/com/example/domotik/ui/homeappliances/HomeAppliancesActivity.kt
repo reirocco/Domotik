@@ -1,5 +1,6 @@
 package com.example.domotik.ui.homeappliances
 
+import android.content.Context
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
@@ -9,7 +10,8 @@ import androidx.core.content.ContextCompat
 import com.example.domotik.R
 
 class HomeAppliancesActivity : AppCompatActivity() {
-    val devices = mutableListOf<Boolean>(false,false,false,false)
+    val devices = mutableListOf<Boolean>(false, false, false, false)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_homeappliances)
@@ -17,12 +19,12 @@ class HomeAppliancesActivity : AppCompatActivity() {
         val actionbar = supportActionBar
         //set actionbar title
         actionbar!!.title = "Dispositivi"
-        //set back button
+        // set back button
         actionbar.setDisplayHomeAsUpEnabled(true)
-        findViewById<CardView>(R.id.grid_element_cardwiev_lavastoviglie).setOnClickListener {switchOnLavastoviglie()}
-        findViewById<CardView>(R.id.grid_element_cardview_lavatrice).setOnClickListener {switchOnLavatrice()}
-        findViewById<CardView>(R.id.grid_element_cardwiev_forno).setOnClickListener {switchOnForno()}
-        findViewById<CardView>(R.id.grid_element_cardwiev_televisione).setOnClickListener {switchOnTelevisione()}
+        findViewById<CardView>(R.id.grid_element_cardwiev_lavastoviglie).setOnClickListener{switchOnLavastoviglie()}
+        findViewById<CardView>(R.id.grid_element_cardview_lavatrice).setOnClickListener{switchOnLavatrice()}
+        findViewById<CardView>(R.id.grid_element_cardwiev_forno).setOnClickListener{switchOnForno()}
+        findViewById<CardView>(R.id.grid_element_cardwiev_televisione).setOnClickListener{switchOnTelevisione()}
 
     }
     override fun onSupportNavigateUp(): Boolean {

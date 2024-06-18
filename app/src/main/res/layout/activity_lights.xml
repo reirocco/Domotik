@@ -12,7 +12,6 @@
             android:layout_marginVertical="30dp"
             android:layout_marginHorizontal="10dp"
             android:columnCount="2"
-            android:rowCount="2"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintTop_toTopOf="parent"
@@ -24,11 +23,10 @@
                     android:id="@+id/grid_element_cardwiev_cucina"
                     android:layout_marginVertical="25dp"
                     android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_height="160dp"
                     android:layout_margin="5dp"
-                    app:cardCornerRadius="5dp"
+                    app:cardCornerRadius="10dp"
                     app:cardElevation="5dp"
                     android:foreground="?android:attr/selectableItemBackground">
 
@@ -65,11 +63,10 @@
                     android:id="@+id/grid_element_cardwiev_sala"
                     android:layout_marginVertical="25dp"
                     android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_height="160dp"
                     android:layout_margin="5dp"
-                    app:cardCornerRadius="5dp"
+                    app:cardCornerRadius="10dp"
                     app:cardElevation="5dp"
                     android:foreground="?android:attr/selectableItemBackground">
 
@@ -106,11 +103,10 @@
                     android:id="@+id/grid_element_cardwiev_soppalco"
                     android:layout_marginVertical="25dp"
                     android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_height="160dp"
                     android:layout_margin="5dp"
-                    app:cardCornerRadius="5dp"
+                    app:cardCornerRadius="10dp"
                     app:cardElevation="5dp"
                     android:foreground="?android:attr/selectableItemBackground">
 
@@ -147,11 +143,10 @@
                     android:id="@+id/grid_element_cardwiev_bagno"
                     android:layout_marginVertical="25dp"
                     android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_height="160dp"
                     android:layout_margin="5dp"
-                    app:cardCornerRadius="5dp"
+                    app:cardCornerRadius="10dp"
                     app:cardElevation="5dp"
                     android:foreground="?android:attr/selectableItemBackground">
 

@@ -28,7 +28,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_margin="5dp"
-                app:cardCornerRadius="5dp"
+                app:cardCornerRadius="10dp"
                 app:cardElevation="5dp"
                 android:foreground="?android:attr/selectableItemBackground">
 
@@ -69,7 +69,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_margin="5dp"
-                app:cardCornerRadius="5dp"
+                app:cardCornerRadius="10dp"
                 app:cardElevation="5dp"
                 android:foreground="?android:attr/selectableItemBackground">
 
@@ -110,7 +110,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_margin="5dp"
-                app:cardCornerRadius="5dp"
+                app:cardCornerRadius="10dp"
                 app:cardElevation="5dp"
                 android:foreground="?android:attr/selectableItemBackground">
 
@@ -151,7 +151,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_margin="5dp"
-                app:cardCornerRadius="5dp"
+                app:cardCornerRadius="10dp"
                 app:cardElevation="5dp"
                 android:foreground="?android:attr/selectableItemBackground">
 

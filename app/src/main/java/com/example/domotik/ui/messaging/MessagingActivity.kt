@@ -13,7 +13,7 @@ class MessagingActivity : AppCompatActivity() {
 
     private lateinit var messageAdapter: MessageAdapter
     private lateinit var recyclerView: RecyclerView
-    private lateinit var editText: TextInputEditText
+    private lateinit var editText: EditText
     private lateinit var sendButton: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
