@@ -14,9 +14,9 @@ import androidx.navigation.Navigation
 import com.example.domotik.MainActivity
 import com.example.domotik.R
 import com.example.domotik.databinding.FragmentLoginBinding
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.firestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class Login : Fragment() {
     private lateinit var binding: FragmentLoginBinding
@@ -58,7 +58,7 @@ class Login : Fragment() {
                 Navigation.findNavController(view).navigate(R.id.action_login_to_registrazione)
             }
         }
-        val db = Firebase.firestore
+       val db = Firebase.firestore
         mAuth = FirebaseAuth.getInstance()
 
         Email = binding.email
