@@ -100,7 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
             android:checkable="true"
-            android:checked="true"
+            android:checked="false"
             android:text="temp" />
 
         <com.google.android.material.chip.Chip
@@ -109,6 +109,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
             android:checkable="true"
+            android:checked="true"
             android:text="Co2" />
 
         <com.google.android.material.chip.Chip
@@ -121,6 +122,20 @@
             android:text="lux" />
 
     </com.google.android.material.chip.ChipGroup>
+
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Filter"
+        android:textAlignment="center"
+        android:textColor="#040404"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

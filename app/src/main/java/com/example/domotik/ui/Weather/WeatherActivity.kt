@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.DatePicker
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -23,14 +24,17 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Date
 import com.github.mikephil.charting.data.Entry
+import java.text.SimpleDateFormat
 
 
 class WeatherActivity : AppCompatActivity() {
 
     lateinit var lineGraphView: LineChart
     lateinit var chips: ChipGroup
-    lateinit var datePickerI : DatePicker
-    lateinit var datePickerF : DatePicker
+    lateinit var datePickerI: DatePicker
+    lateinit var datePickerF: DatePicker
+    lateinit var submitDateButton: Button
+    lateinit var chipsList: ArrayList<String>
 
     // Create a viewModel
     private val viewModel: WeatherViewModel = WeatherViewModel()
@@ -42,76 +46,113 @@ class WeatherActivity : AppCompatActivity() {
         chips = findViewById<ChipGroup>(com.example.domotik.R.id.chipGroup)
         datePickerI = findViewById<DatePicker>(com.example.domotik.R.id.init_time)
         datePickerF = findViewById<DatePicker>(com.example.domotik.R.id.last_time)
+        submitDateButton = findViewById<Button>(com.example.domotik.R.id.submitButton)
+
 
         updateGraphObserver()
-        chipGroupObserver()
+        //chipGroupObserver()
+        datePickerObserver()
         getWeatherData()
     }
 
 
     fun updateGraph1(update: WeatherHistory) {
-
+        // take filter interval
+        val interval: Pair<Date, Date> = Pair<Date, Date>(
+            Date(2024, datePickerI.month, datePickerI.dayOfMonth),
+            Date(2024, datePickerF.month, datePickerF.dayOfMonth)
+        )
+        //Log.v("date", interval.first.toString() + " - " + interval.second.toString())
         // Data preparation from class to array
         val tempArray: ArrayList<Entry> = ArrayList<Entry>()
         val co2Array: ArrayList<Entry> = ArrayList<Entry>()
         val luxArray: ArrayList<Entry> = ArrayList<Entry>()
         var i = 0.0
+        Log.v("logging", "calcolo...")
         for (data in update.items) {
-            // turn your data into Entry objects
-            tempArray.add(Entry(i.toFloat(), data.main.temp))
-            co2Array.add(Entry(i.toFloat(), data.main.co2.toFloat()))
-            luxArray.add(Entry(i.toFloat(), data.main.lux))
-            i++
+            /*Log.v(
+                "datefirst",
+                interval.first.toString() + " <-> " + convertDate(data.dt) + " --> " + (interval.first.month <= convertDate(
+                    data.dt.toString()
+                ).month && interval.first.day <= convertDate(data.dt.toString()).day).toString()
+            )*/
+            if (interval.first.month <= convertDate(data.dt.toString()).month && interval.first.day <= convertDate(
+                    data.dt.toString()
+                ).day
+            ) {
+                /*Log.v(
+                    "datesecond",
+                    interval.second.toString() + " <-> " + convertDate(data.dt) + " --> " + (interval.second.month >= convertDate(
+                        data.dt.toString()
+                    ).month && interval.second.day >= convertDate(data.dt.toString()).day).toString()
+                )*/
+                if (interval.second.month >= convertDate(data.dt.toString()).month && interval.second.day >= convertDate(
+                        data.dt.toString()
+                    ).day
+                ) {
+                    // turn your data into Entry objects
+                    tempArray.add(Entry(i.toFloat(), data.main.temp))
+                    co2Array.add(Entry(i.toFloat(), data.main.co2.toFloat()))
+                    luxArray.add(Entry(i.toFloat(), data.main.lux))
+                    i = i + 5
+                }
+            }
+
         }
-
-        // take filter interval
-        var interval : Pair<Date,Date>
-        datePickerI.month
-
 
 
         // Dataset creation
-        var dataSetTemp : LineDataSet = LineDataSet(tempArray, "Temperature")
+        var dataSetTemp: LineDataSet = LineDataSet(tempArray, "Temperature")
         dataSetTemp.setColor(1);
         dataSetTemp.setValueTextColor(1); // styling, ...
 
         // Dataset creation
-        var dataSetCo2 : LineDataSet = LineDataSet(co2Array, "Co2")
-        dataSetCo2.setColor(1);
-        dataSetCo2.setValueTextColor(1); // styling, ...
+        var dataSetCo2: LineDataSet = LineDataSet(co2Array, "Co2")
+        dataSetCo2.setColor(2);
+        dataSetCo2.setValueTextColor(2); // styling, ...
 
         // Dataset creation
-        var dataSetLux : LineDataSet = LineDataSet(luxArray, "Luminosity")
-        dataSetLux.setColor(1);
-        dataSetLux.setValueTextColor(1); // styling, ...
+        var dataSetLux: LineDataSet = LineDataSet(luxArray, "Luminosity")
+        dataSetLux.setColor(3);
+        dataSetLux.setValueTextColor(3); // styling, ...
 
         // Getting filter information
         // first: getting chip group and create an arraylist to store the string name of the triggered chip
-        val chips : ChipGroup = findViewById<ChipGroup>(com.example.domotik.R.id.chipGroup)
-        val filterChip : ArrayList<String> = ArrayList<String>()
+        val chips: ChipGroup = findViewById<ChipGroup>(com.example.domotik.R.id.chipGroup)
+        val filterChip: ArrayList<String> = ArrayList<String>()
         //second: extract checked chips id's and iterate on it to findviewbyid and once get the chip store result on array
         chips.checkedChipIds.forEach { ids ->
             val chip = findViewById<Chip>(ids)
-            Log.v("chips", "Chip text: " + chip.text.toString() )
+            //Log.v("chips", "Chip text: " + chip.text.toString() )
             filterChip.add(chip.text.toString())
         }
 
 
         // Chart initialization
-        var lineData : LineData = LineData()
-        if(filterChip.contains("temp"))
+        var lineData: LineData = LineData()
+        if (filterChip.contains("temp"))
             lineData.addDataSet(dataSetTemp)
-        if(filterChip.contains("Co2"))
+        if (filterChip.contains("Co2"))
             lineData.addDataSet(dataSetCo2)
-        if(filterChip.contains("lux"))
+        if (filterChip.contains("lux"))
             lineData.addDataSet(dataSetLux)
+
+
+
         lineGraphView.setData(lineData);
         lineGraphView.invalidate(); // refresh
 
     }
 
+
+    fun convertDate(stringDate: String): Date {
+        val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        val date = formatter.parse(stringDate)
+        return date
+    }
+
     fun getWeatherData() {
-        Log.v("logging", "entra")
+        Log.v("logging", "recupero dati...")
         //Prendo il view model dove memorizzerò i dati
         val weatherApiViewModel = ViewModelProvider(this).get(WeatherApiViewModel::class.java)
         // Recupero i dati dalle API
@@ -121,7 +162,7 @@ class WeatherActivity : AppCompatActivity() {
 
         // Creo l'observer sul dato da modificare
         weatherApiViewModel.myListResponse.observe(this, Observer {
-            Log.v("logging", "passa " + it.toString())
+            //Log.v("logging", "passa " + it.toString())
             viewModel.getUpdate(it)
         })
     }
@@ -136,8 +177,6 @@ class WeatherActivity : AppCompatActivity() {
     private val exceptionHandler = CoroutineExceptionHandler { _, exception ->
         Log.v("exception", exception.message.toString())
     }
-
-
 
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -155,24 +194,33 @@ class WeatherActivity : AppCompatActivity() {
             Observer { update -> updateGraph1(update) })
     }
 
-    private fun chipGroupObserver(){
-        chips.setOnCheckedStateChangeListener{group, checkedIds ->
-            if (checkedIds.isEmpty()){
+    private fun chipGroupObserver() {
+        chips.setOnCheckedStateChangeListener { group, checkedIds ->
+            if (checkedIds.isEmpty()) {
                 Log.v("chips", "nothing selected")
-            }else{
+            } else {
                 Log.v("chips", "ones or more selected")
-                var chipsList : ArrayList<String> = ArrayList<String>()
+                this.chipsList = ArrayList<String>()
                 checkedIds.forEach { ids ->
                     val chip = findViewById<Chip>(ids)
                     chipsList.add(chip.text.toString())
                     Log.v("chips", "\n\ttriggered value: " + chip.text.toString())
                 }
             }
-            getWeatherData()
         }
     }
 
+    private fun datePickerObserver() {
+        Log.v("logging", "aggiorno...")
+        datePickerI.init(2024, 1, 1, null)
+        datePickerI.updateDate(2024,3,5)
+        datePickerI.init(2024, 2, 1, null)
+        submitDateButton.setOnClickListener({ view ->
 
+            viewModel.uiLiveData.value?.let { updateGraph1(it) }
+        })
+
+    }
 
 }
 
