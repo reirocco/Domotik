@@ -38,6 +38,7 @@ class WeatherActivity : AppCompatActivity() {
     lateinit var datePickerF: DatePicker
     lateinit var submitDateButton: Button
     lateinit var chipsList: ArrayList<String>
+
     //statistics
     lateinit var maxTempText: TextView
     lateinit var maxCo2Text: TextView
@@ -91,12 +92,11 @@ class WeatherActivity : AppCompatActivity() {
         val luxArray: ArrayList<Entry> = ArrayList<Entry>()
         var i = 0.0
         // Temperature, Co2, Lux
-        var (tempMax,co2Max,luxMax) = Triple<Float,Int,Float>(-1000.0F,-1000,-1000.0F)
-        var (tempMin,co2Min,luxMin) = Triple<Float,Int,Float>(1000.0F,1000,1000.0F)
-        var (tempMedia,co2Media,luxMedia) = Triple<Float,Int,Float>(0.0F,0,0.0F)
+        var (tempMax, co2Max, luxMax) = Triple<Float, Int, Float>(-1000.0F, -1000, -1000.0F)
+        var (tempMin, co2Min, luxMin) = Triple<Float, Int, Float>(1000.0F, 1000, 1000.0F)
+        var (tempMedia, co2Media, luxMedia) = Triple<Float, Int, Float>(0.0F, 0, 0.0F)
         Log.v("logging", "calcolo...")
-        for (data in update.items) {
-            /*Log.v(
+        for (data in update.items) {/*Log.v(
                 "datefirst",
                 interval.first.toString() + " <-> " + convertDate(data.dt) + " --> " + (interval.first.month <= convertDate(
                     data.dt.toString()
@@ -105,8 +105,7 @@ class WeatherActivity : AppCompatActivity() {
             if (interval.first.month <= convertDate(data.dt.toString()).month && interval.first.day <= convertDate(
                     data.dt.toString()
                 ).day
-            ) {
-                /*Log.v(
+            ) {/*Log.v(
                     "datesecond",
                     interval.second.toString() + " <-> " + convertDate(data.dt) + " --> " + (interval.second.month >= convertDate(
                         data.dt.toString()
@@ -117,27 +116,24 @@ class WeatherActivity : AppCompatActivity() {
                     ).day
                 ) {
                     // search max and min temp
-                    if (tempMax < data.main.temp)
-                    {
+                    if (tempMax < data.main.temp) {
                         tempMax = data.main.temp
                     }
-                    if (tempMin > data.main.temp){
+                    if (tempMin > data.main.temp) {
                         tempMin = data.main.temp
                     }
                     // search max and min co2
-                    if (co2Max < data.main.co2)
-                    {
+                    if (co2Max < data.main.co2) {
                         co2Max = data.main.co2
                     }
-                    if (co2Min > data.main.co2){
+                    if (co2Min > data.main.co2) {
                         co2Min = data.main.co2
                     }
                     // search max and min lux
-                    if (luxMax < data.main.lux)
-                    {
+                    if (luxMax < data.main.lux) {
                         luxMax = data.main.lux
                     }
-                    if (tempMin > data.main.lux){
+                    if (tempMin > data.main.lux) {
                         luxMin = data.main.lux
                     }
                     tempMedia = tempMedia + data.main.temp
@@ -147,15 +143,15 @@ class WeatherActivity : AppCompatActivity() {
                     tempArray.add(Entry(i.toFloat(), data.main.temp))
                     co2Array.add(Entry(i.toFloat(), data.main.co2.toFloat()))
                     luxArray.add(Entry(i.toFloat(), data.main.lux))
-                    i ++
+                    i++
                 }
             }
 
         }
 
-        Log.v("logging", "Min - Max temp "+ tempMin + " - " +tempMax)
-        Log.v("logging", "Min - Max co2 "+ co2Min + " - " +co2Max)
-        Log.v("logging", "Min - Max lux "+ luxMin + " - " +luxMax)
+        tempMedia = (tempMedia / i).toFloat()
+        co2Media = (co2Media / i).toInt()
+        luxMedia = (luxMedia / i).toFloat()
 
         //statistics creation
         maxTempText.setText(tempMax.toString())
@@ -167,6 +163,8 @@ class WeatherActivity : AppCompatActivity() {
         mediaTempText.setText(tempMedia.toString())
         mediaCo2Text.setText(co2Media.toString())
         mediaLuxText.setText(luxMedia.toString())
+
+
         // Dataset creation
         var dataSetTemp: LineDataSet = LineDataSet(tempArray, "Temperature")
         dataSetTemp.setColor(1);
@@ -196,14 +194,11 @@ class WeatherActivity : AppCompatActivity() {
 
         // Chart initialization
         var lineData: LineData = LineData()
-        if (filterChip.contains("temp"))
-            lineData.addDataSet(dataSetTemp)
-        if (filterChip.contains("Co2"))
-            lineData.addDataSet(dataSetCo2)
-        if (filterChip.contains("lux"))
-            lineData.addDataSet(dataSetLux)
+        if (filterChip.contains("temp")) lineData.addDataSet(dataSetTemp)
+        if (filterChip.contains("Co2")) lineData.addDataSet(dataSetCo2)
+        if (filterChip.contains("lux")) lineData.addDataSet(dataSetLux)
 
-        val desc:Description = Description()
+        val desc: Description = Description()
         desc.text = "Indoor Quality Data "
         lineGraphView.setDescription(desc)
         lineGraphView.setData(lineData);
@@ -256,9 +251,7 @@ class WeatherActivity : AppCompatActivity() {
 
     // Observer is waiting for viewModel to update our UI
     private fun updateGraphObserver() {
-        viewModel.uiLiveData.observe(
-            this,
-            Observer { update -> updateGraph1(update) })
+        viewModel.uiLiveData.observe(this, Observer { update -> updateGraph1(update) })
     }
 
     private fun chipGroupObserver() {
@@ -280,9 +273,9 @@ class WeatherActivity : AppCompatActivity() {
     private fun datePickerObserver() {
         Log.v("logging", "aggiorno...")
         datePickerI.init(2024, 2, 5, null)
-        datePickerI.updateDate(2024,2,5)
-        datePickerF.init(2024, 2, 6, null)
-        datePickerF.updateDate(2024,2,6)
+        datePickerI.updateDate(2024, 2, 5)
+        datePickerF.init(2024, 2, 5, null)
+        datePickerF.updateDate(2024, 2, 5)
         submitDateButton.setOnClickListener({ view ->
 
             viewModel.uiLiveData.value?.let { updateGraph1(it) }
