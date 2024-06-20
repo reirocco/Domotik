@@ -15,6 +15,4 @@ object WeatherNetwork {
             .create(WeatherApi::class.java)
     }
 
-
-
 }

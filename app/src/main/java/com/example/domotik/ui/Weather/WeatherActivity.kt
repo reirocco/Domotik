@@ -96,21 +96,11 @@ class WeatherActivity : AppCompatActivity() {
         var (tempMin, co2Min, luxMin) = Triple<Float, Int, Float>(1000.0F, 1000, 1000.0F)
         var (tempMedia, co2Media, luxMedia) = Triple<Float, Int, Float>(0.0F, 0, 0.0F)
         Log.v("logging", "calcolo...")
-        for (data in update.items) {/*Log.v(
-                "datefirst",
-                interval.first.toString() + " <-> " + convertDate(data.dt) + " --> " + (interval.first.month <= convertDate(
-                    data.dt.toString()
-                ).month && interval.first.day <= convertDate(data.dt.toString()).day).toString()
-            )*/
+        for (data in update.items) {
             if (interval.first.month <= convertDate(data.dt.toString()).month && interval.first.day <= convertDate(
                     data.dt.toString()
                 ).day
-            ) {/*Log.v(
-                    "datesecond",
-                    interval.second.toString() + " <-> " + convertDate(data.dt) + " --> " + (interval.second.month >= convertDate(
-                        data.dt.toString()
-                    ).month && interval.second.day >= convertDate(data.dt.toString()).day).toString()
-                )*/
+            ) {
                 if (interval.second.month >= convertDate(data.dt.toString()).month && interval.second.day >= convertDate(
                         data.dt.toString()
                     ).day
