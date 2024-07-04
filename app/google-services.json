@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "205354360336",
-    "project_id": "domotikapp-bb2db",
-    "storage_bucket": "domotikapp-bb2db.appspot.com"
+    "project_number": "599621885109",
+    "project_id": "domotik-abeeb",
+    "storage_bucket": "domotik-abeeb.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:205354360336:android:4fbaeaa10d2162f03d3495",
+        "mobilesdk_app_id": "1:599621885109:android:7b09c2ceeb99060b65b2fc",
         "android_client_info": {
           "package_name": "com.example.domotik"
         }
       },
       "oauth_client": [
         {
-          "client_id": "205354360336-o7p4tlkj04pquqmf4e5cgac4olmbgro6.apps.googleusercontent.com",
+          "client_id": "599621885109-nra7hvuvqkvsekeg73ace87laj50tbbf.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAAdyRF6Rn-B6B-StE3XNvpAE0hk7Q4tcE"
+          "current_key": "AIzaSyCZ0zQaeu0IzkkOxAmD5z6aITDDYwAD7ZU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "205354360336-o7p4tlkj04pquqmf4e5cgac4olmbgro6.apps.googleusercontent.com",
+              "client_id": "599621885109-nra7hvuvqkvsekeg73ace87laj50tbbf.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
