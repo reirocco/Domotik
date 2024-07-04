@@ -198,7 +198,7 @@ class WeatherActivity : AppCompatActivity() {
 
 
     fun convertDate(stringDate: String): Date {
-        val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        val formatter = SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
         val date = formatter.parse(stringDate)
         return date
     }
@@ -262,10 +262,10 @@ class WeatherActivity : AppCompatActivity() {
 
     private fun datePickerObserver() {
         Log.v("logging", "aggiorno...")
-        datePickerI.init(2024, 2, 5, null)
-        datePickerI.updateDate(2024, 2, 5)
-        datePickerF.init(2024, 2, 5, null)
-        datePickerF.updateDate(2024, 2, 5)
+        datePickerI.init(2024, 7, 4, null)
+        datePickerI.updateDate(2024, 7, 4)
+        datePickerF.init(2024, 7, 4, null)
+        datePickerF.updateDate(2024, 7, 4)
         submitDateButton.setOnClickListener({ view ->
 
             viewModel.uiLiveData.value?.let { updateGraph1(it) }
