@@ -11,8 +11,7 @@ L'amministratore può dare permessi di lettura e di configurazione in modo puntu
 il controllo deve essere fittizio: si creeranno delle classi modello ad-hoc per ognuno dei dispositivi in descrizione, ogni modello dovrà avere le caratteristiche dell'oggetto in questione  
 -   luci = interruttore On/Off
 -   riscaldamento = interruttore On/Off, campo testuale modificabile per impostare la Temperatura
--   telo da proiezione = interruttore Su/Giu
-ogni modello dovrà avere la sua realizzazione sul firebase per poterne registrare lo stato e dorvà avere anche una sua finestra/pagina per il controllo.
+-   telo da proiezione = interruttore Su/Giu ogni modello dovrà avere la sua realizzazione sul firebase per poterne registrare lo stato e dorvà avere anche una sua finestra/pagina per il controllo.
 I parametri degli attuatori si devono naturalmente poter settare in modo più user-friendly rispetto a cambiare un "campo di testo"
 
 ### 3) Chat: 
