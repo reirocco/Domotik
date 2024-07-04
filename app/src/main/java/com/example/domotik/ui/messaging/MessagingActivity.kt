@@ -11,7 +11,9 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.Firebase
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.auth
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.firestore
+import com.google.firebase.firestore.toObject
 
 class MessagingActivity : AppCompatActivity() {
 
@@ -31,23 +33,39 @@ class MessagingActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.messagingRecyclerView)
         editText = findViewById(R.id.messagingEditText)
         recyclerView.layoutManager = LinearLayoutManager(this)
+        //val messages: MutableList<Message> = mutableListOf();
         messageAdapter = MessageAdapter(mutableListOf())
         recyclerView.adapter = messageAdapter
+        val user = Firebase.auth.currentUser
+        if (user == null) {
+            finish()
+            return
+        }
+
+        val db = Firebase.firestore
+        db.collection("users").document(user.uid).collection("messages").orderBy("timestamp", Query.Direction.ASCENDING).get().addOnSuccessListener { result ->
+            for (document in result) {
+                val messageData = document.data
+                val uid: String = messageData["uid"] as String
+                val message: String = messageData["message"] as String
+                val timestamp: Timestamp = messageData["timestamp"] as Timestamp
+                val messageObject = Message(uid, message, timestamp)
+                messageAdapter.addMessage(messageObject)
+            }
+        }
+
         sendButton = findViewById(R.id.messagingSendButton)
         sendButton.setOnClickListener {
             val text = editText.text.toString() //prende il contenuto dell'edit text
             if (text.isNotEmpty()){
-                val message = Message(text, Timestamp.now())
+                val message = Message(user.uid, text, Timestamp.now())
                 messageAdapter.addMessage(message)
                 val messageMap = hashMapOf(
+                    "uid" to message.uid,
                     "message" to message.message,
                     "timestamp" to message.timestamp
                 )
-                val user = Firebase.auth.currentUser
-                val db = Firebase.firestore
-                //db.collection("users").document(user!!.uid).collection("messages").add(messageMap)
-                db.collection("users").document(user!!.uid).set(messageMap)
-                println(user!!.uid)
+                db.collection("users").document(user.uid).collection("messages").add(messageMap)
                 recyclerView.post {
                     recyclerView.layoutManager?.scrollToPosition(messageAdapter.itemCount -1)
                 }
