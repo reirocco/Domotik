@@ -8,6 +8,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domotik.R
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.Firebase
+import com.google.firebase.Timestamp
+import com.google.firebase.auth.auth
+import com.google.firebase.firestore.firestore
 
 class MessagingActivity : AppCompatActivity() {
 
@@ -33,8 +37,17 @@ class MessagingActivity : AppCompatActivity() {
         sendButton.setOnClickListener {
             val text = editText.text.toString() //prende il contenuto dell'edit text
             if (text.isNotEmpty()){
-                val message = Message(text)
+                val message = Message(text, Timestamp.now())
                 messageAdapter.addMessage(message)
+                val messageMap = hashMapOf(
+                    "message" to message.message,
+                    "timestamp" to message.timestamp
+                )
+                val user = Firebase.auth.currentUser
+                val db = Firebase.firestore
+                //db.collection("users").document(user!!.uid).collection("messages").add(messageMap)
+                db.collection("users").document(user!!.uid).set(messageMap)
+                println(user!!.uid)
                 recyclerView.post {
                     recyclerView.layoutManager?.scrollToPosition(messageAdapter.itemCount -1)
                 }
