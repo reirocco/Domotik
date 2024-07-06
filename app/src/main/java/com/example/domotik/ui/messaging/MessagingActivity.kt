@@ -33,24 +33,31 @@ class MessagingActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.messagingRecyclerView)
         editText = findViewById(R.id.messagingEditText)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        //val messages: MutableList<Message> = mutableListOf();
-        messageAdapter = MessageAdapter(mutableListOf())
-        recyclerView.adapter = messageAdapter
         val user = Firebase.auth.currentUser
         if (user == null) {
             finish()
             return
         }
 
+        messageAdapter = MessageAdapter(mutableListOf(), user.uid)
+        recyclerView.adapter = messageAdapter
         val db = Firebase.firestore
+        var userName: String = ""
+        db.collection("users").document(user.uid).get().addOnSuccessListener { result->
+            userName = result.data?.get("name") as String
+        }
         db.collection("users").document(user.uid).collection("messages").orderBy("timestamp", Query.Direction.ASCENDING).get().addOnSuccessListener { result ->
             for (document in result) {
                 val messageData = document.data
-                val uid: String = messageData["uid"] as String
+                val senderUid: String = messageData["senderUid"] as String
+                val senderName: String = messageData["senderName"] as String
                 val message: String = messageData["message"] as String
                 val timestamp: Timestamp = messageData["timestamp"] as Timestamp
-                val messageObject = Message(uid, message, timestamp)
+                val messageObject = Message(senderUid, senderName, message, timestamp)
                 messageAdapter.addMessage(messageObject)
+            }
+            recyclerView.post {
+                recyclerView.layoutManager?.scrollToPosition(messageAdapter.itemCount -1)
             }
         }
 
@@ -58,10 +65,11 @@ class MessagingActivity : AppCompatActivity() {
         sendButton.setOnClickListener {
             val text = editText.text.toString() //prende il contenuto dell'edit text
             if (text.isNotEmpty()){
-                val message = Message(user.uid, text, Timestamp.now())
+                val message = Message(user.uid, userName, text, Timestamp.now())
                 messageAdapter.addMessage(message)
                 val messageMap = hashMapOf(
-                    "uid" to message.uid,
+                    "senderUid" to message.senderUid,
+                    "senderName" to message.senderName,
                     "message" to message.message,
                     "timestamp" to message.timestamp
                 )
@@ -72,7 +80,24 @@ class MessagingActivity : AppCompatActivity() {
                 editText.text?.clear() //lo pulisce solo se lo trova non nullo
             }
         }
+
+        /*sendButton.setOnClickListener {
+            val text = "Questo è il messaggio di prova di sistema e lo sto facendo per Rocco"
+            val message = Message("system_id", "Sistema", text, Timestamp.now())
+            messageAdapter.addMessage(message)
+            val messageMap = hashMapOf(
+                "senderUid" to message.senderUid,
+                "senderName" to message.senderName,
+                "message" to message.message,
+                "timestamp" to message.timestamp
+            )
+            db.collection("users").document(user.uid).collection("messages").add(messageMap)
+            recyclerView.post {
+                recyclerView.layoutManager?.scrollToPosition(messageAdapter.itemCount -1)
+            }
+        }*/ //è il metodo da implementare sul whether
     }
+
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return true
