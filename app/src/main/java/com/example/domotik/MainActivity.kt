@@ -16,6 +16,7 @@ import com.example.domotik.ui.Weather.WeatherActivity
 import com.example.domotik.ui.camera.CameraActivity
 import com.example.domotik.ui.home.HomeFragment
 import com.example.domotik.ui.homeappliances.HomeAppliancesActivity
+import com.example.domotik.ui.homeappliances.WashingMachineActivity
 import com.example.domotik.ui.lights.LightsActivity
 import com.example.domotik.ui.messaging.MessagingActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -97,6 +98,11 @@ class MainActivity : AppCompatActivity() {
 
     fun startMessagingActivity(view: View) {
         val intent = Intent(this, MessagingActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun startWashingMachineActivity(view: View){
+        val intent = Intent(this, WashingMachineActivity::class.java)
         startActivity(intent)
     }
 

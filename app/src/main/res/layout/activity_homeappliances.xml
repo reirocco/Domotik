@@ -22,6 +22,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/grid_element_cardview_lavatrice"
+                android:onClick="startWashingMachineActivity"
                 android:layout_marginVertical="25dp"
                 android:layout_columnWeight="1"
                 android:layout_width="0dp"

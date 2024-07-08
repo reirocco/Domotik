@@ -43,6 +43,11 @@
         <activity
             android:name=".ui.homeappliances.HomeAppliancesActivity"
             android:exported="true" />
+        <activity android:name=".ui.homeappliances.HomeAppliancesActivity"
+            android:exported="true"/>
+    <activity  android:name=".ui.homeappliances.WashingMachineActivity"
+        android:exported="true"/>
+
         <activity
             android:name=".ui.splashScreen.SplashScreen"
             android:exported="true"
@@ -56,11 +61,13 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Domotik" />
+            android:theme="@style/Theme.Domotik"></activity>
+
         <activity
             android:name=".ui.camera.CameraActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
+
 
 </manifest>
