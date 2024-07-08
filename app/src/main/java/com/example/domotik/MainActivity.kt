@@ -19,7 +19,9 @@ import com.example.domotik.ui.homeappliances.HomeAppliancesActivity
 import com.example.domotik.ui.lights.LightsActivity
 import com.example.domotik.ui.messaging.MessagingActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
-
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
+import com.google.firebase.firestore.firestore
 
 
 class MainActivity : AppCompatActivity() {
@@ -49,28 +51,28 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-
-      /*  if (FirebaseAuth.getInstance().currentUser != null) {
-            true
-        } else {
-            true
-        }*/
-        //@valeria cannone A CHE SERVE STO CONTROLLO SE FALLISCE? COSA VOLEVI FARE?
-
-
         binding.navView.selectedItemId = R.id.navigation_dashboard
         binding.navView.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
 
                 R.id.navigation_dashboard -> navController.navigate(R.id.impostazioni)
                 R.id.navigation_home -> navController.navigate(R.id.navigation_home)
-                R.id.navigation_message-> navController.navigate(R.id.chat_activity)
-
-
+                R.id.navigation_message-> {
+                    val user = Firebase.auth.currentUser
+                    if (user != null) {
+                        val db = Firebase.firestore
+                        db.collection("users").document(user.uid).get().addOnSuccessListener { result->
+                            if (result.data?.containsKey("chat") == true) {
+                                navController.navigate(R.id.chat_activity)
+                            } else {
+                                navController.navigate(R.id.chat_selection_activity)
+                            }
+                        }
+                    }
+                }
             }
             true
         }
-
     }
 
     fun startSecondActivity(view: View) {
@@ -88,7 +90,6 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-
     fun returnHome(view: View) {
         val intent = Intent(this, HomeFragment::class.java)
         startActivity(intent)
@@ -103,6 +104,5 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, HomeAppliancesActivity::class.java)
         startActivity(intent)
     }
-
 }
 

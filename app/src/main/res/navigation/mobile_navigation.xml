@@ -23,6 +23,13 @@
         android:name="com.example.domotik.ui.messaging.MessagingActivity"
         android:label="Chat"
         tools:layout="@layout/activity_messaging"/>
+
+    <activity
+        android:id="@+id/chat_selection_activity"
+        android:name="com.example.domotik.ui.messaging.ChatSelectionActivity"
+        android:label="Chat Selection"
+        tools:layout="@layout/activity_chat_selection"/>
+
     <fragment
         android:id="@+id/configuration"
         android:name="com.example.domotik.ui.notifications.NotificationsFragment"
