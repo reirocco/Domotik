@@ -1,12 +1,16 @@
 package com.example.domotik.ui.messaging
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domotik.R
+import com.example.domotik.ui.camera.CameraActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.Firebase
 import com.google.firebase.Timestamp
@@ -98,6 +102,18 @@ class MessagingActivity : AppCompatActivity() {
         }*/ //è il metodo da implementare sul whether
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.chat_menu,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.chat_info) {
+            val intent = Intent(this, CameraActivity::class.java)
+            startActivity(intent)
+        }
+        return super.onOptionsItemSelected(item)
+    }
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return true

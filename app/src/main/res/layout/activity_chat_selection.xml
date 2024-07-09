@@ -25,6 +25,13 @@
             android:layout_height="wrap_content"
             android:text="entra in chat"
             android:textColor="@color/white"/>
+
+        <EditText
+            android:id="@+id/chat_selection_join_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"/>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
