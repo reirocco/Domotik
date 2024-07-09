@@ -10,57 +10,53 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.domotik.R
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.example.domotik.ui.dataModel.dispositivo
+import com.google.firebase.Timestamp
+import com.google.firebase.firestore.FirebaseFirestore
 
-
-class WashingMachineActivity: AppCompatActivity() {
+class WashingMachineActivity : AppCompatActivity() {
     private lateinit var gradiSpinner: Spinner
     private lateinit var modalitaSpinner: Spinner
-    private lateinit var firebaseDatabase: FirebaseDatabase
-    private lateinit var databaseReference: DatabaseReference
-
+    private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.lavatrice_layout)
 
-        firebaseDatabase = FirebaseDatabase.getInstance()
-        databaseReference = firebaseDatabase.getReference("/users/vIN3Paf9vPTl9WLEgcSXnWrPxXm2/dispositivi/lavatrice/stato_lavatrice")
-
         gradiSpinner = findViewById(R.id.gradi_spinner)
         modalitaSpinner = findViewById(R.id.modalità_spinner)
         Log.d("WashingMachineActivity", "gradiSpinner: $gradiSpinner, modalitaSpinner: $modalitaSpinner")
 
-
-
-        val gradi_lavatrice = listOf("30", "40", "50", "60")
-
-        val adapter1 = ArrayAdapter(this, android.R.layout.simple_spinner_item, gradi_lavatrice)
+        val gradiLavatrice = listOf("30", "40", "50", "60")
+        val adapter1 = ArrayAdapter(this, android.R.layout.simple_spinner_item, gradiLavatrice)
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         gradiSpinner.adapter = adapter1
 
-        val modalita_lavatrice = listOf("Delicati", "Lana", "Sport", "Cotoni")
-
-        val adapter2 = ArrayAdapter(this, android.R.layout.simple_spinner_item, modalita_lavatrice)
+        val modalitaLavatrice = listOf("Delicati", "Lana", "Sport", "Cotoni")
+        val adapter2 = ArrayAdapter(this, android.R.layout.simple_spinner_item, modalitaLavatrice)
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         modalitaSpinner.adapter = adapter2
 
+        // Inizializzazione del riferimento al database Firestore
+        db = FirebaseFirestore.getInstance()
+
         val saveButton = findViewById<Button>(R.id.set_lavatrice)
         saveButton.setOnClickListener {
-            val selectedOption = gradiSpinner.selectedItem.toString()
-            val selectedOption2 = modalitaSpinner.selectedItem.toString()
-                saveSettingsToFirebase(selectedOption, selectedOption2)
-            }}
+            val selectedGradi = gradiSpinner.selectedItem.toString()
+            val selectedModalita = modalitaSpinner.selectedItem.toString()
+            saveSettingsToFirestore(selectedGradi, selectedModalita)
+        }
+    }
 
-    private fun saveSettingsToFirebase(selectedOption: String, selectedOption2:String) {
-            val settings = hashMapOf(
-                "gradi" to selectedOption,
-                "modalita" to selectedOption2,
-                "timestamp" to System.currentTimeMillis()
-            )
+    private fun saveSettingsToFirestore(selectedGradi: String, selectedModalita: String) {
+        val dispositivo = dispositivo(
+            gradi = selectedGradi,
+            modalita = selectedModalita,
+            timestamp = Timestamp.now()
+        )
 
-            databaseReference.setValue(settings).addOnCompleteListener { task ->
+        db.collection("dispositivi").add(dispositivo)
+            .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(this, "Impostazioni salvate", Toast.LENGTH_SHORT).show()
                     val resultIntent = Intent()
@@ -68,14 +64,8 @@ class WashingMachineActivity: AppCompatActivity() {
                     finish()
                 } else {
                     Toast.makeText(this, "Errore nel salvataggio delle impostazioni", Toast.LENGTH_SHORT).show()
-                    Log.d("WashingMachineActivity", "Save button clicked")
+                    Log.d("WashingMachineActivity", "Errore nel salvataggio delle impostazioni: ${task.exception?.message}")
                 }
             }
-
     }
-    }
-
-
-
-
-
+}
