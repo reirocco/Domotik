@@ -211,7 +211,6 @@ class WeatherActivity : AppCompatActivity() {
 
 
         weatherApiViewModel.getIndoorWeatherList()  // use this to get indoor data from internal air control station
-
         // Creo l'observer sul dato da modificare
         weatherApiViewModel.myListResponse.observe(this, Observer {
             //Log.v("logging", "passa " + it.toString())

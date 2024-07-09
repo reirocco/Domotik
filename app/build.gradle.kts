@@ -106,6 +106,7 @@ dependencies {
     // PLOTTING LIBRARY (SEE: https://weeklycoding.com/mpandroidchart/ )
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
+    implementation("com.android.volley:volley:1.2.1")
 
 
 }
