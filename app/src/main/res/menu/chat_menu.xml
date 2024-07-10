@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/chat_info"
         android:icon="@drawable/baseline_info_24"
-        android:title="Info chat"/>
+        android:title="Info chat"
+        app:showAsAction="always"/>
 
 </menu>

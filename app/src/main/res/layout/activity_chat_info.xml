@@ -13,10 +13,25 @@
         android:orientation="vertical">
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="l'id della chat è"
+            android:textColor="@color/black"/>
+
+        <TextView
             android:id="@+id/chat_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/app_theme"/>
+            android:textColor="@color/app_theme"
+            android:layout_marginTop="20dp"/>
+
+        <Button
+            android:id="@+id/chat_leave"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="Lascia la chat"
+            android:textColor="@color/white"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

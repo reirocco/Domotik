@@ -14,23 +14,30 @@
 
         <Button
             android:id="@+id/chat_selection_new"
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:text="nuova chat"
             android:textColor="@color/white"/>
 
         <Button
             android:id="@+id/chat_selection_join"
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:text="entra in chat"
             android:textColor="@color/white"/>
 
         <EditText
             android:id="@+id/chat_selection_join_id"
-            android:layout_width="wrap_content"
+            android:layout_width="230dp"
             android:layout_height="wrap_content"
-            android:inputType="number"/>
+            android:layout_marginTop="20dp"
+            android:inputType="number"
+            android:textColor="@color/black"
+            android:padding="10dp"
+            android:gravity="center"
+            android:background="@drawable/edit_text_box"
+            android:hint="Inserisci id chat"/>
 
     </LinearLayout>
 

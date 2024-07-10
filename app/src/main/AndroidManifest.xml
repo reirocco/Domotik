@@ -46,10 +46,14 @@
         <activity
             android:name=".ui.homeappliances.HomeAppliancesActivity"
             android:exported="true" />
-        <activity android:name=".ui.homeappliances.HomeAppliancesActivity"
-            android:exported="true"/>
     <activity  android:name=".ui.homeappliances.WashingMachineActivity"
         android:exported="true"/>
+        <activity  android:name=".ui.homeappliances.OvenActivity"
+            android:exported="true"/>
+        <activity  android:name=".ui.homeappliances.TvActivity"
+            android:exported="true"/>
+        <activity  android:name=".ui.homeappliances.LavastoviglieActivity"
+            android:exported="true"/>
 
         <activity
             android:name=".ui.splashScreen.SplashScreen"
