@@ -8,107 +8,103 @@
 
     <!-- ImageView per l'icona del ventilatore -->
     <ImageView
-    android:id="@+id/lavatrice_icon"
-    android:layout_width="74dp"
-    android:layout_height="71dp"
-    android:layout_marginTop="52dp"
-    android:src="@drawable/washing_machine"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/forno_icon"
+        android:layout_width="63dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="52dp"
+        android:src="@drawable/oven"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/lavatrice_text"
+        android:id="@+id/forno_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="LAVATRICE"
+        android:text="FORNO"
         android:textColor="@color/dark_blue"
         android:textStyle="bold|italic"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lavatrice_icon" />
+        app:layout_constraintTop_toBottomOf="@+id/forno_icon" />
+
 
     <TextView
-        android:id="@+id/gradi_lavatrice"
+        android:id="@+id/temperatura_forno"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="24dp"
         android:text="Temperatura: "
         android:textColor="@color/dark_blue"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lavatrice_text" />
+        app:layout_constraintTop_toBottomOf="@+id/forno_text" />
 
     <Spinner
-        android:id="@+id/gradi_spinner"
-        android:layout_width="201dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/app_theme"
-        android:max="100"
-        android:progress="50"
-        android:textColor="@color/dark_blue"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.523"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gradi_lavatrice" />
-
-    <TextView
-        android:id="@+id/modalità_lavatrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:text="Modalità lavaggio: "
-        android:textStyle="bold|italic"
-        android:textColor="@color/dark_blue"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gradi_spinner" />
-
-    <Spinner
-        android:id="@+id/modalità_spinner"
+        android:id="@+id/temperatura_spinner"
         android:layout_width="201dp"
         android:layout_height="38dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:background="@color/app_theme"
+        android:max="100"
+        android:progress="50"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/modalità_lavatrice" />
+        app:layout_constraintTop_toBottomOf="@+id/temperatura_forno" />
 
+    <TextView
+        android:id="@+id/programma_forno"
+        android:layout_width="122dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="56dp"
+        android:text="Programma Forno: "
+        android:textColor="@color/dark_blue"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/temperatura_spinner" />
+
+    <Spinner
+        android:id="@+id/programma_spinner"
+        android:layout_width="201dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/app_theme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/programma_forno" />
 
     <TextView
         android:id="@+id/impostazioni_verifica"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/set_lavatrice"
+        android:layout_below="@id/set_forno"
         android:layout_marginTop="56dp"
         android:textColor="@color/dark_blue"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/set_lavatrice" />
+        app:layout_constraintTop_toBottomOf="@+id/set_forno" />
 
     <Button
-        android:id="@+id/set_lavatrice"
+        android:id="@+id/set_forno"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="136dp"
-        android:onClick="set_lavatrice"
+        android:layout_marginTop="140dp"
+        android:onClick="set_forno"
         android:text="Imposta"
         android:textColor="@color/dark_blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/modalità_spinner" />   <!-- TextView per il titolo "Ventilatore" -->
+        app:layout_constraintTop_toBottomOf="@+id/programma_spinner" />
 </androidx.constraintlayout.widget.ConstraintLayout>
