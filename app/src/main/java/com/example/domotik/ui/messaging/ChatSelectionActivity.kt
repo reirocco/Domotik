@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import com.example.domotik.R
 import com.example.domotik.ui.camera.CameraActivity
@@ -26,8 +27,12 @@ class ChatSelectionActivity : AppCompatActivity() {
 
         val newChatButton = findViewById<Button>(R.id.chat_selection_new)
         val joinChatButton = findViewById<Button>(R.id.chat_selection_join)
+        val joinChatId = findViewById<EditText>(R.id.chat_selection_join_id)
         newChatButton.setOnClickListener {
             createNewChat()
+        }
+        joinChatButton.setOnClickListener {
+            joinChat(joinChatId.text.toString())
         }
     }
 

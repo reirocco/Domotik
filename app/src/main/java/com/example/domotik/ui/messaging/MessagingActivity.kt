@@ -47,21 +47,23 @@ class MessagingActivity : AppCompatActivity() {
         recyclerView.adapter = messageAdapter
         val db = Firebase.firestore
         var userName: String = ""
+        var chatId: String = ""
         db.collection("users").document(user.uid).get().addOnSuccessListener { result->
             userName = result.data?.get("name") as String
-        }
-        db.collection("users").document(user.uid).collection("messages").orderBy("timestamp", Query.Direction.ASCENDING).get().addOnSuccessListener { result ->
-            for (document in result) {
-                val messageData = document.data
-                val senderUid: String = messageData["senderUid"] as String
-                val senderName: String = messageData["senderName"] as String
-                val message: String = messageData["message"] as String
-                val timestamp: Timestamp = messageData["timestamp"] as Timestamp
-                val messageObject = Message(senderUid, senderName, message, timestamp)
-                messageAdapter.addMessage(messageObject)
-            }
-            recyclerView.post {
-                recyclerView.layoutManager?.scrollToPosition(messageAdapter.itemCount -1)
+            chatId = result.data?.get("chat") as String
+            db.collection("chats").document(chatId).collection("messages").orderBy("timestamp", Query.Direction.ASCENDING).get().addOnSuccessListener { messageDocuments ->
+                for (document in messageDocuments) {
+                    val messageData = document.data
+                    val senderUid: String = messageData["senderUid"] as String
+                    val senderName: String = messageData["senderName"] as String
+                    val message: String = messageData["message"] as String
+                    val timestamp: Timestamp = messageData["timestamp"] as Timestamp
+                    val messageObject = Message(senderUid, senderName, message, timestamp)
+                    messageAdapter.addMessage(messageObject)
+                }
+                recyclerView.post {
+                    recyclerView.layoutManager?.scrollToPosition(messageAdapter.itemCount -1)
+                }
             }
         }
 
@@ -77,7 +79,7 @@ class MessagingActivity : AppCompatActivity() {
                     "message" to message.message,
                     "timestamp" to message.timestamp
                 )
-                db.collection("users").document(user.uid).collection("messages").add(messageMap)
+                db.collection("chats").document(chatId).collection("messages").add(messageMap)
                 recyclerView.post {
                     recyclerView.layoutManager?.scrollToPosition(messageAdapter.itemCount -1)
                 }
@@ -95,7 +97,7 @@ class MessagingActivity : AppCompatActivity() {
                 "message" to message.message,
                 "timestamp" to message.timestamp
             )
-            db.collection("users").document(user.uid).collection("messages").add(messageMap)
+            db.collection("chats").document(chatId).collection("messages").add(messageMap)
             recyclerView.post {
                 recyclerView.layoutManager?.scrollToPosition(messageAdapter.itemCount -1)
             }
@@ -109,7 +111,7 @@ class MessagingActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.chat_info) {
-            val intent = Intent(this, CameraActivity::class.java)
+            val intent = Intent(this, ChatInfoActivity::class.java)
             startActivity(intent)
         }
         return super.onOptionsItemSelected(item)
