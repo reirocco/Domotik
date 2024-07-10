@@ -13,6 +13,7 @@ import com.example.domotik.R
     class HomeAppliancesActivity : AppCompatActivity() {
         companion object {
             const val REQUEST_CODE_LAVATRICE = 1
+            const val REQUEST_CODE_FORNO = 1
         }
 
         override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +30,23 @@ import com.example.domotik.R
                 startActivityForResult(intent, REQUEST_CODE_LAVATRICE)
             }
 
+            val cardViewForno = findViewById<CardView>(R.id.grid_element_cardwiev_forno)
+            cardViewForno.setOnClickListener {
+                val intent = Intent(this, OvenActivity::class.java)
+                startActivityForResult(intent, REQUEST_CODE_FORNO)
+            }
+
+            val cardViewTv = findViewById<CardView>(R.id.grid_element_cardwiev_televisione)
+            cardViewTv.setOnClickListener {
+                val intent = Intent(this, TvActivity::class.java)
+                startActivityForResult(intent, REQUEST_CODE_FORNO)
+            }
+
+            val cardViewLavastoviglie = findViewById<CardView>(R.id.grid_element_cardwiev_lavastoviglie)
+            cardViewLavastoviglie.setOnClickListener {
+                val intent = Intent(this, LavastoviglieActivity::class.java)
+                startActivityForResult(intent, REQUEST_CODE_LAVATRICE)
+            }
             // Altri card view e codice iniziale...
 
             updateUI()
@@ -62,6 +80,18 @@ import com.example.domotik.R
                 val cardViewLavatrice = findViewById<CardView>(R.id.grid_element_cardview_lavatrice)
                 cardViewLavatrice.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.white))
             }
+
+            val imageViewForno = findViewById<ImageView>(R.id.forno_icon)
+            if (dispositivi[0].toInt() == 1) {
+                imageViewForno.setImageResource(R.drawable.oven)
+                val cardViewForno = findViewById<CardView>(R.id.grid_element_cardwiev_forno)
+                cardViewForno.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.teal_200))
+            } else {
+                imageViewForno.setImageResource(R.drawable.oven)
+                val cardViewForno = findViewById<CardView>(R.id.grid_element_cardwiev_forno)
+                cardViewForno.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.white))
+            }
+
 
             // Altri dispositivi...
         }

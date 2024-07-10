@@ -16,6 +16,9 @@ import com.example.domotik.ui.Weather.WeatherActivity
 import com.example.domotik.ui.camera.CameraActivity
 import com.example.domotik.ui.home.HomeFragment
 import com.example.domotik.ui.homeappliances.HomeAppliancesActivity
+import com.example.domotik.ui.homeappliances.LavastoviglieActivity
+import com.example.domotik.ui.homeappliances.OvenActivity
+import com.example.domotik.ui.homeappliances.TvActivity
 import com.example.domotik.ui.homeappliances.WashingMachineActivity
 import com.example.domotik.ui.lights.LightsActivity
 import com.example.domotik.ui.messaging.MessagingActivity
@@ -108,6 +111,19 @@ class MainActivity : AppCompatActivity() {
 
     fun startHomeAppliancesActivity(view: View) {
         val intent = Intent(this, HomeAppliancesActivity::class.java)
+        startActivity(intent)
+    }
+    fun startOvenActivity(view: View){
+        val intent = Intent(this, OvenActivity::class.java)
+        startActivity(intent)
+    }
+    fun startTvActivity(view: View) {
+        val intent = Intent(this, TvActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun startLavastoviglieActivity(view: View) {
+        val intent = Intent(this, LavastoviglieActivity::class.java)
         startActivity(intent)
     }
 }
