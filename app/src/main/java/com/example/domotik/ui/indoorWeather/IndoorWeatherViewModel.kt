@@ -2,14 +2,16 @@ package com.example.domotik.ui.Weather
 
 
 import androidx.lifecycle.MutableLiveData
-import com.example.domotik.network.CustomWeatherNetwork
 import com.example.domotik.network.model.WeatherHistory
-import androidx.lifecycle.viewModelScope
+import java.util.Date
 
 class IndoorWeatherViewModel {
 
     val statistics = MutableLiveData<Statistics>()
     val indoorWeatherData = MutableLiveData<WeatherHistory>()
+    var dateInit = MutableLiveData<Date>()
+    var dateEnd = MutableLiveData<Date>()
+
     fun updateIndoorWeatherData(it: WeatherHistory) {
         this.indoorWeatherData.postValue(it)
 
@@ -32,16 +34,20 @@ class IndoorWeatherViewModel {
             s.mediaTemp /= it.getSize()
             s.mediaCo2 /= it.getSize()
             s.mediaLux /= it.getSize()
-            this.UpdateStatistics(s)
+            this.updateStatistics(s)
         }
     }
 
-    fun UpdateStatistics(it: Statistics) {
+    fun updateStatistics(it: Statistics) {
         this.statistics.postValue(it)
     }
 
-
-
+    fun updateInitDate(it:Date){
+        this.dateInit.postValue(it)
+    }
+    fun updateEndDate(it:Date){
+        this.dateEnd.postValue(it)
+    }
 
 }
 

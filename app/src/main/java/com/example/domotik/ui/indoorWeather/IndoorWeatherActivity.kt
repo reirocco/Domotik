@@ -41,18 +41,24 @@ class IndoorWeatherActivity : AppCompatActivity() {
     // Create a viewModel
     private val indoorViewModel: IndoorWeatherViewModel = IndoorWeatherViewModel()
     private val pattern = "yyyy-MM-dd"
-    private val simpleDateFormat = SimpleDateFormat(pattern, Locale.getDefault()) // Crea un oggetto SimpleDateFormat con il pattern
+    private val simpleDateFormat = SimpleDateFormat(
+        pattern,
+        Locale.getDefault()
+    ) // Crea un oggetto SimpleDateFormat con il pattern
 
 
     lateinit var table: TableLayout
     lateinit var lineGraphView: LineChart
     lateinit var chips: ChipGroup
-    lateinit var submitDateButton: Button
     lateinit var chipsList: ArrayList<String>
     lateinit var dateInitButton: Button
     lateinit var dateEndButton: Button
-    lateinit var dateInit :Date
-    lateinit var dateEnd :Date
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    var dateInit: Date = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant())
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    var dateEnd: Date = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant())
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,7 +70,6 @@ class IndoorWeatherActivity : AppCompatActivity() {
         this.table = findViewById(com.example.domotik.R.id.tableLayout)
         lineGraphView = findViewById<View>(com.example.domotik.R.id.chart) as LineChart
         chips = findViewById<ChipGroup>(com.example.domotik.R.id.chipGroup)
-        submitDateButton = findViewById<Button>(com.example.domotik.R.id.submitButton)
         this.dateInitButton = findViewById<Button>(com.example.domotik.R.id.dateInit)
         this.dateEndButton = findViewById<Button>(com.example.domotik.R.id.dateEnd)
 
@@ -79,47 +84,56 @@ class IndoorWeatherActivity : AppCompatActivity() {
             updateGraph(it)
         })
 
-        this.submitDateButton.setOnClickListener { it ->
-            showDatePickerDialog{ date ->
-                Log.v("date", date.toString())
-            }
-        }
+
+        this.indoorViewModel.dateInit.observe(this, {
+            this.dateInit = it
+            this.dateInitButton.setText(simpleDateFormat.format(this.dateInit).toString())
+            doRequest()
+        })
+
+        this.indoorViewModel.dateEnd.observe(this, {
+            this.dateEnd = it
+            this.dateEndButton.setText(simpleDateFormat.format(this.dateEnd).toString())
+            doRequest()
+        })
 
         this.dateInitButton.setOnClickListener {
-            showDatePickerDialog{ date ->
-                Log.v("date", "date init -> "+date.toString())
+            showDatePickerDialog(true) { date ->
+                val dateFormat = SimpleDateFormat("dd-MMMM-yyyy", Locale.ENGLISH)
+                val date: Date =
+                    dateFormat.parse(date) ?: throw IllegalArgumentException("Invalid date format")
+                this.indoorViewModel.updateInitDate(date)
+                //Log.v("date", "date init -> "+date.toString())
             }
         }
 
         this.dateEndButton.setOnClickListener {
-            showDatePickerDialog{ date ->
-                Log.v("date", "date end -> "+date.toString())
+            showDatePickerDialog(false) { date ->
+                val dateFormat = SimpleDateFormat("dd-MMMM-yyyy", Locale.ENGLISH)
+                val date: Date =
+                    dateFormat.parse(date) ?: throw IllegalArgumentException("Invalid date format")
+                this.indoorViewModel.updateEndDate(date)
+                //Log.v("date", "date end -> "+date.toString())
             }
         }
 
 
         // Ottieni la data corrente
-        this.dateInit = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant())
-        this.dateEnd = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant())
-        this.dateInitButton.setText(simpleDateFormat.format(this.dateInit).toString())
-        this.dateEndButton.setText(simpleDateFormat.format(this.dateInit).toString())
-
-        // take DateFilter interval
-        /*val interval: Pair<Date, Date> = Pair<Date, Date>(
-            Date(2024, datePickerI.month, datePickerI.dayOfMonth),
-            Date(2024, datePickerF.month, datePickerF.dayOfMonth)
+        this.indoorViewModel.updateInitDate(
+            Date.from(
+                LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()
+            )
+        )
+        this.indoorViewModel.updateEndDate(
+            Date.from(
+                LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()
+            )
         )
 
-        Log.v("date",simpleDateFormat.format(interval.first).toString())*/
         doRequest()
     }
 
     fun updateGraph(update: WeatherHistory) {
-        // take filter interval
-        /*val interval: Pair<Date, Date> = Pair<Date, Date>(
-            Date(2024, datePickerI.month, datePickerI.dayOfMonth),
-            Date(2024, datePickerF.month, datePickerF.dayOfMonth)
-        )*/        //Log.v("date", interval.first.toString() + " - " + interval.second.toString())
         // Data preparation from class to array
         val tempArray: ArrayList<Entry> = ArrayList<Entry>()
         val co2Array: ArrayList<Entry> = ArrayList<Entry>()
@@ -178,8 +192,8 @@ class IndoorWeatherActivity : AppCompatActivity() {
     }
 
 
-    fun convertDate(stringDate: String, pattern: String): Date {
-        val formatter = SimpleDateFormat(pattern)
+    fun convertStringtoDate(stringDate: String): Date {
+        val formatter = SimpleDateFormat(this.pattern)
         val date = formatter.parse(stringDate)
         return date
     }
@@ -216,11 +230,14 @@ class IndoorWeatherActivity : AppCompatActivity() {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun doRequest() {
         val queue: RequestQueue = Volley.newRequestQueue(this)
-        Log.v("date","https://www.montaccini.it/IEQ/API/get_raw_list.php?username=raspberrypiIEQ&password=123456789&init="+simpleDateFormat.format(this.dateInit).toString()+"&end="+simpleDateFormat.format(this.dateEnd).toString())
+
         val myReq: GsonRequest<WeatherHistory> = GsonRequest<WeatherHistory>(
-            "https://www.montaccini.it/IEQ/API/get_raw_list.php?username=raspberrypiIEQ&password=123456789&init="+simpleDateFormat.format(this.dateInit).toString()+"&end="+simpleDateFormat.format(this.dateEnd).toString(),
+            "https://www.montaccini.it/IEQ/API/get_raw_list.php?username=raspberrypiIEQ&password=123456789&init=" + simpleDateFormat.format(
+                this.dateInit
+            ).toString() + "&end=" + simpleDateFormat.format(this.dateEnd).toString(),
             WeatherHistory::class.java,
             null,
             createMyReqSuccessListener(),
@@ -262,11 +279,33 @@ class IndoorWeatherActivity : AppCompatActivity() {
     }
 
 
-    private fun showDatePickerDialog(onDateSelected: (String) -> Unit) {
+
+    fun getDayOfMonth(date: Date): Int {
         val calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        calendar.time = date
+
+        return calendar.get(Calendar.DAY_OF_MONTH)
+    }
+    fun getMonth(date: Date): Int {
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+
+        return calendar.get(Calendar.MONTH)
+    }
+
+    fun getYear(date: Date): Int {
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+
+        return calendar.get(Calendar.YEAR)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun showDatePickerDialog(init:Boolean,onDateSelected: (String) -> Unit) {
+        val calendar = Calendar.getInstance()
+        val year = if(init) getYear(this.dateInit) else getYear(this.dateEnd)
+        val month =  if(init) getMonth(this.dateInit) else getMonth(this.dateEnd)
+        val day = if(init) getDayOfMonth(this.dateInit) else getDayOfMonth(this.dateEnd)
 
         val datePickerDialog = DatePickerDialog(
             this,
