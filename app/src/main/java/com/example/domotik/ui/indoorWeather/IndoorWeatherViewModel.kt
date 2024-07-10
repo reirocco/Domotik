@@ -10,7 +10,6 @@ class IndoorWeatherViewModel {
 
     val statistics = MutableLiveData<Statistics>()
     val indoorWeatherData = MutableLiveData<WeatherHistory>()
-
     fun updateIndoorWeatherData(it: WeatherHistory) {
         this.indoorWeatherData.postValue(it)
 
@@ -40,6 +39,8 @@ class IndoorWeatherViewModel {
     fun UpdateStatistics(it: Statistics) {
         this.statistics.postValue(it)
     }
+
+
 
 
 }
