@@ -12,6 +12,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.domotik.databinding.ActivityMainBinding
+import com.example.domotik.ui.Weather.IndoorWeatherActivity
 import com.example.domotik.ui.Weather.WeatherActivity
 import com.example.domotik.ui.camera.CameraActivity
 import com.example.domotik.ui.home.HomeFragment
@@ -90,7 +91,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun startWeathersActivity(view: View) {
-        val intent = Intent(this, WeatherActivity::class.java)
+        val intent = Intent(this, IndoorWeatherActivity::class.java)
         startActivity(intent)
     }
 
