@@ -75,6 +75,7 @@ class ChatSelectionActivity : AppCompatActivity() {
                    chatDoc.update(mapOf("members" to chatMembers)).addOnSuccessListener {
                        db.collection("users").document(user.uid).update(mapOf("chat" to chatId)).addOnSuccessListener {
                            val intent = Intent(this, MessagingActivity::class.java)
+                           finish()
                            startActivity(intent)
                        }
                    }

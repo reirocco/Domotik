@@ -1,11 +1,16 @@
 package com.example.domotik.ui.messaging
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.example.domotik.MainActivity
 import com.example.domotik.R
 import com.google.firebase.Firebase
@@ -25,17 +30,23 @@ class ChatInfoActivity : AppCompatActivity() {
 
         val chatIdText = findViewById<TextView>(R.id.chat_id)
         val leaveChat = findViewById<Button>(R.id.chat_leave)
+        val copyChatId = findViewById<ImageButton>(R.id.copy_chat_id)
         val user = Firebase.auth.currentUser
         var chatId: String = ""
         if (user != null) {
             val db = Firebase.firestore
             db.collection("users").document(user.uid).get().addOnSuccessListener {result ->
-                chatId = result.getLong("chat").toString()
+                chatId = result.getString("chat").toString()
                 chatIdText.text = chatId
             }
         }
         leaveChat.setOnClickListener {
             leaveChat(chatId)
+        }
+        copyChatId.setOnClickListener {
+            val clipboard = ContextCompat.getSystemService(this, ClipboardManager::class.java)
+            val clip = ClipData.newPlainText("chat_id", chatId)
+            clipboard?.setPrimaryClip(clip)
         }
     }
 

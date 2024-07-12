@@ -15,21 +15,43 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="l'id della chat è"
+            android:text="L'id della chat è"
+            android:layout_marginTop="20dp"
+            android:textSize="18sp"
             android:textColor="@color/black"/>
 
-        <TextView
-            android:id="@+id/chat_id"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/app_theme"
-            android:layout_marginTop="20dp"/>
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/chat_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/app_theme"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"/>
+
+            <ImageButton
+                android:id="@+id/copy_chat_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/baseline_content_copy_24"
+                android:layout_marginStart="10dp"
+                android:background="@android:color/transparent"
+                app:tint="@color/app_theme"/>
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/chat_leave"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="40dp"
             android:text="Lascia la chat"
             android:textColor="@color/white"/>
     </LinearLayout>
