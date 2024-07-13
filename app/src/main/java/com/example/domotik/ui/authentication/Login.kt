@@ -14,6 +14,7 @@ import androidx.navigation.Navigation
 import com.example.domotik.MainActivity
 import com.example.domotik.R
 import com.example.domotik.databinding.FragmentLoginBinding
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -53,12 +54,12 @@ class Login : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.clickListenerLogin = object:ClickListenerLogin {
+        binding.clickListenerLogin = object : ClickListenerLogin {
             override fun onScrittaClicked() {
                 Navigation.findNavController(view).navigate(R.id.action_login_to_registrazione)
             }
         }
-       val db = Firebase.firestore
+        val db = Firebase.firestore
         mAuth = FirebaseAuth.getInstance()
 
         Email = binding.email
@@ -70,7 +71,7 @@ class Login : Fragment() {
             val password = Password.text.toString()
 
 
-            if ( email.isEmpty() || password.isEmpty()) {
+            if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(requireContext(), "Compila tutti i campi", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
@@ -85,6 +86,10 @@ class Login : Fragment() {
                                 "Login effettuato!",
                                 Toast.LENGTH_SHORT,
                             ).show()
+                            val user =task.result.user
+                            if (user != null){
+                                logUserAction(user.uid, "login", email)
+                            }
                             val intent = Intent(requireContext(), MainActivity::class.java)
                             startActivity(intent)
                             requireActivity().finish()
@@ -96,11 +101,38 @@ class Login : Fragment() {
                             ).show()
                         }
                     }
-            }else{
-                Toast.makeText(requireContext(), "Inserisci email e password", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Inserisci email e password", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }
+
+    private fun logUserAction(action: String, details: String, email: String) {
+        val db = Firebase.firestore
+        val log = hashMapOf(
+            "email" to email,
+            "action" to action,
+            "details" to details,
+            "timestamp" to Timestamp.now()
+        )
+        db.collection("log_users").add(log)
+            .addOnSuccessListener {
+                Toast.makeText(
+                    requireContext(),
+                    "Log aggiunto correttamente!",
+                    Toast.LENGTH_SHORT,
+                ).show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(
+                    requireContext(),
+                    "Log fallito!",
+                    Toast.LENGTH_SHORT,
+                ).show()
+            }
+    }
 }
+
 
 

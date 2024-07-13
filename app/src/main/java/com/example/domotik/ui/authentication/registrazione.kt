@@ -17,6 +17,7 @@ import com.example.domotik.R
 import com.example.domotik.databinding.FragmentRegistrazioneBinding
 import com.example.domotik.ui.viewModel.AutenticazioneViewModel
 import com.google.firebase.Firebase
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
 
@@ -27,12 +28,12 @@ class registrazione : Fragment() {
     lateinit var Password : EditText
     lateinit var buttonReg : Button
     lateinit var mAuth : FirebaseAuth
-    //lateinit var cUser : FirebaseUser
     private lateinit var viewModel: AutenticazioneViewModel
     private lateinit var binding: FragmentRegistrazioneBinding
 
     public override fun onStart() {
         super.onStart()
+        mAuth = FirebaseAuth.getInstance()
         val currentUser = mAuth.currentUser
         if (currentUser != null) {
             val intent = Intent(requireContext(), MainActivity::class.java)
@@ -97,7 +98,7 @@ class registrazione : Fragment() {
                                     "email" to email
                                 )
                                 db.collection("users").document(user.uid).set(userMap).addOnSuccessListener {
-                                    //viewModel.registrazione(username, password, email)
+                                    logUserAction(user.uid, "registration",email)
                                     Navigation.findNavController(view)
                                         .navigate(R.id.action_registrazione_to_login)
                                 }
@@ -118,4 +119,25 @@ class registrazione : Fragment() {
             }
         }
     }
-}
+
+    private fun logUserAction(action: String, s: String, email: String){
+        val db = Firebase.firestore
+        val log = hashMapOf(
+            "email" to email,
+            "action" to action,
+            "timestamp" to Timestamp.now()
+        )
+        db.collection("log_users").add(log)
+            .addOnSuccessListener {
+            Toast.makeText(requireContext(),"Log aggiunto correttamente!",Toast.LENGTH_SHORT,)
+                .show()
+        }
+            .addOnFailureListener {
+                Toast.makeText(
+                    requireContext(),
+                    "Log fallito!",
+                    Toast.LENGTH_SHORT,
+                ).show()
+            }
+        }
+    }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/lightgreen">
 
-    <!-- ImageView per l'icona del ventilatore -->
+
     <ImageView
         android:id="@+id/forno_icon"
         android:layout_width="63dp"
@@ -88,7 +88,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/set_forno"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="96dp"
         android:textColor="@color/dark_blue"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"

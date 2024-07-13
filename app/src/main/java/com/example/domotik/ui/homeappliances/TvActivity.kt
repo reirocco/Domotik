@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.domotik.R
 import com.example.domotik.ui.dataModel.dispositivo
 import com.google.firebase.Timestamp
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class TvActivity : AppCompatActivity() {
@@ -20,10 +21,13 @@ class TvActivity : AppCompatActivity() {
     private lateinit var buttonSave: Button
     private lateinit var impostazioni_televisione : TextView
     private lateinit var db: FirebaseFirestore
+    private lateinit var mAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.televisione_layout)
+
+        mAuth = FirebaseAuth.getInstance()
 
         editTextCanale = findViewById(R.id.canale_editext)
         textViewVolume = findViewById(R.id.volume_tv)
@@ -48,19 +52,23 @@ class TvActivity : AppCompatActivity() {
         })
 
         buttonSave.setOnClickListener {
+            val user = mAuth.currentUser
+            if (user != null) {
+                val email = user.email ?: "Unknown"
             val canale = editTextCanale.text.toString().toIntOrNull()
             val volume = seekBarVolume.progress
 
             if (canale != null) {
-                saveSettingsToFirestore(canale, volume)
+                saveSettingsToFirestore(canale, volume, email)
             } else {
                 Toast.makeText(this, "Inserisci un canale valido", Toast.LENGTH_SHORT).show()
             }
         }
-    }
+    } }
 
-    private fun saveSettingsToFirestore(canale: Int, volume: Int) {
+    private fun saveSettingsToFirestore(canale: Int, volume: Int, email:String) {
         val televisione = dispositivo.Televisione(
+            email = email,
             canale = canale,
             volume = volume,
             timestamp = Timestamp.now()
@@ -81,14 +89,14 @@ class TvActivity : AppCompatActivity() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(this, "Impostazioni salvate", Toast.LENGTH_SHORT).show()
-                    updateImpostazioniTelevisione(canale, volume)
+                    updateImpostazioniTelevisione(canale, volume, email)
                 } else {
                     Toast.makeText(this, "Errore nel salvataggio delle impostazioni", Toast.LENGTH_SHORT).show()
                 }
             }
     }
-    fun updateImpostazioniTelevisione(volume: Int, canale: Int){
-        val settingsText = "Televisione è impostata sul canale $canale e volume $volume."
+    fun updateImpostazioniTelevisione(volume: Int, canale: Int, email: String){
+        val settingsText = "Televisione è impostata sul canale $canale e volume $volume dall'utente $email."
         impostazioni_televisione.text = settingsText
         }
 

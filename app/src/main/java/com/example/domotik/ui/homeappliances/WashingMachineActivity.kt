@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.domotik.R
 import com.example.domotik.ui.dataModel.dispositivo
 import com.google.firebase.Timestamp
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class WashingMachineActivity : AppCompatActivity() {
@@ -20,10 +21,12 @@ class WashingMachineActivity : AppCompatActivity() {
     private lateinit var modalitaSpinner: Spinner
     private lateinit var impostazioni_lavatrice: TextView
     private lateinit var db: FirebaseFirestore
-
+    private lateinit var mAuth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.lavatrice_layout)
+
+        mAuth = FirebaseAuth.getInstance()
 
         gradiSpinner = findViewById(R.id.gradi_spinner)
         modalitaSpinner = findViewById(R.id.modalità_spinner)
@@ -45,15 +48,19 @@ class WashingMachineActivity : AppCompatActivity() {
 
         val saveButton = findViewById<Button>(R.id.set_lavatrice)
         saveButton.setOnClickListener {
-            val setGradi = gradiSpinner.selectedItem.toString()
-            val setModalita = modalitaSpinner.selectedItem.toString()
-            saveSettingsToFirestore(setGradi, setModalita)
-
+            val user = mAuth.currentUser
+            if (user != null) {
+                val email = user.email ?: "Unknown"
+                val setGradi = gradiSpinner.selectedItem.toString()
+                val setModalita = modalitaSpinner.selectedItem.toString()
+                saveSettingsToFirestore(setGradi, setModalita, email)
+            }
         }
     }
 
-    private fun saveSettingsToFirestore(setGradi: String, setModalita: String) {
+    private fun saveSettingsToFirestore(setGradi: String, setModalita: String, email: String) {
         val lavatrice = dispositivo.Lavatrice(
+            email = email,
             gradi = setGradi,
             modalita = setModalita,
             timestamp = Timestamp.now()
@@ -74,7 +81,7 @@ class WashingMachineActivity : AppCompatActivity() {
             .addOnCompleteListener {task ->
                 if (task.isSuccessful) {
                     Toast.makeText(this, "Impostazioni salvate", Toast.LENGTH_SHORT).show()
-                       updateImpostazioniLavatrice(setGradi, setModalita)
+                       updateImpostazioniLavatrice(setGradi, setModalita, email)
                     val resultIntent = Intent()
                     setResult(Activity.RESULT_OK, resultIntent)
                 } else {
@@ -83,8 +90,8 @@ class WashingMachineActivity : AppCompatActivity() {
                 }
             }
     }
-    private fun updateImpostazioniLavatrice(setGradi: String, setModalita: String) {
-        val settingsText = "Lavatrice è impostata con $setGradi° in modalità $setModalita."
+    private fun updateImpostazioniLavatrice(setGradi: String, setModalita: String, email: String) {
+        val settingsText = "Lavatrice è impostata con $setGradi° in modalità $setModalita dall'utente $email."
         impostazioni_lavatrice.text = settingsText
     }
 }

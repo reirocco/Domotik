@@ -1,13 +1,9 @@
 package com.example.domotik.ui.viewModel
 
 import androidx.lifecycle.ViewModel
-import com.example.domotik.ui.dataModel.Utenti
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.firestore.FirebaseFirestore
 
 class AutenticazioneViewModel : ViewModel() {
     lateinit var cUser: FirebaseUser
@@ -16,18 +12,43 @@ class AutenticazioneViewModel : ViewModel() {
      fun registrazione(username: String, email: String, password: String) {
         if (FirebaseAuth.getInstance().currentUser != null) {
             cUser = FirebaseAuth.getInstance().currentUser!!
-            val database =
-                FirebaseDatabase.getInstance("https://console.firebase.google.com/project/domotikapp-bb2db/firestore/data")
-            val usersRef = database.reference.child("Utenti")
+            val db =
+                FirebaseFirestore.getInstance()
+            val usersRef = db.collection("users")
 
-            usersRef.child(cUser.uid ?: "")
+            val userMap = hashMapOf(
+                "username" to username,
+                "email" to email,
+                "password" to password
+            )
+
+            usersRef.document(cUser.uid).get().addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val document = task.result
+                    if (!document.exists()) {
+                        usersRef.document(cUser.uid).set(userMap)
+                            .addOnSuccessListener {
+                                // Operazione riuscita
+                            }
+                            .addOnFailureListener { e ->
+                                // Gestisci l'errore
+                            }
+                    }
+                } else {
+                    // Gestisci l'errore se la lettura del documento non è riuscita
+                }
+            }
+        }
+    }
+}
+            /*usersRef.child(cUser.uid ?: "")
                 .addListenerForSingleValueEvent(object :
                     ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         if (!snapshot.exists()) {
 
 
-                            val user = Utenti(
+                          val user = Utenti(
                                 username = username,
                                 email = email,
                                 password = password
@@ -41,8 +62,7 @@ class AutenticazioneViewModel : ViewModel() {
                     }
                 })
         }
+*/
 
-    }
 
-
-}
+//"https://console.firebase.google.com/project/domotikapp-bb2db/firestore/data"

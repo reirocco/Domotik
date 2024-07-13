@@ -109,8 +109,8 @@
 
     <TextView
         android:id="@+id/impostazioni_verifica"
-        android:layout_width="319dp"
-        android:layout_height="27dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@id/set_lavastoviglie"
         android:layout_marginTop="56dp"
         android:textColor="@color/dark_blue"
