@@ -53,7 +53,7 @@ class MessageAdapter(private val messages: MutableList<Message>, private val uid
             OTHER_MESSAGE -> {
                 val otherMessageViewHolder = holder as OtherMessageViewHolder
                 otherMessageViewHolder.messageTextView.text = messages[position].message
-                otherMessageViewHolder.nameTextView.text = messages[position].senderName
+                otherMessageViewHolder.nameTextView.text = messages[position].senderUsername
             }
         }
     }

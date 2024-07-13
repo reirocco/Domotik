@@ -16,7 +16,9 @@ import com.example.domotik.MainActivity
 import com.example.domotik.R
 import com.example.domotik.databinding.FragmentRegistrazioneBinding
 import com.example.domotik.ui.viewModel.AutenticazioneViewModel
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.firestore
 
 
 class registrazione : Fragment() {
@@ -87,10 +89,19 @@ class registrazione : Fragment() {
                                 Toast.LENGTH_SHORT,
                             ).show()
 
-                            viewModel.registrazione(username, password, email)
-
-                            Navigation.findNavController(view)
-                                .navigate(R.id.action_registrazione_to_login)
+                            val user = task.result.user
+                            val db = Firebase.firestore
+                            if (user != null) {
+                                val userMap = hashMapOf(
+                                    "username" to username,
+                                    "email" to email
+                                )
+                                db.collection("users").document(user.uid).set(userMap).addOnSuccessListener {
+                                    //viewModel.registrazione(username, password, email)
+                                    Navigation.findNavController(view)
+                                        .navigate(R.id.action_registrazione_to_login)
+                                }
+                            }
 
                         } else {
                             // If sign in fails, display a message to the user.

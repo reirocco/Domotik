@@ -15,6 +15,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.Firebase
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.auth
+import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
@@ -49,17 +50,23 @@ class MessagingActivity : AppCompatActivity() {
         var userName: String = ""
         var chatId: String = ""
         db.collection("users").document(user.uid).get().addOnSuccessListener { result->
-            userName = result.data?.get("name") as String
+            userName = result.data?.get("username") as String
             chatId = result.data?.get("chat") as String
-            db.collection("chats").document(chatId).collection("messages").orderBy("timestamp", Query.Direction.ASCENDING).get().addOnSuccessListener { messageDocuments ->
-                for (document in messageDocuments) {
-                    val messageData = document.data
-                    val senderUid: String = messageData["senderUid"] as String
-                    val senderName: String = messageData["senderName"] as String
-                    val message: String = messageData["message"] as String
-                    val timestamp: Timestamp = messageData["timestamp"] as Timestamp
-                    val messageObject = Message(senderUid, senderName, message, timestamp)
-                    messageAdapter.addMessage(messageObject)
+
+            db.collection("chats").document(chatId).collection("messages").orderBy("timestamp", Query.Direction.ASCENDING).addSnapshotListener{qs, e ->
+                if (e != null) {
+                    return@addSnapshotListener
+                }
+                for (dc in qs!!.documentChanges) {
+                    if (dc.type == DocumentChange.Type.ADDED) {
+                        val messageData = dc.document.data
+                        val senderUid: String = messageData["senderUid"] as String
+                        val senderUsername: String = messageData["senderUsername"] as String
+                        val message: String = messageData["message"] as String
+                        val timestamp: Timestamp = messageData["timestamp"] as Timestamp
+                        val messageObject = Message(senderUid, senderUsername, message, timestamp)
+                        messageAdapter.addMessage(messageObject)
+                    }
                 }
                 recyclerView.post {
                     recyclerView.layoutManager?.scrollToPosition(messageAdapter.itemCount -1)
@@ -72,17 +79,13 @@ class MessagingActivity : AppCompatActivity() {
             val text = editText.text.toString() //prende il contenuto dell'edit text
             if (text.isNotEmpty()){
                 val message = Message(user.uid, userName, text, Timestamp.now())
-                messageAdapter.addMessage(message)
                 val messageMap = hashMapOf(
                     "senderUid" to message.senderUid,
-                    "senderName" to message.senderName,
+                    "senderUsername" to message.senderUsername,
                     "message" to message.message,
                     "timestamp" to message.timestamp
                 )
                 db.collection("chats").document(chatId).collection("messages").add(messageMap)
-                recyclerView.post {
-                    recyclerView.layoutManager?.scrollToPosition(messageAdapter.itemCount -1)
-                }
                 editText.text?.clear() //lo pulisce solo se lo trova non nullo
             }
         }
@@ -93,7 +96,7 @@ class MessagingActivity : AppCompatActivity() {
             messageAdapter.addMessage(message)
             val messageMap = hashMapOf(
                 "senderUid" to message.senderUid,
-                "senderName" to message.senderName,
+                "senderUsername" to message.senderUsername,
                 "message" to message.message,
                 "timestamp" to message.timestamp
             )
