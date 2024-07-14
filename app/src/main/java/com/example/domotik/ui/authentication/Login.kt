@@ -116,7 +116,7 @@ class Login : Fragment() {
             "details" to details,
             "timestamp" to Timestamp.now()
         )
-        db.collection("log_users").add(log)
+        db.collection("user_logs").add(log)
             .addOnSuccessListener {
                 Toast.makeText(
                     requireContext(),

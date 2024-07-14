@@ -94,7 +94,7 @@ class registrazione : Fragment() {
                                 ).show()
                             }
 
-                            val user = task.result.user
+                            val user = task.result?.user
                             val db = Firebase.firestore
                             if (user != null) {
                                 val userMap = hashMapOf(
@@ -133,7 +133,7 @@ class registrazione : Fragment() {
             "action" to action,
             "timestamp" to Timestamp.now()
         )
-        db.collection("log_users").add(log)
+        db.collection("user_logs").add(log)
             .addOnSuccessListener {
                 if (isAdded) {
                     Toast.makeText(
