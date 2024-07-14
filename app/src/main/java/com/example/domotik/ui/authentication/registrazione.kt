@@ -21,7 +21,6 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
 
-
 class registrazione : Fragment() {
     lateinit var User : EditText
     lateinit var Email : EditText
@@ -48,7 +47,7 @@ class registrazione : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate<FragmentRegistrazioneBinding>(inflater,
+        binding = DataBindingUtil.inflate(inflater,
             R.layout.fragment_registrazione,container,false)
         return binding.root
     }
@@ -59,7 +58,9 @@ class registrazione : Fragment() {
 
         binding.clickListener = object : ClickListener {
             override fun onScrittaClicked() {
-                Navigation.findNavController(view).navigate(R.id.action_registrazione_to_login)
+                if (isAdded) {
+                    Navigation.findNavController(view).navigate(R.id.action_registrazione_to_login)
+                }
             }
         }
         mAuth = FirebaseAuth.getInstance()
@@ -74,9 +75,10 @@ class registrazione : Fragment() {
             val email = Email.text.toString()
             val password = Password.text.toString()
 
-
             if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(requireContext(), "Compila tutti i campi", Toast.LENGTH_SHORT).show()
+                if (isAdded) {
+                    Toast.makeText(requireContext(), "Compila tutti i campi", Toast.LENGTH_SHORT).show()
+                }
                 return@setOnClickListener
             }
 
@@ -84,11 +86,13 @@ class registrazione : Fragment() {
                 mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener() { task ->
                         if (task.isSuccessful) {
-                            Toast.makeText(
-                                requireContext(),
-                                "Account creato!",
-                                Toast.LENGTH_SHORT,
-                            ).show()
+                            if (isAdded) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Account creato!",
+                                    Toast.LENGTH_SHORT,
+                                ).show()
+                            }
 
                             val user = task.result.user
                             val db = Firebase.firestore
@@ -98,29 +102,31 @@ class registrazione : Fragment() {
                                     "email" to email
                                 )
                                 db.collection("users").document(user.uid).set(userMap).addOnSuccessListener {
-                                    logUserAction(user.uid, "registration",email)
-                                    Navigation.findNavController(view)
-                                        .navigate(R.id.action_registrazione_to_login)
+                                    logUserAction("registration", email)
+                                    if (isAdded) {
+                                        Navigation.findNavController(view)
+                                            .navigate(R.id.action_registrazione_to_login)
+                                    }
                                 }
                             }
 
                         } else {
-                            // If sign in fails, display a message to the user.
                             val exception = task.exception
-                            if (exception != null) {
+                            if (exception != null && isAdded) {
                                 val errorMessage = exception.localizedMessage
                                 Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
                             }
                         }
                     }
-
-            }else {
-                Toast.makeText(requireContext(), "Inserisci email e password", Toast.LENGTH_SHORT).show()
+            } else {
+                if (isAdded) {
+                    Toast.makeText(requireContext(), "Inserisci email e password", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
 
-    private fun logUserAction(action: String, s: String, email: String){
+    private fun logUserAction(action: String, email: String) {
         val db = Firebase.firestore
         val log = hashMapOf(
             "email" to email,
@@ -129,15 +135,18 @@ class registrazione : Fragment() {
         )
         db.collection("log_users").add(log)
             .addOnSuccessListener {
-            Toast.makeText(requireContext(),"Log aggiunto correttamente!",Toast.LENGTH_SHORT,)
-                .show()
-        }
-            .addOnFailureListener {
-                Toast.makeText(
-                    requireContext(),
-                    "Log fallito!",
-                    Toast.LENGTH_SHORT,
-                ).show()
+                if (isAdded) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Log aggiunto correttamente!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
-        }
+            .addOnFailureListener {
+                if (isAdded) {
+                    Toast.makeText(requireContext(), "Log fallito!", Toast.LENGTH_SHORT).show()
+                }
+            }
     }
+}

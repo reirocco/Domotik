@@ -41,28 +41,5 @@ class AutenticazioneViewModel : ViewModel() {
         }
     }
 }
-            /*usersRef.child(cUser.uid ?: "")
-                .addListenerForSingleValueEvent(object :
-                    ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        if (!snapshot.exists()) {
-
-
-                          val user = Utenti(
-                                username = username,
-                                email = email,
-                                password = password
-                            )
-                            usersRef.child(cUser.uid).setValue(user)
-                        }
-                    }
-
-                    override fun onCancelled(error: DatabaseError) {
-
-                    }
-                })
-        }
-*/
-
 
 //"https://console.firebase.google.com/project/domotikapp-bb2db/firestore/data"
