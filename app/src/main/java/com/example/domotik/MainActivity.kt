@@ -16,7 +16,6 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.work.ExistingPeriodicWorkPolicy
 import com.example.domotik.databinding.ActivityMainBinding
 import com.example.domotik.ui.Weather.IndoorWeatherActivity
-import com.example.domotik.ui.Weather.WeatherActivity
 import com.example.domotik.ui.camera.CameraActivity
 import com.example.domotik.ui.home.HomeFragment
 import com.example.domotik.ui.homeappliances.HomeAppliancesActivity

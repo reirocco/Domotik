@@ -59,11 +59,6 @@
         android:name="com.example.domotik.ui.notifications.Impostazioni"
         android:label="Impostazioni"
         tools:layout="@layout/fragment_logout"/>
-    <activity
-        android:id="@+id/weatherActivity"
-        android:name="com.example.domotik.ui.Weather.WeatherActivity"
-        android:label="WeatherActivity" />
-
 
 
 </navigation>

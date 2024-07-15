@@ -265,6 +265,7 @@ class IndoorWeatherActivity : AppCompatActivity() {
         chips.setOnCheckedStateChangeListener { group, checkedIds ->
             if (checkedIds.isEmpty()) {
                 Log.v("chips", "nothing selected")
+                this.chipsList = ArrayList<String>()
             } else {
                 Log.v("chips", "ones or more selected")
                 this.chipsList = ArrayList<String>()
@@ -272,9 +273,9 @@ class IndoorWeatherActivity : AppCompatActivity() {
                     val chip = findViewById<Chip>(ids)
                     chipsList.add(chip.text.toString())
                     Log.v("chips", "\n\ttriggered value: " + chip.text.toString())
-                    this.indoorViewModel.indoorWeatherData.value?.let { updateGraph(it) }
                 }
             }
+            this.indoorViewModel.indoorWeatherData.value?.let { updateGraph(it) }
         }
 
     }
