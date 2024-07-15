@@ -139,7 +139,7 @@ class MainActivity : AppCompatActivity() {
 
     fun schedulePeriodicWork(context: Context) {
         val periodicWorkRequest = PeriodicWorkRequestBuilder<Worker>(15, TimeUnit.MINUTES)
-            .setInitialDelay(0, TimeUnit.MINUTES) // Optional: set initial delay
+            .setInitialDelay(0, TimeUnit.MINUTES) // Initial delay, 0 for project presentation
             .build()
 
         WorkManager.getInstance(context).enqueueUniquePeriodicWork(

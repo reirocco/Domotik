@@ -3,18 +3,19 @@ package com.example.domotik.ui.Weather
 // FOR MORE SEE https://www.geeksforgeeks.org/android-line-graph-view-with-kotlin/
 
 import GsonRequest
+import Worker
 import android.app.DatePickerDialog
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.DatePicker
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.work.WorkerParameters
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.Volley
@@ -279,13 +280,13 @@ class IndoorWeatherActivity : AppCompatActivity() {
     }
 
 
-
     fun getDayOfMonth(date: Date): Int {
         val calendar = Calendar.getInstance()
         calendar.time = date
 
         return calendar.get(Calendar.DAY_OF_MONTH)
     }
+
     fun getMonth(date: Date): Int {
         val calendar = Calendar.getInstance()
         calendar.time = date
@@ -301,11 +302,11 @@ class IndoorWeatherActivity : AppCompatActivity() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun showDatePickerDialog(init:Boolean,onDateSelected: (String) -> Unit) {
+    private fun showDatePickerDialog(init: Boolean, onDateSelected: (String) -> Unit) {
         val calendar = Calendar.getInstance()
-        val year = if(init) getYear(this.dateInit) else getYear(this.dateEnd)
-        val month =  if(init) getMonth(this.dateInit) else getMonth(this.dateEnd)
-        val day = if(init) getDayOfMonth(this.dateInit) else getDayOfMonth(this.dateEnd)
+        val year = if (init) getYear(this.dateInit) else getYear(this.dateEnd)
+        val month = if (init) getMonth(this.dateInit) else getMonth(this.dateEnd)
+        val day = if (init) getDayOfMonth(this.dateInit) else getDayOfMonth(this.dateEnd)
 
         val datePickerDialog = DatePickerDialog(
             this,

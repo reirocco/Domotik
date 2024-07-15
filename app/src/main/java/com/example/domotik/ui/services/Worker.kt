@@ -1,13 +1,20 @@
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.core.app.NotificationCompat
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.Volley
+import com.example.domotik.R
 import com.example.domotik.network.model.WeatherHistory
+import com.example.domotik.ui.Weather.IndoorWeatherActivity
 import java.time.LocalDate
 
 class Worker(context: Context, workerParams: WorkerParameters) : Worker(context, workerParams) {
@@ -82,18 +89,54 @@ class Worker(context: Context, workerParams: WorkerParameters) : Worker(context,
         }
 
         val co2Advice = when {
-            co2 < 400.0 -> "Ventila di meno, potrebbe essere necessario chiudere alcune finestre."
-            co2 > 1000.0 -> "Apri una finestra per aumentare la ventilazione."
+            co2 < 400.0 -> "Livello di CO2 inferiore a 400 ppm, indica che l'ambiente è ben ventilato e c'è un ricambio d'aria frequente. Nessuna operazione consigliata"
+            co2 > 1000.0 -> "Livello di Co2 elevato, apri una finestra per aumentare la ventilazione."
             else -> ""
         }
 
         val temperatureMessage =
-            if (temperatureInRange) "La temperatura è nella media." else "La temperatura non è nella media. $temperatureAdvice"
+            if (temperatureInRange) "La temperatura è di $temperature° ed è nella media." else "La temperatura non è nella media. $temperatureAdvice"
         val co2Message =
-            if (co2InRange) "Il livello di CO2 è nella media." else "Il livello di CO2 non è nella media. $co2Advice"
+            if (co2InRange) "Il livello di CO2 è di $co2 ed è nella media." else "Il livello di CO2 è di $co2 Ppm. $co2Advice"
 
         Log.v("worker", "$temperatureMessage $co2Message")
+        sendNotification("Controllo Indoor", "$temperatureMessage $co2Message")
         return "$temperatureMessage $co2Message"
+    }
+
+    private fun sendNotification(title: String, message: String) {
+        val notificationManager = applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val channelId = "MY_CHANNEL_ID"
+
+        // Crea l'intent che avvia l'Activity quando si clicca sulla notifica
+        val mainIntent = Intent(applicationContext, IndoorWeatherActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        val mainPendingIntent: PendingIntent = PendingIntent.getActivity(applicationContext, 0, mainIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+
+        // Crea l'intent per l'azione del pulsante
+        val actionIntent = Intent(applicationContext, IndoorWeatherActivity::class.java)
+        val actionPendingIntent: PendingIntent = PendingIntent.getActivity(applicationContext, 1, actionIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channelName = "My Channel"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(channelId, channelName, importance)
+            notificationManager.createNotificationChannel(channel)
+        }
+
+        val notification = NotificationCompat.Builder(applicationContext, channelId)
+            .setSmallIcon(R.mipmap.ic_launcher) // Usa l'icona di notifica
+            .setContentTitle(title)
+            .setContentText(message)
+            .setContentIntent(mainPendingIntent) // Imposta il PendingIntent principale
+            .setAutoCancel(true) // Cancella la notifica quando viene cliccata
+            .setStyle(NotificationCompat.BigTextStyle().bigText(message)) // Notifica espandibile
+            .addAction(R.drawable.baseline_build_circle_24, "Apri", actionPendingIntent) // Aggiungi il pulsante dell'azione
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .build()
+
+        notificationManager.notify(1, notification)
     }
 
 }
