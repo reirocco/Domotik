@@ -2,6 +2,8 @@ package com.example.domotik
 
 //import com.example.domotik.ui.camera.CameraActivity
 //import com.example.domotik.ui.settings.ProfiloUtente
+import Worker
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -11,6 +13,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.work.ExistingPeriodicWorkPolicy
 import com.example.domotik.databinding.ActivityMainBinding
 import com.example.domotik.ui.Weather.IndoorWeatherActivity
 import com.example.domotik.ui.Weather.WeatherActivity
@@ -27,6 +30,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
+import java.util.concurrent.TimeUnit
 
 
 class MainActivity : AppCompatActivity() {
@@ -41,6 +47,9 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Pianificazione del worker in background ogni 15 minuti
+        schedulePeriodicWork(this)
 
         //binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
@@ -126,6 +135,18 @@ class MainActivity : AppCompatActivity() {
     fun startLavastoviglieActivity(view: View) {
         val intent = Intent(this, LavastoviglieActivity::class.java)
         startActivity(intent)
+    }
+
+    fun schedulePeriodicWork(context: Context) {
+        val periodicWorkRequest = PeriodicWorkRequestBuilder<Worker>(15, TimeUnit.MINUTES)
+            .setInitialDelay(0, TimeUnit.MINUTES) // Optional: set initial delay
+            .build()
+
+        WorkManager.getInstance(context).enqueueUniquePeriodicWork(
+            "timeAnalisysWorker",
+            ExistingPeriodicWorkPolicy.REPLACE,
+            periodicWorkRequest
+        )
     }
 }
 
