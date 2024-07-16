@@ -47,7 +47,6 @@ import com.example.domotik.R
                 val intent = Intent(this, LavastoviglieActivity::class.java)
                 startActivityForResult(intent, REQUEST_CODE_LAVATRICE)
             }
-            // Altri card view e codice iniziale...
 
             updateUI()
         }
@@ -93,6 +92,5 @@ import com.example.domotik.R
             }
 
 
-            // Altri dispositivi...
         }
     }

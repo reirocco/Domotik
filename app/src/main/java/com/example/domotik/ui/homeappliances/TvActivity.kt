@@ -1,8 +1,12 @@
 package com.example.domotik.ui.homeappliances
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.speech.RecognizerIntent
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
@@ -12,6 +16,7 @@ import com.example.domotik.ui.dataModel.dispositivo
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import java.util.Locale
 
 class TvActivity : AppCompatActivity() {
 
@@ -19,9 +24,10 @@ class TvActivity : AppCompatActivity() {
     private lateinit var textViewVolume: TextView
     private lateinit var seekBarVolume: SeekBar
     private lateinit var buttonSave: Button
-    private lateinit var impostazioni_televisione : TextView
+    private lateinit var impostazioni_televisione: TextView
     private lateinit var db: FirebaseFirestore
     private lateinit var mAuth: FirebaseAuth
+    private val SPEECH_REQUEST_CODE = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,11 +49,11 @@ class TvActivity : AppCompatActivity() {
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                // Do nothing
+                // vuoto
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                // Do nothing
+                // vuoto
             }
         })
 
@@ -55,18 +61,92 @@ class TvActivity : AppCompatActivity() {
             val user = mAuth.currentUser
             if (user != null) {
                 val email = user.email ?: "Unknown"
-            val canale = editTextCanale.text.toString().toIntOrNull()
-            val volume = seekBarVolume.progress
+                val canale = editTextCanale.text.toString().toIntOrNull()
+                val volume = seekBarVolume.progress
 
-            if (canale != null) {
-                saveSettingsToFirestore(canale, volume, email)
-            } else {
-                Toast.makeText(this, "Inserisci un canale valido", Toast.LENGTH_SHORT).show()
+                if (canale != null) {
+                    saveSettingsToFirestore(canale, volume, email)
+                } else {
+                    Toast.makeText(this, "Inserisci un canale valido", Toast.LENGTH_SHORT).show()
+                }
             }
         }
-    } }
 
-    private fun saveSettingsToFirestore(canale: Int, volume: Int, email:String) {
+        val speechButton = findViewById<ImageButton>(R.id.microphone)
+        speechButton.setOnClickListener { startTextToSpeech() }
+    }
+
+    private fun startTextToSpeech() {
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+            putExtra(
+                RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+            )
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+            putExtra(RecognizerIntent.EXTRA_PROMPT, "Parla per impostare la televisione")
+        }
+
+        try {
+            startActivityForResult(intent, SPEECH_REQUEST_CODE)
+        } catch (e: Exception) {
+            Toast.makeText(
+                this,
+                "I comandi vocali non sono supportati su questo dispositivo",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == SPEECH_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            val results = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+            if (results != null && results.isNotEmpty()) {
+                gestioneComandiVocali(results[0])
+            }
+        }
+    }
+
+    private fun gestioneComandiVocali(command: String) {
+        var selectedVolume: Int? = null
+        var selectedCanale: Int? = null
+
+        // Dividi il comando in parole
+        val words = command.split(" ")
+
+
+        for (i in words.indices) {
+            if (words[i].equals("volume", ignoreCase = true) && i + 1 < words.size) {
+                selectedVolume = words[i + 1].toIntOrNull()
+            }
+            if (words[i].equals("canale", ignoreCase = true) && i + 1 < words.size) {
+                selectedCanale = words[i + 1].toIntOrNull()
+            }
+        }
+
+
+        if (selectedVolume != null) {
+            seekBarVolume.progress = selectedVolume
+        }
+
+        if (selectedCanale != null) {
+            editTextCanale.setText(selectedCanale.toString())
+        }
+
+        val user = mAuth.currentUser
+        if (user != null) {
+            val email = user.email ?: "Unknown"
+            if (selectedCanale != null && selectedVolume != null) {
+                saveSettingsToFirestore(selectedCanale, selectedVolume, email)
+            } else {
+                Toast.makeText(this, "Comando vocale non riconosciuto", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+
+    private fun saveSettingsToFirestore(canale: Int, volume: Int, email: String) {
         val televisione = dispositivo.Televisione(
             email = email,
             canale = canale,
@@ -95,9 +175,9 @@ class TvActivity : AppCompatActivity() {
                 }
             }
     }
-    fun updateImpostazioniTelevisione(volume: Int, canale: Int, email: String){
-        val settingsText = "Televisione è impostata sul canale $canale e volume $volume dall'utente $email."
-        impostazioni_televisione.text = settingsText
-        }
 
+    fun updateImpostazioniTelevisione(canale: Int, volume: Int, email: String) {
+        val settingsText = "Televisione è impostata sul canale $canale e volume $volume% dall'utente $email."
+        impostazioni_televisione.text = settingsText
+    }
 }

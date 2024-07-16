@@ -1,7 +1,10 @@
 package com.example.domotik.ui.lights
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.speech.RecognizerIntent
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -12,11 +15,13 @@ import com.example.domotik.R
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import java.util.Locale
 
 class LightsActivity : AppCompatActivity() {
 
     private lateinit var db: FirebaseFirestore
     private lateinit var mAuth: FirebaseAuth
+    private val SPEECH_REQUEST_CODE = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +36,8 @@ class LightsActivity : AppCompatActivity() {
         mAuth = FirebaseAuth.getInstance()
 
         db = FirebaseFirestore.getInstance()
+        val speechButton = findViewById<ImageButton>(R.id.microphone)
+        speechButton.setOnClickListener { startTextToSpeech() }
 
         val cardViewCucina = findViewById<CardView>(R.id.grid_element_cardwiev_cucina)
         cardViewCucina.setOnClickListener {switchOnCucina()}
@@ -106,6 +113,40 @@ class LightsActivity : AppCompatActivity() {
                     )
                 }
             }
+    private fun startTextToSpeech() {
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+            putExtra(RecognizerIntent.EXTRA_PROMPT, "Say a command...")
+        }
+
+        try {
+            startActivityForResult(intent, SPEECH_REQUEST_CODE)
+        } catch (e: Exception) {
+            Toast.makeText(this, "I comandi vocali non sono supportati su questo dispositivo", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == SPEECH_REQUEST_CODE && resultCode == RESULT_OK) {
+            val result = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+            result?.let {
+                val spokenText = it[0]
+               gestioneComadiVocali(spokenText)
+            }
+        }
+    }
+
+    private fun gestioneComadiVocali(command: String) {
+        when {
+            command.contains("cucina", ignoreCase = true) -> switchOnCucina()
+            command.contains("sala", ignoreCase = true) -> switchOnSala()
+            command.contains("soppalco", ignoreCase = true) -> switchOnSoppalco()
+            command.contains("bagno", ignoreCase = true) -> switchOnBagno()
+            else -> Toast.makeText(this, "Comando non riconosciuto", Toast.LENGTH_SHORT).show()
+        }
+    }
 
             override fun onSupportNavigateUp(): Boolean {
                 finish()

@@ -7,187 +7,185 @@
     android:background="@color/lightgreen"
     tools:context=".ui.homeappliances.HomeAppliancesActivity">
 
-        <GridLayout
-            android:id="@+id/ElettrodomesticiLayout"
-            android:layout_marginVertical="30dp"
-            android:layout_marginHorizontal="10dp"
-            android:columnCount="2"
-            android:rowCount="2"
+    <GridLayout
+        android:id="@+id/ElettrodomesticiLayout"
+        android:layout_width="378dp"
+        android:layout_height="873dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="30dp"
+        android:columnCount="2"
+        android:rowCount="2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.673"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.017">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/grid_element_cardview_lavatrice"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/grid_element_cardview_lavatrice"
-                android:onClick="startWashingMachineActivity"
-                android:layout_marginVertical="25dp"
-                android:layout_columnWeight="1"
-                android:layout_width="0dp"
-                android:layout_height="160dp"
-                android:layout_margin="5dp"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="5dp"
-                android:foreground="?android:attr/selectableItemBackground">
+            android:layout_height="160dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="5dp"
+            android:layout_marginVertical="25dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:onClick="startWashingMachineActivity"
+            app:cardElevation="5dp">
 
 
             <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:layout_gravity="center">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
 
-                    <ImageView
-                        android:id="@+id/lavatrice_icon"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:layout_gravity="center"
-                        android:padding="5dp"
-                        android:layout_margin="5dp"
-                        android:src="@drawable/washing_machine" />
+                <ImageView
+                    android:id="@+id/lavatrice_icon"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:padding="5dp"
+                    android:src="@drawable/washing_machine" />
 
-                    <TextView
-                        android:id="@+id/lavatrice_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="5dp"
-                        android:padding="5dp"
-                        android:textAlignment="center"
-                        android:textColor="@color/black"
-                        android:text="Lavatrice"/>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/grid_element_cardwiev_lavastoviglie"
-                android:onClick="startLavastoviglieActivity"
-                android:layout_marginVertical="25dp"
-                android:layout_columnWeight="1"
-                android:layout_width="0dp"
-                android:layout_height="160dp"
-                android:layout_margin="5dp"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="5dp"
-                android:foreground="?android:attr/selectableItemBackground">
-
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:layout_gravity="center">
-
-                    <ImageView
-                        android:id="@+id/lavastoviglie_icon"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:layout_gravity="center"
-                        android:padding="5dp"
-                        android:layout_margin="5dp"
-                        android:src="@drawable/dishwasher" />
-
-                    <TextView
-                        android:id="@+id/lavastoviglie_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="5dp"
-                        android:padding="5dp"
-                        android:textAlignment="center"
-                        android:textColor="@color/black"
-                        android:text="Lavastoviglie"/>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/grid_element_cardwiev_forno"
-                android:onClick="startOvenActivity"
-                android:layout_marginVertical="25dp"
-                android:layout_columnWeight="1"
-                android:layout_width="0dp"
-                android:layout_height="160dp"
-                android:layout_margin="5dp"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="5dp"
-                android:foreground="?android:attr/selectableItemBackground">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:layout_gravity="center">
-
-                    <ImageView
-                        android:id="@+id/forno_icon"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:layout_gravity="center"
-                        android:padding="5dp"
-                        android:layout_margin="5dp"
-                        android:src="@drawable/oven" />
-
-                    <TextView
-                        android:id="@+id/forno_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="5dp"
-                        android:padding="5dp"
-                        android:textAlignment="center"
-                        android:textColor="@color/black"
-                        android:text="Forno"/>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/grid_element_cardwiev_televisione"
-                android:onClick="startTvActivity"
-                android:layout_width="0dp"
-                android:layout_height="160dp"
-                android:layout_row="0"
-                android:layout_columnWeight="1"
-                android:layout_margin="5dp"
-                android:layout_marginVertical="25dp"
-                android:foreground="?android:attr/selectableItemBackground"
-
-                app:cardCornerRadius="10dp"
-                app:cardElevation="5dp">
-
-
-                <LinearLayout
+                <TextView
+                    android:id="@+id/lavatrice_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:layout_margin="5dp"
+                    android:padding="5dp"
+                    android:text="Lavatrice"
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-                    <ImageView
-                        android:id="@+id/tv_icon"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:layout_gravity="center"
-                        android:layout_margin="5dp"
-                        android:padding="5dp"
-                        android:src="@drawable/baseline_tv_24" />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/grid_element_cardwiev_lavastoviglie"
+            android:layout_width="0dp"
+            android:layout_height="160dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="5dp"
+            android:layout_marginVertical="25dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:onClick="startLavastoviglieActivity"
+            app:cardElevation="5dp">
 
-                    <TextView
-                        android:id="@+id/tv_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="5dp"
-                        android:padding="5dp"
-                        android:text="Televisione"
-                        android:textAlignment="center"
-                        android:textColor="@color/black" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-        </GridLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/lavastoviglie_icon"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:padding="5dp"
+                    android:src="@drawable/dishwasher" />
+
+                <TextView
+                    android:id="@+id/lavastoviglie_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:padding="5dp"
+                    android:text="Lavastoviglie"
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/grid_element_cardwiev_forno"
+            android:layout_width="0dp"
+            android:layout_height="160dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="5dp"
+            android:layout_marginVertical="25dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:onClick="startOvenActivity"
+            app:cardElevation="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/forno_icon"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:padding="5dp"
+                    android:src="@drawable/oven" />
+
+                <TextView
+                    android:id="@+id/forno_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:padding="5dp"
+                    android:text="Forno"
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/grid_element_cardwiev_televisione"
+            android:layout_width="0dp"
+            android:layout_height="160dp"
+            android:layout_row="0"
+            android:layout_columnWeight="1"
+            android:layout_margin="5dp"
+            android:layout_marginVertical="25dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:onClick="startTvActivity"
+            app:cardElevation="5dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/tv_icon"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:padding="5dp"
+                    android:src="@drawable/baseline_tv_24" />
+
+                <TextView
+                    android:id="@+id/tv_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:padding="5dp"
+                    android:text="Televisione"
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </GridLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -86,7 +86,7 @@
         android:id="@+id/set_lavastoviglie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="192dp"
+        android:layout_marginTop="136dp"
         android:onClick="set_lavastoviglie"
         android:text="Imposta"
         android:textColor="@color/dark_blue"
@@ -109,13 +109,14 @@
 
     <TextView
         android:id="@+id/impostazioni_verifica"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="355dp"
+        android:layout_height="75dp"
         android:layout_below="@id/set_lavastoviglie"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="32dp"
         android:textColor="@color/dark_blue"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/set_lavastoviglie" />
 
@@ -132,4 +133,17 @@
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pastiglie_lavastoviglie" />
+
+    <ImageButton
+        android:id="@+id/microphone"
+        android:layout_width="145dp"
+        android:layout_height="120dp"
+        android:layout_marginBottom="52dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="5dp"
+        android:src="@drawable/microphone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.979"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

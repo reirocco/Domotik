@@ -3,9 +3,11 @@ package com.example.domotik.ui.homeappliances
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.speech.RecognizerIntent
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
@@ -23,6 +25,10 @@ class OvenActivity : AppCompatActivity() {
     private lateinit var impostazioni_forno: TextView
     private lateinit var db: FirebaseFirestore
     private lateinit var mAuth: FirebaseAuth
+    private val SPEECH_REQUEST_CODE = 0
+    private lateinit var adapter_temp: ArrayAdapter<String>
+    private lateinit var adapter_programma: ArrayAdapter<String>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.forno_layout)
@@ -34,31 +40,18 @@ class OvenActivity : AppCompatActivity() {
         impostazioni_forno = findViewById(R.id.impostazioni_verifica)
         Log.d(
             "OvenActivity",
-            "temperaturaSpinner: $temperaturaSpinner, programmaSpinner:$programmaSpinner"
+            "temperaturaSpinner: $temperaturaSpinner, programmaSpinner: $programmaSpinner"
         )
 
-        val temperaturaForno =
-            listOf("60", "80", "100", "120", "140", "160", "180", "200", "220", "240")
-        val adapter_temp =
-            ArrayAdapter(this, android.R.layout.simple_spinner_item, temperaturaForno)
-        adapter_temp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        temperaturaSpinner.adapter = adapter_temp
-
-        val programmaForno = listOf(
-            "Statico",
-            "Ventilato",
-            "Grill",
-            "Grill Ventilato",
-            "Resistenza inferiore",
-            "Resistenza superiore"
-        )
-        val adapter_programma =
-            ArrayAdapter(this, android.R.layout.simple_spinner_item, programmaForno)
-        adapter_programma.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        programmaSpinner.adapter = adapter_programma
+        setupSpinners()
 
         // Inizializzazione del riferimento al database Firestore
         db = FirebaseFirestore.getInstance()
+
+        val ImageButtonMicrofono = findViewById<ImageButton>(R.id.microphone)
+       ImageButtonMicrofono.setOnClickListener {
+            startTextToSpeech()
+        }
 
         val saveButton = findViewById<Button>(R.id.set_forno)
         saveButton.setOnClickListener {
@@ -72,7 +65,30 @@ class OvenActivity : AppCompatActivity() {
         }
     }
 
-    private fun saveSettingsToFirestore(email: String, setTemperatura: String, setProgramma: String) {
+    private fun setupSpinners() {
+        val temperaturaForno = listOf("60", "80", "100", "120", "140", "160", "180", "200", "220", "240")
+        adapter_temp = ArrayAdapter(this, android.R.layout.simple_spinner_item, temperaturaForno)
+        adapter_temp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        temperaturaSpinner.adapter = adapter_temp
+
+        val programmaForno = listOf(
+            "Statico",
+            "Ventilato",
+            "Grill",
+            "Grill Ventilato",
+            "Resistenza inferiore",
+            "Resistenza superiore"
+        )
+        adapter_programma = ArrayAdapter(this, android.R.layout.simple_spinner_item, programmaForno)
+        adapter_programma.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        programmaSpinner.adapter = adapter_programma
+    }
+
+    private fun saveSettingsToFirestore(
+        email: String,
+        setTemperatura: String,
+        setProgramma: String
+    ) {
         val forno = dispositivo.Forno(
             email = email,
             temperatura = setTemperatura,
@@ -102,7 +118,7 @@ class OvenActivity : AppCompatActivity() {
                         "programma" to setProgramma,
                         "email" to email
                     )
-                    UserAction.log(email, "imposta_lavastoviglie", details)
+                    UserAction.log(email, "imposta_forno", details)
 
                     val resultIntent = Intent()
                     setResult(Activity.RESULT_OK, resultIntent)
@@ -120,9 +136,74 @@ class OvenActivity : AppCompatActivity() {
             }
     }
 
-    fun updateImpostazioniForno(setTemperatura: String, setProgramma: String, email: String){
-        val settingsText = "Forno è impostata con $setTemperatura° in modalità $setProgramma dall'utente $email."
+    private fun updateImpostazioniForno(setTemperatura: String, setProgramma: String, email: String) {
+        val settingsText =
+            "Forno è impostato con $setTemperatura° in modalità $setProgramma dall'utente $email."
         impostazioni_forno.text = settingsText
     }
-}
 
+    private fun startTextToSpeech() {
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+        intent.putExtra(
+            RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+        )
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Parla per impostare il forno")
+        startActivityForResult(intent, SPEECH_REQUEST_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == SPEECH_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            val results = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+            if (!results.isNullOrEmpty()) {
+                val spokenText = results[0]
+                gestioneComandiVocali(spokenText)
+            }
+        }
+    }
+
+    private fun gestioneComandiVocali(spokenText: String) {
+        val programma_forno = arrayOf(
+            "Statico",
+            "Ventilato",
+            "Grill",
+            "Grill ventilato",
+            "Resistenza inferiore",
+            "Resistenza superiore"
+        )
+        val temperatura_forno =
+            arrayOf("60", "80", "100", "120", "140", "160", "180", "200", "220", "240")
+
+        var selectedProgramma: String? = null
+        var selectedTemperatura: String? = null
+
+        for (programma in programma_forno) {
+            if (spokenText.contains(programma, ignoreCase = true)) {
+                selectedProgramma = programma
+                break
+            }
+        }
+
+        for (temp in temperatura_forno) {
+            if (spokenText.contains(temp, ignoreCase = true)) {
+                selectedTemperatura = temp
+                break
+            }
+        }
+
+        if (selectedProgramma != null && selectedTemperatura != null) {
+            programmaSpinner.setSelection(adapter_programma.getPosition(selectedProgramma))
+            temperaturaSpinner.setSelection(adapter_temp.getPosition(selectedTemperatura))
+
+            val user = mAuth.currentUser
+            if (user != null) {
+                val email = user.email ?: "Unknown"
+                saveSettingsToFirestore(email, selectedTemperatura, selectedProgramma)
+            }
+        } else {
+            Toast.makeText(this, "Comando vocale non riconosciuto", Toast.LENGTH_SHORT).show()
+        }
+    }
+}
