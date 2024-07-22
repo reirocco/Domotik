@@ -275,6 +275,7 @@ class IndoorWeatherActivity : AppCompatActivity() {
                     Log.v("chips", "\n\ttriggered value: " + chip.text.toString())
                 }
             }
+            // .let esegue il codice che segue se la variabile da cui è chiamato non è nulla
             this.indoorViewModel.indoorWeatherData.value?.let { updateGraph(it) }
         }
 
