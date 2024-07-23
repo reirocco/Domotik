@@ -83,7 +83,7 @@ import com.example.domotik.R
             }
 
             val imageViewForno = findViewById<ImageView>(R.id.forno_icon)
-            if (dispositivi[0].toInt() == 1) {
+            if (dispositivi[1].toInt() == 1) {
                 imageViewForno.setImageResource(R.drawable.oven)
                 val cardViewForno = findViewById<CardView>(R.id.grid_element_cardwiev_forno)
                 cardViewForno.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.teal_200))
@@ -93,6 +93,26 @@ import com.example.domotik.R
                 cardViewForno.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.white))
             }
 
+            val imageViewLavastoviglie = findViewById<ImageView>(R.id.lavastoviglie_icon)
+            if (dispositivi[2].toInt() == 1) {
+                imageViewLavastoviglie.setImageResource(R.drawable.dishwasher)
+                val cardViewLavastoviglie = findViewById<CardView>(R.id.grid_element_cardwiev_lavastoviglie)
+                cardViewLavastoviglie.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.teal_200))
+            } else {
+                imageViewLavastoviglie.setImageResource(R.drawable.dishwasher)
+                val cardViewLavastoviglie = findViewById<CardView>(R.id.grid_element_cardwiev_lavastoviglie)
+                cardViewLavastoviglie.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.white))
+            }
 
+            val imageViewTelevisione = findViewById<ImageView>(R.id.tv_icon)
+            if (dispositivi[3].toInt() == 1) {
+                imageViewTelevisione.setImageResource(R.drawable.baseline_tv_24)
+                val cardViewTelevisione = findViewById<CardView>(R.id.grid_element_cardwiev_televisione)
+                cardViewTelevisione.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.teal_200))
+            } else {
+                imageViewLavastoviglie.setImageResource(R.drawable.baseline_tv_24)
+                val cardViewTelevisione = findViewById<CardView>(R.id.grid_element_cardwiev_televisione)
+                cardViewTelevisione.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.white))
+            }
         }
     }
