@@ -14,6 +14,8 @@ import com.example.domotik.R
         companion object {
             const val REQUEST_CODE_LAVATRICE = 1
             const val REQUEST_CODE_FORNO = 1
+            const val REQUEST_CODE_TELEVISIONE = 1
+            const val REQUEST_CODE_LAVASTOVIGLIE = 1
         }
 
         override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,13 +41,13 @@ import com.example.domotik.R
             val cardViewTv = findViewById<CardView>(R.id.grid_element_cardwiev_televisione)
             cardViewTv.setOnClickListener {
                 val intent = Intent(this, TvActivity::class.java)
-                startActivityForResult(intent, REQUEST_CODE_FORNO)
+                startActivityForResult(intent, REQUEST_CODE_TELEVISIONE)
             }
 
             val cardViewLavastoviglie = findViewById<CardView>(R.id.grid_element_cardwiev_lavastoviglie)
             cardViewLavastoviglie.setOnClickListener {
                 val intent = Intent(this, LavastoviglieActivity::class.java)
-                startActivityForResult(intent, REQUEST_CODE_LAVATRICE)
+                startActivityForResult(intent, REQUEST_CODE_LAVASTOVIGLIE)
             }
 
             updateUI()
