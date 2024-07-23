@@ -29,6 +29,7 @@ class Login : Fragment() {
     lateinit var mAuth : FirebaseAuth
 
 
+    // Viene chiamato quando Fragment diventa visibile
     public override fun onStart() {
         super.onStart()
         val currentUser = mAuth.currentUser
@@ -44,6 +45,7 @@ class Login : Fragment() {
     }
 
 
+    // viene chiamato per creare e restituire la gerarchia vi view associata al fragment
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate<FragmentLoginBinding>(inflater,
@@ -51,6 +53,7 @@ class Login : Fragment() {
         return binding.root
     }
 
+    // viene chiamato dopo onCreateView() e può fare ulteriori inizializzazioni
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -62,6 +65,7 @@ class Login : Fragment() {
         val db = Firebase.firestore
         mAuth = FirebaseAuth.getInstance()
 
+        // vengono richiamati gli elementi della ui tramite l'oggetto binding
         Email = binding.email
         Password = binding.password
         buttonLogin = binding.btnLogin
@@ -86,13 +90,13 @@ class Login : Fragment() {
                                 "Login effettuato!",
                                 Toast.LENGTH_SHORT,
                             ).show()
-                            val user =task.result.user
+                            val user = task.result.user
                             if (user != null){
                                 logUserAction(user.uid, "login", email)
                             }
                             val intent = Intent(requireContext(), MainActivity::class.java)
                             startActivity(intent)
-                            requireActivity().finish()
+                            requireActivity().finish()  //viene richiamata la classe activity e viene terminata
                         } else {
                             Toast.makeText(
                                 requireContext(),
